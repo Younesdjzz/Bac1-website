@@ -23,6 +23,7 @@ class TestUser(unittest.TestCase):
         # read in SQL for populating test data
         with open(os.path.join(os.path.dirname(__file__), "schema_test.sql"), "rb") as f:
             self.db.executescript(f.read().decode("utf8"))
+
     def tearDown(self):
         # closing the db and cleaning the temp file
         close_db()

@@ -13,8 +13,8 @@ def create_app(test_config=None):
             DATABASE=os.path.join(app.root_path, 'poudlard.sqlite'),
         )
 
-    from . import city
-    app.register_blueprint(city.bp)
+    from . import airport
+    app.register_blueprint(airport.bp)
 
     app.add_url_rule('/', endpoint='index')
 

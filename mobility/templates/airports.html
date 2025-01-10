@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Airports list</h2>
+<table>
+    <tr>
+        <th>IATA code</th>
+        <th>Name</th>
+    </tr>
+    {% for airport in airports %}
+    <tr>
+        <td>{{ airport['iata'] }}</td>
+        <td>{{ airport['name'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
