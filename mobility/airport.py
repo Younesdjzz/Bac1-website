@@ -4,7 +4,7 @@ from flask import (
 
 from mobility.models.airport import get_airports
 
-bp = Blueprint('city', __name__)
+bp = Blueprint('airport', __name__)
 
 # Define the routes code
 @bp.route('/')
