@@ -36,8 +36,8 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    @app.route('/about')
+    @app.route('/equipe')
     def about():
-        return render_template('about.html', HelloWorld='Hello World')
+        return render_template('equipe.html', HelloWorld='Hello World')
 
     return app
