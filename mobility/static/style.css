@@ -1,9 +1,13 @@
-html { font-family: sans-serif; background: #eee; padding: 1rem; }
-body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
-a { color: #377ba8; }
-nav { background: lightgray; display: flex; align-items: center;
+html { font-family: sans-serif; background: #F4FAFB ; padding: 1rem; }
+body { max-width: 1000px; margin: 0 auto; background: #FEFEFF  }
+h1 { font-family: serif; margin: 1rem 0; } 
+a { color: #EBE3F5 ; }
+nav { background: #225B7C ; display: flex; align-items: center;
 padding: 0 0.5rem; }
 nav h1 { flex: auto; margin: 0; }
 nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span, header { display: block; padding: 0.5rem; }
+
+div.case { max-width: 400px ;background: #CEF1F9 ;}
+img.profil {width: 100px ; border-radius: 50%; border : 3px solid #274755}
+a.lien {color: #017679}

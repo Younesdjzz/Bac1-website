@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Membres de l'équipe</h1>
-That's a test !
+{% for membre, discord, route, image in info_equipe %}
+<p></p>
+<div class="case">
+    <img class="profil" src='{{ url_for("static", filename=image) }}'>
+    Membre numéro {{loop.index}} : <a class="lien" href="{{route}}">{{membre}}</a>
+    <p>Discord : {{discord}}</p>
+</div>
+{% endfor %}
 {% endblock %}

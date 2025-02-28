@@ -37,7 +37,16 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     @app.route('/equipe')
-    def about():
-        return render_template('equipe.html', HelloWorld='Hello World')
-
+    def equipe():
+        discord = ["younesdjzz", "...", "..."]
+        team = ["Younes", "Yassine", "Zakaria"]
+        route_team = ["/equipe/younes", "...", "..."]
+        image = ["younes.jpg", "...", "..."]
+        info_equipe = zip(team, discord, route_team, image)
+        return render_template('equipe.html', info_equipe=info_equipe)
+    
+    @app.route('/equipe/younes')
+    def younes():
+        return render_template('younes.html')
+    
     return app
