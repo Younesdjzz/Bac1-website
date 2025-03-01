@@ -6,7 +6,7 @@
 <div class="case">
     <img class="profil" src='{{ url_for("static", filename=image) }}'>
     Membre numéro {{loop.index}} : <a class="lien" href="{{route}}">{{membre}}</a>
-    <p>Discord : {{discord}}</p>
+    <p><img class="logo" src='{{ url_for("static", filename="logo_discord.png") }}'>Discord : {{discord}}</p>
 </div>
 {% endfor %}
 {% endblock %}
