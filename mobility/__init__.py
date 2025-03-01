@@ -47,10 +47,11 @@ def create_app(test_config=None):
     
     @app.route('/equipe/younes')
     def younes():
-        return render_template('younes.html')
+        return render_template('younes.html', prenom="Younes", age="18")
+    
     @app.route('/equipe/zakaria')
     def zakaria():
-        return render_template('zakaria.html')
+        return render_template('zakaria.html', prenom="Zakaria", age="18")
     return app
 
 

@@ -1,32 +1,13 @@
-{% extends "base.html" %}
-{% block content %}
-<div>
-    <h1>Présentation</h1>
-</div>
-<p></p>
+{% extends "base_membre.html" %}
 
-<div class="case">
-<h2>Qui suis-je ?</h2>
-<p>Je m'appelle Younes</p>
-<p>J'ai 18 ans</p>
-<p>Je suis étudiant en science informatique à Charleroi</p>
-<p>Je suis membre du groupe CLR01</p>
-</div>
-<p></p>
+{% block mon_role %}
+<p>Je suis actuellement le barreur du groupe</p>
+<p>Je m'occupe de surveiller l'avancement du projet...</p>
+<p>...et à motiver mon équipe à avancer !</p>
+{% endblock %}
 
-<div class="case">
-    <h2>Mon rôle :</h2>
-    <p>Je suis actuellement le barreur du groupe</p>
-    <p>Je m'occupe de surveiller l'avancement du projet...</p>
-    <p>...et à motiver mon équipe à avancer !</p>
-</div>
-<p></p>
-
-<div class="case">
-    <h2>Mes passions :</h2>
-    <p>J'aime passer mon temps libre à jouer aux jeux vidéos</p>
-    <p>J'aime bien les animes, surtout One piece et Vinland Saga</p>
-    <p>A part ça, j'aime bien aussi m'entrainer !</p>
-</div>
-<p></p>
+{% block mes_passions %}
+<p>J'aime passer mon temps libre à jouer aux jeux vidéos</p>
+<p>J'aime bien les animes, surtout One piece et Vinland Saga</p>
+<p>A part ça, j'aime bien aussi m'entrainer !</p>
 {% endblock %}
