@@ -41,7 +41,7 @@ def create_app(test_config=None):
         discord = ["younesdjzz", "...", "zakariia_h"]
         team = ["Younes", "Yassine", "Zakaria"]
         route_team = ["/equipe/younes", "...", "/equipe/zakaria"]
-        image = ["younes.jpg", "...", "..."]
+        image = ["younes.jpg", "...", "zakaria.jpg"]
         info_equipe = zip(team, discord, route_team, image)
         return render_template('equipe.html', info_equipe=info_equipe)
     
