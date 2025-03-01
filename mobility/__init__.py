@@ -38,10 +38,10 @@ def create_app(test_config=None):
 
     @app.route('/equipe')
     def equipe():
-        discord = ["younesdjzz", "...", "zakariia_h"]
+        discord = ["younesdjzz", "yassne", "zakariia_h"]
         team = ["Younes", "Yassine", "Zakaria"]
-        route_team = ["/equipe/younes", "...", "/equipe/zakaria"]
-        image = ["younes.jpg", "...", "zakaria.jpg"]
+        route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria"]
+        image = ["younes.jpg", "yassine.png", "zakaria.jpg"]
         info_equipe = zip(team, discord, route_team, image)
         return render_template('equipe.html', info_equipe=info_equipe)
     
@@ -52,6 +52,9 @@ def create_app(test_config=None):
     @app.route('/equipe/zakaria')
     def zakaria():
         return render_template('zakaria.html', prenom="Zakaria", age="18")
+    @app.route('/equipe/yassine')
+    def yassine():
+        return render_template('yassine.html',prenom='Yassine',age='18')
     return app
 
 
