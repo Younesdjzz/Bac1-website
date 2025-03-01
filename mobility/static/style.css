@@ -1,7 +1,5 @@
 html { font-family: sans-serif; background: #F4FAFB ; padding: 1rem; }
-
-/* body { max-width: 1000px; margin: 0 auto; background: #FEFEFF  } */
-@media (max-width:500px) {body{ background:blue}}
+body { max-width: 1000px; margin: 0 auto; background: #FEFEFF  }
 
 h1 { font-family: serif; margin: 1rem 0; } 
 a { color: #EBE3F5 ; }
