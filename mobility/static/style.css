@@ -13,8 +13,8 @@ nav ul li a, nav ul li span, header { display:flex; padding: 0.5rem; text-decora
 a.bouton {background-color: #017679; color: #EBE3F5; padding: 6px 10px; font-size: 16px; border: none; border-radius: 5px; text-decoration: none;}
 a.bouton:hover {background-color: #05a7ac;}
 
-div.case { max-width: 400px ;background: #CEF1F9; } 
-/* div.case h2,p {display:flex; justify-content: center;} */
+div.case { max-width: 400px ;background: #CEF1F9;} 
+
 img.profil {width: 100px ; border-radius: 50%; border : 3px solid #274755}
-img.logo {max-width: 5%; max-height: 5%;}
-img.icon { max-width: 5%;max-height: 5%;border-radius: 50% ;margin-right: 4px; align-items: center;}
+img.logo {width: 60px;}
+img.icon {width: 28px; height:fit-content; border-radius: 50% ;margin-right: 4px; align-items: center;}
