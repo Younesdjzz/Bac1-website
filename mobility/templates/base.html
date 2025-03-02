@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Azuris Air</title>
+    <title>Celestia Airlines</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='logo_site_bleu.png') }}">
 </head>
@@ -10,8 +10,8 @@
 
     <nav>
         <ul>
-            <li><a href="/">Main page</a></li>
-            <li><a href="/equipe">Equipe</a></li>
+            <li><a href="/"><img src="{{ url_for('static', filename='logo_site_blanc.png') }}" class="icon">Main page</a></li>
+            <li><a href="/equipe"><img src="{{ url_for('static', filename='icon_equipe.png') }}" class="icon">Equipe</a></li>
         </ul>
     </nav>
 
