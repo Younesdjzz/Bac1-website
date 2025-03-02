@@ -5,7 +5,7 @@
 <p></p>
 <div class="case">
     <img class="profil" src='{{ url_for("static", filename=image) }}'>
-    Membre numéro {{loop.index}} : <a class="lien" href="{{route}}">{{membre}}</a>
+    Membre numéro {{loop.index}} : <a class="bouton" href="{{route}}">{{membre}}</a>
     <p></p>
     <img class="logo" src='{{ url_for("static", filename="logo_discord.png") }}'>
     Discord : {{discord}}
