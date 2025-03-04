@@ -47,11 +47,20 @@ def create_app(test_config=None):
     
     @app.route('/equipe/younes')
     def younes():
-        return render_template('younes.html', prenom="Younes", age="18")
+        roles = ["Je suis actuellement le barreur du groupe",
+                 "Je m'occupe de surveiller l'avancement du projet...",
+                 "...et à motiver mon équipe à avancer !"]
+        
+        passions = ["J'aime passer mon temps libre à jouer aux jeux vidéos",
+                    "J'aime bien les animes, surtout One piece et Vinland Saga",
+                    "A part ça, j'aime bien aussi m'entrainer !"]
+        
+        return render_template('base_membre.html', prenom="Younes", age="18", roles=roles, passions=passions)
     
     @app.route('/equipe/zakaria')
     def zakaria():
         return render_template('zakaria.html', prenom="Zakaria", age="18")
+    
     @app.route('/equipe/yassine')
     def yassine():
         return render_template('yassine.html',prenom='Yassine',age='18')

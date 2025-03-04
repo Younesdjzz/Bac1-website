@@ -16,14 +16,16 @@
 
 <div class="case mon_role">
     <h2>Mon rôle :</h2>
-    {% block mon_role %}
-    {% endblock %}
+    {% for role in roles %}
+    <p>{{role}}</p>
+    {% endfor %}
 </div>
 <p></p>
 
 <div class="case mes_passions">
     <h2>Mes passions :</h2>
-    {% block mes_passions %}
-    {% endblock %}
+    {% for passion in passions %}
+    <p>{{passion}}</p>
+    {% endfor %}
 </div>
 {% endblock %}
