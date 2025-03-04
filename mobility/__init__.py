@@ -64,6 +64,7 @@ def create_app(test_config=None):
     @app.route('/equipe/yassine')
     def yassine():
         return render_template('yassine.html',prenom='Yassine',age='18')
+    
     @app.route("/equipe/adjovi")
     def adjovi():
 
