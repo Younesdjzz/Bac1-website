@@ -38,10 +38,10 @@ def create_app(test_config=None):
 
     @app.route('/equipe')
     def equipe():
-        discord = ["younesdjzz", "yassne", "zakariia_h"]
-        team = ["Younes", "Yassine", "Zakaria"]
-        route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria"]
-        image = ["younes.jpg", "yassine.png", "zakaria.jpg"]
+        discord = ["younesdjzz", "yassne", "zakariia_h","cadance2511"]
+        team = ["Younes", "Yassine", "Zakaria","Adjovi"]
+        route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria","/equipe/adjovi"]
+        image = ["younes.jpg", "yassine.png", "zakaria.jpg","adjovi.jpg"]
         info_equipe = zip(team, discord, route_team, image)
         return render_template('equipe.html', info_equipe=info_equipe)
     
@@ -64,6 +64,17 @@ def create_app(test_config=None):
     @app.route('/equipe/yassine')
     def yassine():
         return render_template('yassine.html',prenom='Yassine',age='18')
+    @app.route("/equipe/adjovi")
+    def adjovi():
+
+        roles = ["Je suis en ce moment la maitresse du temps, je veille à ce que les échéances soient respectées.", 
+                 "Tic-Tac..."]
+
+        passions = ["Lorsque je n'étudie pas pour l'université, j'apprends les chorégraphies de mes chansons préférées (≧∀≦)",
+                    "J'aime énormément la K-POP et l'univers qui lui est associé !",
+                    "En pralant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
+        
+        return render_template("base_membre.html",prenom="Adjovi",age="18",roles=roles,passions=passions)
     return app
 
 
