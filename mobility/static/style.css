@@ -26,7 +26,9 @@ a.bouton { background-color: #017679; color: #EBE3F5;
 
 a.bouton:hover { background-color: #05a7ac; }
 
-div.case { max-width: 400px; background: #CEF1F9; }
+div.case { max-width: 400px; background: #CEF1F9;
+         margin-left: 10px; margin-right: 10px;
+        border-radius: 2%;}
 
 div.row { margin-left: 10px; margin-right: 10px;  
        align-items: center; flex-direction: row;  
