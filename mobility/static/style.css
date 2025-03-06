@@ -2,9 +2,10 @@ html { font-family: sans-serif; background: #F4FAFB;
     padding: 1rem; margin: 0;padding: 0;}
 
 
-header{position:fixed;  width: 79%;margin:0;background-color:#225B7C;padding: 8px;}
+header{position:fixed;  width: 985px;margin:0;background-color:#225B7C;margin-inline-start: 0%; top:0;}
+main {display: flex; justify-content: center; align-items: center; margin:0 auto; margin-top: 80px; }
 body { max-width: 1000px; margin: 0 auto;  
-    background: #FEFEFF; padding-top: 10px; margin-top: 23px;}
+   margin-top: 8px; background: #FEFEFF; padding-top: 10px; margin-top: 23px;}
 
 h1 { font-family: serif; margin: 1rem 0; }
 
@@ -28,9 +29,9 @@ a.bouton { background-color: #017679; color: #EBE3F5;
 
 a.bouton:hover { background-color: #05a7ac; }
 
-div.case { max-width: 400px; background: #CEF1F9;
+div.case {  display:flex;flex-direction: column; align-items: center;max-width: 400px; background: #CEF1F9;
          margin-left: 10px; margin-right: 10px;
-        border-radius: 2%;}
+        border-radius: 5%;padding:8px}
 
 div.row { margin-left: 10px; margin-right: 10px;  
        align-items: center; flex-direction: row;  
