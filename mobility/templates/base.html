@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='logo_site_bleu.png') }}">
 </head>
-<body>
+<header>
 
     <nav>
         <ul>
@@ -15,7 +15,11 @@
             <li><a href="/equipe"><img src="{{ url_for('static', filename='icon_equipe.png') }}" class="icon">Equipe</a></li>
         </ul>
     </nav>
-
+</header>
+<br>
+<br>
+<br>
+<body>
     <div class="content">
         {% block content %}
         {% endblock %}
