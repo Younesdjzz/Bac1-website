@@ -69,7 +69,7 @@ def create_app(test_config=None):
         passions = ["Lorsque j'ai du temps libre j'en profite pour me faire un peu d'argent. ",
                     "J'aime bien les animes, comme One piece ",
                     "J'aime également passer du temps avec ma famille."]
-        return render_template('yassine.html',prenom='Yassine',age='18',roles=roles, passions=passions)
+        return render_template('base_membre.html',prenom='Yassine',age='18',roles=roles, passions=passions)
         
     
     @app.route("/equipe/adjovi")

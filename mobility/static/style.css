@@ -1,8 +1,10 @@
 html { font-family: sans-serif; background: #F4FAFB;  
-    padding: 1rem; }
+    padding: 1rem; margin: 0;padding: 0;}
 
+
+header{position:fixed;  width: 79%;margin:0;background-color:#225B7C;padding: 8px;}
 body { max-width: 1000px; margin: 0 auto;  
-    background: #FEFEFF; }
+    background: #FEFEFF; padding-top: 10px; margin-top: 23px;}
 
 h1 { font-family: serif; margin: 1rem 0; }
 
