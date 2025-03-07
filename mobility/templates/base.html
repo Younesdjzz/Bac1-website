@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='logo_site_bleu.png') }}">
 </head>
-<body></body>
-<header>
 
+<body>
     <nav>
         <ul>
-            <li><a href="/"><img src="{{ url_for('static', filename='logo_site_blanc.png') }}" class="icon">Main page</a></li>
-            <li><a href="/equipe"><img src="{{ url_for('static', filename='icon_equipe.png') }}" class="icon">Equipe</a></li>
+            <li><a href="/"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
+                        class="icon">Main
+                    page</a></li>
+            <li><a href="/equipe"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
+                        class="icon">Equipe</a></li>
         </ul>
     </nav>
-</header>
 
-<main>
     <div class="content">
         {% block content %}
         {% endblock %}
     </div>
-</main>
+
 </body>
+
 </html>
