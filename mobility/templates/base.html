@@ -12,10 +12,10 @@
 <body>
     <nav>
         <ul>
-            <li><a href="/"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
+            <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
                         class="icon">Main
                     page</a></li>
-            <li><a href="/equipe"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
+            <li><a href="/equipe" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
                         class="icon">Equipe</a></li>
         </ul>
     </nav>
@@ -24,7 +24,6 @@
         {% block content %}
         {% endblock %}
     </div>
-
 </body>
 
 </html>
