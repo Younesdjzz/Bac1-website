@@ -3,18 +3,17 @@
 <h1>Membres de l'équipe</h1>
 <p></p>
 <div class="equipe">
-    {% for membre, discord, route, image in info_equipe %}
-    <div class="membre">
-        <div class="profil">
-            <img class="profil" src='{{ url_for("static", filename="equipe/"+image) }}'>
+    {% for membre, route, image, role, fond, couleur in info_equipe %}
+    <div class="membre" style="--fond: {{fond}}">
+        <img class="profil" src='{{ url_for("static", filename="equipe/"+image) }}'>
+        <div class="info" style="--couleur: {{couleur}}">
+            <h2>{{membre}}</h2>
+            {{role}}
         </div>
-        Membre numéro {{loop.index}} : <a class="bouton" href="{{route}}">{{membre}}</a>
-        <p></p>
-        <div class="membre_dc">
-            <img class="logo" src='{{ url_for("static", filename="logo_discord.png") }}'> Discord : {{discord}}
-        </div>
+        <a href={{route}} class="none">
+            <div class="info_sup" style="--fond: {{fond}}; --couleur: {{couleur}}">&#9776;</div>
+        </a>
     </div>
-
     {% endfor %}
 </div>
 {% endblock %}
