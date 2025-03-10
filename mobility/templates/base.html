@@ -13,17 +13,30 @@
     <nav>
         <ul>
             <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
-                        class="icon">Main
-                    page</a></li>
+                        class="icon">Page d'acceuil</a></li>
             <li><a href="/equipe" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
-                        class="icon">Equipe</a></li>
+                        class="icon">Membres de l'equipe</a></li>
         </ul>
     </nav>
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
+    <div class="titre-box">
+        {% block titre %}{% endblock %}
     </div>
+
+    <main>
+        <div class="cotes">
+            {% block left_content %}{% endblock %}
+        </div>
+
+        <div class="contenu-central">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="cotes">
+            {% block right_content %}{% endblock %}
+        </div>
+    </main>
+
 </body>
 
 </html>
