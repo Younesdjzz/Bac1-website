@@ -1,6 +1,12 @@
 {% extends "base.html" %}
+
+{% block titre %}
+<h1>Page d'acceuil</h1>
+{% endblock %}
+
+{% block left_content %}{% endblock %}
+
 {% block content %}
-<h1>Mobility</h1>
 <h2>Airports list</h2>
 <table>
     <tr>
@@ -15,3 +21,5 @@
     {% endfor %}
 </table>
 {% endblock %}
+
+{% block right_content %}{% endblock %}

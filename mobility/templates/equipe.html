@@ -1,7 +1,12 @@
 {% extends "base.html" %}
-{% block content %}
+
+{% block titre %}
 <h1>Membres de l'équipe</h1>
-<p></p>
+{% endblock %}
+
+{% block left_content %}{% endblock %}
+
+{% block content %}
 <div class="equipe">
     {% for membre, route, image, role, fond, couleur in info_equipe %}
     <div class="membre" style="--fond: {{fond}}">
@@ -17,3 +22,5 @@
     {% endfor %}
 </div>
 {% endblock %}
+
+{% block right_content %}{% endblock %}
