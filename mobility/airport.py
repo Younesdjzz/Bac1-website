@@ -13,3 +13,4 @@ bp = Blueprint('airport', __name__)
 def airport_list():
     airports = get_airports()
     return render_template("airports.html", airports=airports)
+

@@ -45,11 +45,12 @@ def create_app(test_config=None):
             - Une liste des routes vers les pages des membres
             - Une liste avec les photos de profils des membres
         """
-        discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511"]
-        team = ["Younes", "Yassine", "Zakaria", "Adjovi"]
+        discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511","Bmoumen"]
+        team = ["Younes", "Yassine", "Zakaria", "Adjovi","Bouchra"]
         route_team = ["/equipe/younes", "/equipe/yassine",
-                      "/equipe/zakaria", "/equipe/adjovi"]
-        image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg"]
+                      "/equipe/zakaria", "/equipe/adjovi",
+                      "/equipe/bouchra"]
+        image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg","bouchra.jpg"]
         info_equipe = zip(team, discord, route_team, image)
 
         return render_template('equipe.html', info_equipe=info_equipe)
@@ -98,5 +99,16 @@ def create_app(test_config=None):
                     "En pralant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
 
         return render_template("base_membre.html", prenom="Adjovi", age="18", roles=roles, passions=passions)
+    
+    @app.route("/equipe/bouchra")
+    def bouchra():
+        roles = ["Je suis également responsable de la gestion de la base de données, en veillant à son intégrité et à son bon fonctionnement.",
+                  "Je m'assure que les données soient correctement organisées, mises à jour et accessibles en tout temps."]
+        
+        passions = ["Je suis fascinée par la psychologie et le développement personnel.",  
+                    "j'adore voyager et découvrir de nouvelles cultures.",    
+                    "Quand j'ai du temps libre, je me plonge dans un bon livre ou je regarde des documentaires."]
+
+        return render_template("base_membre.html", prenom="Bouchra", age="20", roles=roles, passions=passions)
 
     return app
