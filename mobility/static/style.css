@@ -38,6 +38,11 @@ h1 {
    margin: 1rem 0;
 }
 
+h2 {
+   font-family: serif;
+   margin: 1rem 0;
+}
+
 a.lien {
    color: #EBE3F5;
    text-decoration: none;

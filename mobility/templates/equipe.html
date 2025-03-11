@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Membres de l'équipe</h1>
-<p></p>
+
 <div class="equipe">
     {% for membre, route, image, role, fond, couleur in info_equipe %}
     <div class="membre" style="--fond: {{fond}}">

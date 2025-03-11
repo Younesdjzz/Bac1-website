@@ -10,11 +10,12 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(
             SECRET_KEY='dev',
-            DATABASE=os.path.join(app.root_path, 'poudlard.sqlite'),
+            DATABASE=os.path.join(app.instance_path, 'db.sqlite')
         )
 
-    from . import airport
+    from . import airport,country
     app.register_blueprint(airport.bp)
+    app.register_blueprint(country.bp)
 
     app.add_url_rule('/', endpoint='index')
 
@@ -30,11 +31,18 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    from . import db
+    db.init_app(app)
+
+    with app.app_context():
+        db.init_db()
 
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+    
+
 
     @app.route('/equipe')
     def equipe():
@@ -51,7 +59,7 @@ def create_app(test_config=None):
                       "/equipe/zakaria", "/equipe/adjovi"]
         image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg"]
         roles = ["Front-end web designer", "Is choosing a role...",
-                 "Is choosing a role...", "Is choosing a role..."]
+                 "Is choosing a role...", "Database Management System"]
         fonds = ["#313131", "#E0403A", "#999999", "#fad989"]
         couleurs = ["#ede6f3", "#F0F0F0 ", "#333333", "#703A1F"]
 
@@ -103,5 +111,14 @@ def create_app(test_config=None):
                     "En pralant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
 
         return render_template("base_membre.html", prenom="Adjovi", age="18", roles=roles, passions=passions)
+
+
+      
+      
+
+
+      
+
+      
 
     return app
