@@ -7,18 +7,40 @@
 {% block left_content %}{% endblock %}
 
 {% block content %}
+
 <h2>Airports list</h2>
 <table>
     <tr>
         <th>IATA code</th>
         <th>Name</th>
+        <th>Iso country</th>
     </tr>
     {% for airport in airports %}
     <tr>
-        <td>{{ airport['iata'] }}</td>
+        <td>{{ airport['iata_code'] }}</td>
         <td>{{ airport['name'] }}</td>
+        <td>{{ airport['iso_country'] }}</td>
+        <td><a href="{{ url_for("airport.airport_delete", iata_code=airport['iata_code']) }}">Delete</a></td>
+    </tr>
     </tr>
     {% endfor %}
+    <h2>New airport</h2>
+    <form method="post" action="{{ url_for("airport.airport_create") }}">
+       <div>
+          <label for="iata_code"> IATA Code: </label>
+          <input name="iata_code" id="iata_code" type="text" />
+       </div>
+       <div>
+          <label for="name">Name: </label>
+          <input name="name" id="name" type="text" />
+       </div>
+       <div>
+          <label for="iso_country">ISO Country: </label>
+          <input name="iso_country" id="iso_country" type="text" />
+       </div>
+    <div>
+       <button type="submit">Add an airport </button>
+    </div>
 </table>
 {% endblock %}
 
