@@ -1,64 +1,52 @@
-import sqlite3
+from mobility.db import get_db
+
 def get_airports():
     airports = [{"iata":"LGG", "name":"Liege Airport"},
                 {"iata":"BRU", "name":"Bruxelles"}]
     return airports
 
-class Airport:
-    def __init__(self, iata_code, name, iso_country):
-        self.iata_code = iata_code
-        self.name = name
-        self.iso_country = iso_country
-
-    def delete(self):
-        """Supprime l'aéroport de la base de données."""
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM airport WHERE iata_code = ?", (self.iata_code,))
-        conn.commit()
-        conn.close()
-
-    def save(self):
-        """Enregistre ou met à jour l'aéroport dans la base de données."""
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO airport (iata_code, name, iso_country) 
-            VALUES (?, ?, ?)
-            ON CONFLICT(iata_code) DO UPDATE SET name = excluded.name, iso_country = excluded.iso_country
-        """, (self.iata_code, self.name, self.iso_country))
-        conn.commit()
-        conn.close()
-
-    @staticmethod
-    def get(iata_code: str):
-        """Retourne un objet Airport correspondant à l'iata_code donné."""
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-        cursor.execute("SELECT iata_code, name, iso_country FROM airport WHERE iata_code = ?", (iata_code,))
-        row = cursor.fetchone()
-        conn.close()
-        return Airport(*row) if row else None
-
 def get_airport_list():
-    """Retourne la liste des aéroports avec le nom du pays, triée par pays."""
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT airport.iata_code, airport.name, country.name 
-        FROM airport 
-        JOIN country ON airport.iso_country = country.iso_country 
-        ORDER BY country.name
-    """)
-    airports = cursor.fetchall()
-    conn.close()
-    return airports  
+   db = get_db()
+   return db.execute('SELECT * FROM airport ORDER BY iata_code').fetchall()
 
 def search_airport_by_iata_code(iata_code: str):
-    """Retourne les informations d'un aéroport à partir de son code IATA."""
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM airport WHERE iata_code = ?", (iata_code,))
-    airport = cursor.fetchone()
-    conn.close()
-    return airport  
+  # Retourne la ligne correspondant à l'aéroport portant le code iata "iata_code"
+    db = get_db()
+    return db.execute('SELECT * FROM airport WHERE iata_code=?',(iata_code,)).fetchall() 
+
+class Airport:
+
+   def __init__(self, iata_code, name, iso_country):
+      # Constructeur de la classe
+      self.iata_code = iata_code
+      self.name = name
+      self.iso_country = iso_country
+
+   def delete(self):
+      # Retire l'aéroport de la DB
+      db = get_db()
+      db.execute("DELETE FROM airport WHERE iata_code=?",(self.iata_code,))
+      db.commit()
+   
+
+   def save(self):
+      # Sauvegarde l'aéroport dans la DB
+        db = get_db()
+        db.execute("INSERT INTO airport(iata_code,name, iso_country ) VALUES(?,?,?)",(self.iata_code,self.name,self.iso_country))
+        db.commit()
+
+   @staticmethod
+   def get(iata_code: str):
+      # Retourne un objet Aéroport construit à partir des informations de la DB
+      # récupérer à partir du code iata "iata_code"
+      # Retourne none si aucun aéroport avec le code iata "iata_code"
+      # se trouve dans la DB
+      # Vous pouvez vous insprirer de la classe Country implémentée précédemment
+        db = get_db()
+        data = db.execute(
+            'SELECT * FROM airport WHERE iata_code=?', (iata_code,)).fetchone()
+
+        if data is None:
+            return None
+        else:
+            return Airport(data["iata_code"], data["name"], data["iso_country"])

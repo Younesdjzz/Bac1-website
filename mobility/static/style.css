@@ -19,45 +19,68 @@ header {
 main {
    display: flex;
    justify-content: center;
-   align-items: center;
+   align-items: stretch;
    margin: 0 auto;
-   margin-top: 45px;
 }
 
 body {
-   max-width: 1000px;
-   margin: auto;
-   padding: 0;
+   min-height: 100vw;
+   margin: 0;
    background: #FEFEFF;
-   padding-top: 25px;
-   margin-top: 23px;
+   padding-top: 50px;
 }
+
+div.contenu-central {
+   flex: 1;
+   background: #fff;
+   padding: 20px;
+   box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
+}
+
+div.cotes {
+   width: 13%;
+   background: #ffffff;
+}
+
 
 h1 {
    font-family: serif;
    margin: 1rem 0;
 }
 
-a {
+div.titre-box {
+   width: max-content;
+   background-color: #fafffd;
+   margin: auto;
+   margin-top: 10px;
+   margin-bottom: 35px;
+   padding: 450px;
+   border-radius: 50px 50px 50px 50px;
+   padding-bottom: 5px;
+   padding-top: 5px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+}
+
+a.lien {
    color: #EBE3F5;
    text-decoration: none;
 }
 
-a:hover {
+a.lien:hover {
    color: #d6ecff;
    text-decoration: underline;
 }
 
 nav {
    position: fixed;
-   width: 985px;
-   margin: auto;
-   margin-inline-start: 0%;
+   width: 100vw;
+   left: 0;
    top: 0;
    background: #224a52;
    display: flex;
    align-items: center;
    padding: 0 0.5rem;
+   z-index: 100;
 }
 
 nav h1 {
@@ -68,7 +91,8 @@ nav h1 {
 nav ul {
    display: flex;
    list-style: none;
-   margin: 0;
+   margin : 0;
+   margin-left: 20%;
    padding: 0;
 }
 
@@ -79,6 +103,10 @@ header {
    padding: 0.5rem;
    text-decoration: none;
    align-items: center;
+}
+
+a.none {
+   text-decoration: none;
 }
 
 a.bouton {
@@ -99,41 +127,69 @@ a.bouton:hover {
 div.equipe {
    display: grid;
    grid-template-columns: repeat(2, 1fr);
-   column-gap: 40px;
-   row-gap: 20px;
-   width: 80%;
+   column-gap: 60px;
+   row-gap: 10px;
+   width: 87%;
    margin: auto;
 }
 
 div.membre {
-   position: relative;
-   background-color: #55968c;
-   color: rgb(235, 255, 244);
-   padding: 20px;
-   margin-top: 25%;
-   margin-bottom: 7%;
-   text-align: center;
-   font-size: 17px;
-   border: 3px solid #0e4c2d;
-   border-radius: 8px;
-}
-
-div.membre_dc {
-   padding: 0px;
    display: flex;
    align-items: center;
-   margin: auto;
-   padding-left: 30px;
+   border-radius: 50px 10px 10px 50px;
+   box-shadow: 8px 8px 11px rgba(0, 0, 0, 0.1);
+   padding: 10px 20px;
+   margin-top: 17px;
+   margin-bottom: 30px;
+   width: 350px;
+   position: relative;
+   background: linear-gradient(80deg, var(--fond) 73%, white 27%);
+}
+
+div.info {
+   flex-grow: 1;
+   margin-left: 84px;
+   padding-bottom: 20px;
+   line-height: 0.55;
+   font-family: 'Poppins', sans-serif;
+   font-weight: 400;
+   font-size: 14px;
+   color: var(--couleur);
+}
+
+div.info h2 {
+   font-size: 20px;
+   font-weight: 500;
 }
 
 
-div.profil {
-   position: absolute;
-   top: -80%;
-   left: 35%;
-   height: 100px;
+div.info_sup {
+   position: relative;
+   width: 66px;
+   height: 60px;
+   padding-top: 6px;
+   left: 7px;
+   border-radius: 50%;
+   align-self: auto;
+   text-align: center;
+   font-size: 37px;
+   color: #7b8a8b;
+   cursor: pointer;
+   transition: all 0.3s ease;
+
+
 }
 
+.info_sup:hover {
+   background-color: var(--fond);
+   color: var(--couleur);
+   opacity: 0.4;
+}
+
+.info_sup:active {
+   transform: rotate(160deg);
+   opacity: 1;
+}
 
 div.case {
    background-color: #90bdae;
@@ -147,15 +203,18 @@ div.case {
 }
 
 img.profil {
-   width: 100px;
-   height: 100px;
+   position: absolute;
+   width: 97px;
+   height: 97px;
    object-fit: cover;
    border-radius: 50%;
-   border: 3px solid #274755;
+   border: 5px solid #ffffff;
+   box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
+   left: -12px;
 }
 
 img.logo {
-   width: 60px;
+   width: 50px;
    height: auto;
 }
 

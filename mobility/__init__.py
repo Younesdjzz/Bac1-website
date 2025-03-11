@@ -10,11 +10,12 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(
             SECRET_KEY='dev',
-            DATABASE=os.path.join(app.root_path, 'poudlard.sqlite'),
+            DATABASE=os.path.join(app.instance_path, 'db.sqlite')
         )
 
-    from . import airport
+    from . import airport,country
     app.register_blueprint(airport.bp)
+    app.register_blueprint(country.bp)
 
     app.add_url_rule('/', endpoint='index')
 
@@ -30,11 +31,18 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    from . import db
+    db.init_app(app)
+
+    with app.app_context():
+        db.init_db()
 
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+    
+
 
     @app.route('/equipe')
     def equipe():
