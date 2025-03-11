@@ -19,28 +19,46 @@ header {
 main {
    display: flex;
    justify-content: center;
-   align-items: center;
+   align-items: stretch;
    margin: 0 auto;
-   margin-top: 45px;
 }
 
 body {
-   max-width: 1000px;
-   margin: auto;
-   padding: 0;
+   min-height: 100vw;
+   margin: 0;
    background: #FEFEFF;
-   padding-top: 25px;
-   margin-top: 23px;
+   padding-top: 50px;
 }
+
+div.contenu-central {
+   flex: 1;
+   background: #fff;
+   padding: 20px;
+   box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
+}
+
+div.cotes {
+   width: 13%;
+   background: #ffffff;
+}
+
 
 h1 {
    font-family: serif;
    margin: 1rem 0;
 }
 
-h2 {
-   font-family: serif;
-   margin: 1rem 0;
+div.titre-box {
+   width: max-content;
+   background-color: #fafffd;
+   margin: auto;
+   margin-top: 10px;
+   margin-bottom: 35px;
+   padding: 450px;
+   border-radius: 50px 50px 50px 50px;
+   padding-bottom: 5px;
+   padding-top: 5px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
 }
 
 a.lien {
@@ -55,14 +73,14 @@ a.lien:hover {
 
 nav {
    position: fixed;
-   width: 985px;
-   margin: auto;
-   margin-inline-start: 0%;
+   width: 100vw;
+   left: 0;
    top: 0;
    background: #224a52;
    display: flex;
    align-items: center;
    padding: 0 0.5rem;
+   z-index: 100;
 }
 
 nav h1 {
@@ -73,7 +91,8 @@ nav h1 {
 nav ul {
    display: flex;
    list-style: none;
-   margin: 0;
+   margin : 0;
+   margin-left: 20%;
    padding: 0;
 }
 
