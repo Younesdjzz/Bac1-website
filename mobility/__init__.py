@@ -38,9 +38,12 @@ def create_app(test_config=None):
         db.init_db()
 
     # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    @app.route('/acceuil')
+    def acceuil():
+        bienvenu = "Bienvenue sur le site web de Celestia airlines"
+        membres = "Younes, Yassine, Zakaria, Adjovi, et Bouchra"
+
+        return render_template('acceuil.html', bienvenu=bienvenu, membres=membres)
     
 
 
