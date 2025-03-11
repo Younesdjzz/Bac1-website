@@ -111,4 +111,22 @@ def create_app(test_config=None):
 
         return render_template("base_membre.html", prenom="Bouchra", age="20", roles=roles, passions=passions)
 
-    return app
+    def create_app():
+        app = Flask(__name__)
+        app.config.from_mapping(
+            SECRET_KEY='dev',
+            DATABASE=os.path.join(app.instance_path, 'db.sqlite')
+    )
+
+        try:
+            os.makedirs(app.instance_path)
+        except OSError:
+            pass
+
+        from . import db
+        db.init_app(app)
+
+        with app.app_context():
+            db.init_db()
+
+        return app
