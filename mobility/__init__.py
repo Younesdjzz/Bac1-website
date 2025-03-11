@@ -45,13 +45,19 @@ def create_app(test_config=None):
             - Une liste des routes vers les pages des membres
             - Une liste avec les photos de profils des membres
         """
-        discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511","Bmoumen"]
-        team = ["Younes", "Yassine", "Zakaria", "Adjovi","Bouchra"]
+       # discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511"] Pour plus tard
+        team = ["Younes", "Yassine", "Zakaria", "Adjovi"]
         route_team = ["/equipe/younes", "/equipe/yassine",
                       "/equipe/zakaria", "/equipe/adjovi",
                       "/equipe/bouchra"]
         image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg","bouchra.jpg"]
-        info_equipe = zip(team, discord, route_team, image)
+        roles = ["Front-end web designer", "Is choosing a role...",
+                 "Is choosing a role...", "Database Management System","Database Management System"]
+        fonds = ["#313131", "#E0403A", "#999999", "#fad989","#002b17"]
+        couleurs = ["#ede6f3", "#F0F0F0 ", "#333333", "#703A1F","#ff66b2"]
+
+        info_equipe = zip(team, route_team, image, roles, fonds, couleurs)
+
 
         return render_template('equipe.html', info_equipe=info_equipe)
 
