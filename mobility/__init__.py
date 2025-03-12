@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from . import stats
 
 
 def create_app(test_config=None):
@@ -10,15 +11,13 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
     else:
         app.config.from_mapping(
-            SECRET_KEY='dev',
-            DATABASE=os.path.join(app.instance_path, 'db.sqlite')  # Correct path to db.sqlite
+            SECRET_KEY="dev",
+            DATABASE=os.path.join(app.instance_path, "../instance/db.sqlite"),
         )
 
-    # Register blueprints
-    from . import airport, country, data_table
+    from . import airport
     app.register_blueprint(airport.bp)
-    app.register_blueprint(country.bp)
-    app.register_blueprint(data_table.bp)
+    app.register_blueprint(stats.bp)
 
     app.add_url_rule('/', endpoint='index')
 
@@ -41,9 +40,12 @@ def create_app(test_config=None):
     # No need to call db.init_db() because we're using an existing database
 
     # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    @app.route('/')
+    def index():
+        bienvenu = "Bienvenue sur le site web de Celestia airlines"
+        membres = "Younes, Yassine, Zakaria, Adjovi, et Bouchra"
+
+        return render_template('home.html', bienvenu=bienvenu, membres=membres)
 
     @app.route('/equipe')
     def equipe():
