@@ -1,16 +1,14 @@
 from flask import (
     Blueprint, render_template, request, redirect, url_for
 )
-from mobility.models.country import get_country_list, search_by_iso, Country
-
-bp = Blueprint('country', __name__)
+from mobility.models.stats import get_country_list, search_by_iso, Country
 
 
 # route code
-@bp.route('/country')
+@bp.route('/statistique')
 def country_list():
     countries = get_country_list()
-    return render_template("country.html", countries=countries)
+    return render_template("statistique.html", countries=countries)
 
 @bp.route("/create_country", methods=["POST"])
 def country_create():

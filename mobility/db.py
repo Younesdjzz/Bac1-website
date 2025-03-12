@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from flask import current_app, g
 
 def get_db():
@@ -7,6 +8,7 @@ def get_db():
     Returns:
         db: The db connection to be used for SQL functions
     """
+    # g is the shorthand for "globals" and allows registering available in the whole Flask app
     if 'db' not in g:
         # Create the database connection if not already present
         g.db = sqlite3.connect(
