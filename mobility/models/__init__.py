@@ -1,3 +1,3 @@
-from mobility.models.country import get_country_list  
+from mobility.models.stats import get_country_list  
 
 
