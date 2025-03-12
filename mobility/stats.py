@@ -3,6 +3,7 @@ from flask import (
 )
 from mobility.models.stats import get_country_list, search_by_iso, Country
 
+bp = Blueprint('country', __name__)
 
 # route code
 @bp.route('/statistique')
