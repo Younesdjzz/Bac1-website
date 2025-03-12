@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block titre %}
+<h1>Statistiques</h1>
+{% endblock %}
+
+{% block left_content %}{% endblock %}
+
+{% block content %}
+<h2>Country list</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Iso Country</th>
+    </tr>
+    {% for country in countries %}
+    <tr>
+        <td>{{ country['name'] }}</td>
+        <td>{{ country['iso_country'] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}
+
+{% block right_content %}{% endblock %}
