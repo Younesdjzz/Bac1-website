@@ -10,11 +10,12 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(
             SECRET_KEY='dev',
-            DATABASE=os.path.join(app.root_path, 'poudlard.sqlite'),
+            DATABASE=os.path.join(app.instance_path, 'db.sqlite')
         )
 
-    from . import airport
+    from . import airport,country
     app.register_blueprint(airport.bp)
+    app.register_blueprint(country.bp)
 
     app.add_url_rule('/', endpoint='index')
 
@@ -30,11 +31,18 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    from . import db
+    db.init_app(app)
+
+    with app.app_context():
+        db.init_db()
 
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+    
+
 
     @app.route('/equipe')
     def equipe():
@@ -46,15 +54,12 @@ def create_app(test_config=None):
             - Une liste avec les photos de profils des membres
         """
        # discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511"] Pour plus tard
-        team = ["Younes", "Yassine", "Zakaria", "Adjovi"]
-        route_team = ["/equipe/younes", "/equipe/yassine",
-                      "/equipe/zakaria", "/equipe/adjovi",
-                      "/equipe/bouchra"]
+        team = ["Younes", "Yassine", "Zakaria", "Adjovi", "Bouchra"]
+        route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria", "/equipe/adjovi", "/equipe/bouchra"]
         image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg","bouchra.jpg"]
-        roles = ["Front-end web designer", "Is choosing a role...",
-                 "Is choosing a role...", "Database Management System","Database Management System"]
-        fonds = ["#313131", "#E0403A", "#999999", "#fad989","#002b17"]
-        couleurs = ["#ede6f3", "#F0F0F0 ", "#333333", "#703A1F","#ff66b2"]
+        roles = ["Front-end web designer", "Is choosing a role...", "Is choosing a role...", "Database Management System","Database Management System"]
+        fonds = ["#313131", "#E0403A", "#999999", "#fad989","#ff66b2"]
+        couleurs = ["#ede6f3", "#F0F0F0 ", "#333333", "#703A1F","#002b17"]
 
         info_equipe = zip(team, route_team, image, roles, fonds, couleurs)
 
