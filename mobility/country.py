@@ -5,7 +5,6 @@ from mobility.models.country import get_country_list, search_by_iso, Country
 
 bp = Blueprint('country', __name__)
 
-bp = Blueprint('country', __name__)
 
 # route code
 @bp.route('/country')

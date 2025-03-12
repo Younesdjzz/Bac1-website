@@ -5,17 +5,20 @@ from flask import Flask, render_template
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    
     if test_config:
         app.config.from_mapping(test_config)
     else:
         app.config.from_mapping(
             SECRET_KEY='dev',
-            DATABASE=os.path.join(app.instance_path, 'db.sqlite')
+            DATABASE=os.path.join(app.instance_path, 'db.sqlite')  # Correct path to db.sqlite
         )
 
-    from . import airport,country
+    # Register blueprints
+    from . import airport, country, data_table
     app.register_blueprint(airport.bp)
     app.register_blueprint(country.bp)
+    app.register_blueprint(data_table.bp)
 
     app.add_url_rule('/', endpoint='index')
 
@@ -31,29 +34,19 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
     from . import db
     db.init_app(app)
 
-    with app.app_context():
-        db.init_db()
+    # No need to call db.init_db() because we're using an existing database
 
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-    
-
 
     @app.route('/equipe')
     def equipe():
-        """
-        Cette fonction génère la page html pour l'onglet equipe à l'aide d'une liste info_equipe qui contient :
-            - Une liste des discords du groupe
-            - Une liste des prénoms des membres
-            - Une liste des routes vers les pages des membres
-            - Une liste avec les photos de profils des membres
-        """
-       # discord = ["younesdjzz", "yassne", "zakariia_h", "cadance2511"] Pour plus tard
         team = ["Younes", "Yassine", "Zakaria", "Adjovi", "Bouchra"]
         route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria", "/equipe/adjovi", "/equipe/bouchra"]
         image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg","bouchra.jpg"]
@@ -63,18 +56,10 @@ def create_app(test_config=None):
 
         info_equipe = zip(team, route_team, image, roles, fonds, couleurs)
 
-
         return render_template('equipe.html', info_equipe=info_equipe)
 
     @app.route('/equipe/younes')
     def younes():
-        """
-        Cette fonction génère la page html de Younes avec 4 variables :
-            - roles : liste de strings pour ses rôles dans l'equipe
-            - passions : liste de strings pour ses passions
-            - prenom : un string de son prénom
-            - age : un string de son âge
-        """
         roles = ["Je suis actuellement le barreur du groupe",
                  "Je m'occupe de surveiller l'avancement du projet...",
                  "...et à motiver mon équipe à avancer !"]
@@ -107,7 +92,7 @@ def create_app(test_config=None):
 
         passions = ["Lorsque je n'étudie pas pour l'université, j'apprends les chorégraphies de mes chansons préférées (≧∀≦)",
                     "J'aime énormément la K-POP et l'univers qui lui est associé !",
-                    "En pralant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
+                    "En parlant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
 
         return render_template("base_membre.html", prenom="Adjovi", age="18", roles=roles, passions=passions)
     
@@ -117,7 +102,7 @@ def create_app(test_config=None):
                   "Je m'assure que les données soient correctement organisées, mises à jour et accessibles en tout temps."]
         
         passions = ["Je suis fascinée par la psychologie et le développement personnel.",  
-                    "j'adore voyager et découvrir de nouvelles cultures.",    
+                    "J'adore voyager et découvrir de nouvelles cultures.",    
                     "Quand j'ai du temps libre, je me plonge dans un bon livre ou je regarde des documentaires."]
 
         return render_template("base_membre.html", prenom="Bouchra", age="20", roles=roles, passions=passions)

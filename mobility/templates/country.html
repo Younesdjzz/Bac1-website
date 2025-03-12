@@ -11,11 +11,11 @@
     <tr>
         <td>{{ country['name'] }}</td>
         <td>{{ country['iso_country'] }}</td>
-        <td><a href="{{ url_for("country.country_delete", iso_country=country['iso_country']) }}">Delete</a></td>
+        <td><a href="{{ url_for('country.country_delete', iso_country=country['iso_country']) }}">Delete</a></td>
     </tr>
     {% endfor %}
     <h2>New country</h2>
-    <form method="post" action="{{ url_for("country.country_create") }}">
+    <form method="post" action="{{ url_for('country.country_create') }}">
        <div>
           <label for="iso_country"> ISO Country: </label>
           <input name="iso_country" id="iso_country" type="text" />
