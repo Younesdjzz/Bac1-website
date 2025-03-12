@@ -11,7 +11,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(
             SECRET_KEY="dev",
-            DATABASE=os.path.join(app.root_path, "../instance/db.sqlite"),
+            DATABASE=os.path.join(app.instance_path, "../instance/db.sqlite"),
         )
 
     from . import airport

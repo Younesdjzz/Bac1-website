@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from flask import current_app, g
 
 def get_db():
@@ -34,6 +35,12 @@ def close_db(e=None):
 
 def init_db():
     db = get_db()
+    # Vérifier si la base de données existe déjà pour ne pas la recréer
+    if not os.path.exists(current_app.config['DATABASE']):
+        with current_app.open_resource('schema.sql') as f:
+            db.executescript(f.read().decode('utf8'))
+
+
 
 def init_app(app):
     app.teardown_appcontext(close_db)
