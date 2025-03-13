@@ -16,8 +16,8 @@ def requete_aeroport():
     airport_name = request.args.get('airport_name')
 
     airports = get_all_airports()
-    vols_type = nombre_de_vols_par_type()
-    vols_jour = [] 
+    vols_jour = []
+    vols_type = []
     airport_not_found = False 
 
     if airport_name:
@@ -28,6 +28,7 @@ def requete_aeroport():
         if airport:
             iata_code = airport[0]
             vols_jour = nombre_de_vols_par_jour(iata_code)
+            vols_type = nombre_de_vols_par_type(iata_code)
 
         if not airport:
             airport_not_found = True
@@ -35,6 +36,7 @@ def requete_aeroport():
         elif not vols_jour:
             jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'jeudi', 'Vendredi', 'Samedi', 'Dimanche']
             vols_jour = [{'jour_semaine': jour, 'nombre_de_vols': 0} for jour in jours_semaine]
+            vols_type = [{'name': "/", 'aircraft_type' : "/", "vols_totaux" : "/"}]
 
     return render_template("airports.html", 
                            airports=airports, 
