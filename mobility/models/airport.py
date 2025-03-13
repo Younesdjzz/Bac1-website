@@ -1,22 +1,28 @@
 from mobility.db import get_db
 
-def get_airports():
-    airports = [{"iata":"LGG", "name":"Liege Airport"},
-                {"iata":"BRU", "name":"Bruxelles"}]
-    return airports
-
-def get_airport_list():
-   db = get_db()
-   return db.execute('SELECT * FROM airport ORDER BY iata_code').fetchall()
-
-def get_all_airports():
+def get_airports_list():
     db = get_db()
-    return db.execute("SELECT iata_code, name FROM airport ORDER BY name ASC").fetchall()
+    return db.execute("SELECT name FROM airport WHERE name IS NOT NULL ORDER BY name ASC").fetchall()
 
 def search_airport_by_iata_code(iata_code: str):
   # Retourne la ligne correspondant à l'aéroport portant le code iata "iata_code"
     db = get_db()
     return db.execute('SELECT * FROM airport WHERE iata_code=?',(iata_code,)).fetchall() 
+# Nombre de vols par type d’appareil:
+def nombre_de_vols_par_type():
+    db=get_db()
+    return db.execute("""SELECT aircraft.name, COUNT(*) AS total_vols
+                       FROM flight
+                       JOIN aircraft ON flight.iata_aircraft = aircraft.iata_aircraft
+                       WHERE flight.iata_departure = ?
+                       GROUP BY aircraft.name""").fetchall()
+# Nombre de vols par jour de la semaine:
+def nombre_de_vols_par_jour():
+    db=get_db()
+    return db.execute("""SELECT strftime('%w', flight.flight_date) AS jour, COUNT(*) AS total_vols
+                      FROM flight
+                      WHERE flight.iata_departure = ?
+                      GROUP BY jour""").fetchall()
 
 class Airport:
     
@@ -42,4 +48,4 @@ class Airport:
             return None
         else:
             return Airport(data["iata_code"], data["name"], data["iso_country"])
-        
+    

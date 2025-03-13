@@ -3,9 +3,9 @@ from flask import (
 )
 
 from mobility.models.airport import Airport
-from mobility.models.airport import get_airport_list,search_airport_by_iata_code
+from mobility.models.airport import search_airport_by_iata_code
 
-from mobility.models.airport import get_airports, get_all_airports
+from mobility.models.airport import  get_airports_list
 
 
 bp = Blueprint('airport', __name__)
@@ -15,7 +15,7 @@ bp = Blueprint('airport', __name__)
 def airport_list():
    # Page principal qui affiche la liste des aéroports
    # avec leur nom, code IATA et le nom de leur pays correspondant
-   airports = get_all_airports()
+   airports = get_airports_list()
    return render_template("airports.html", airports=airports)
 
 @bp.route("/create_airport", methods=["POST"])
