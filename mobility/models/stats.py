@@ -15,16 +15,6 @@ class Country:
         self.name = name
         self.iso_country = iso_country
 
-    def delete(self):
-        db = get_db()
-        db.execute("DELETE FROM country WHERE iso_country=?", (self.iso_country,))
-        db.commit()
-
-    def save(self):
-        db = get_db()
-        db.execute("INSERT INTO country(iso_country,name) VALUES(?, ?)",
-                   (self.iso_country, self.name))
-        db.commit()
 
     @staticmethod
     def get(iso_country: int):
