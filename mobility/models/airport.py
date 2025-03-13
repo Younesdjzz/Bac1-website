@@ -10,11 +10,12 @@ def search_airport_by_iata_code(iata_code: str):
     return db.execute('SELECT * FROM airport WHERE iata_code=?',(iata_code,)).fetchall() 
 
 # Nombre de vols par type d’appareil:
-def nombre_de_vols_par_type():
+def nombre_de_vols_par_type(iata_code):
     db=get_db()
-    return db.execute("""SELECT name, aircraft_type, COUNT(*) AS vols_totaux FROM flight
+    return db.execute("""SELECT aircraft_type, COUNT(*) AS vols_totaux FROM flight
                        INNER JOIN aircraft ON (flight.iata_aircraft = aircraft.iata_aircraft)
-					   GROUP BY name""").fetchall()
+                      WHERE (iata_departure = ? OR iata_arrival = ?)
+					   GROUP BY aircraft_type""", (iata_code, iata_code)).fetchall()
 
 # Nombre de vols par jour de la semaine:
 def nombre_de_vols_par_jour(iata_code):
