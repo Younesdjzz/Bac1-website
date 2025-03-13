@@ -10,20 +10,55 @@
 
 <h2>Airports list</h2>
 
-<form>
-   <label>Choisissez un aéroport :</label>
-   <input type="input" list="airport" name="airport" id="airportInput">
-   <datalist id="airport">
-       {% for airport in airports %}
-       <option value='{{ airport[0] }}'></option>
-       {% endfor %}
-   </datalist>
+<form method="GET" action="{{ url_for('airport.requete_aeroport') }}">
+    <label for="airport">Choisir un aéroport :</label>
+    <input list="airports" id="airport" name="airport_name" placeholder="Tapez le nom de l'aéroport">
+    <datalist id="airports">
+        {% for airport in airports %}
+        <option value="{{ airport.name }}">
+            {% endfor %}
+    </datalist>
+    <button type="submit">Voir les détails</button>
 </form>
 
-<!-- Affichage de "Hello World!" après soumission du formulaire -->
-{% if submitted %}
-   <p style="font-size: 20px; font-weight: bold;">Hello World!</p>
+<h2>Vols par jour</h2>
+
+{% if airport_not_found %}
+    <p>L'aéroport "{{ selected_airport }}" n'existe pas dans la base de données</p>
 {% endif %}
+
+<table>
+
+    <tr>
+        {% for vol in vols_jour %}
+        <th>{{ vol.jour_semaine }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for vol in vols_jour %}
+        <td>{{ vol.nombre_de_vols }}</td>
+        {% endfor %}
+    </tr>
+
+</table>
+
+
+<h2>Nombres de vols par type d'appareil</h2>
+
+<table>
+    <tr>
+        <th>nom de l'appareil</th>
+        <th>Type d'appareil</th>
+        <th>Nombres de vols</th>
+    </tr>
+    {% for nom_appareil, type, vols in vols_type %}
+    <tr>
+        <td>{{ nom_appareil }}</td>
+        <td>{{ type }}</td>
+        <td>{{ vols }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}
 
