@@ -1,6 +1,6 @@
 from mobility.db import get_db
 
-def get_airports_list():
+def get_all_airports():
     db = get_db()
     return db.execute("SELECT name FROM airport WHERE name IS NOT NULL ORDER BY name ASC").fetchall()
 
@@ -8,21 +8,40 @@ def search_airport_by_iata_code(iata_code: str):
   # Retourne la ligne correspondant à l'aéroport portant le code iata "iata_code"
     db = get_db()
     return db.execute('SELECT * FROM airport WHERE iata_code=?',(iata_code,)).fetchall() 
+
 # Nombre de vols par type d’appareil:
 def nombre_de_vols_par_type():
     db=get_db()
-    return db.execute("""SELECT aircraft.name, COUNT(*) AS total_vols
-                       FROM flight
-                       JOIN aircraft ON flight.iata_aircraft = aircraft.iata_aircraft
-                       WHERE flight.iata_departure = ?
-                       GROUP BY aircraft.name""").fetchall()
+    return db.execute("""SELECT name, aircraft_type, COUNT(*) AS vols_totaux FROM flight
+                       INNER JOIN aircraft ON (flight.iata_aircraft = aircraft.iata_aircraft)
+					   GROUP BY name""").fetchall()
+
 # Nombre de vols par jour de la semaine:
-def nombre_de_vols_par_jour():
-    db=get_db()
-    return db.execute("""SELECT strftime('%w', flight.flight_date) AS jour, COUNT(*) AS total_vols
-                      FROM flight
-                      WHERE flight.iata_departure = ?
-                      GROUP BY jour""").fetchall()
+def nombre_de_vols_par_jour(iata_code):
+    db = get_db()
+
+    # Effectuer la requête pour obtenir le nombre de vols par jour
+    vols_jour = db.execute("""
+        SELECT 
+            CASE strftime('%w', flight_date)
+                WHEN '0' THEN 'Lundi'
+                WHEN '1' THEN 'Mardi'
+                WHEN '2' THEN 'Mercredi'
+                WHEN '3' THEN 'Jeudi'
+                WHEN '4' THEN 'Vendredi'
+                WHEN '5' THEN 'Samedi'
+                WHEN '6' THEN 'Dimanche'
+            END AS jour_semaine,
+            COUNT(*) AS nombre_de_vols
+        FROM flight
+        WHERE flight_date IS NOT NULL
+        AND (iata_departure = ? OR iata_arrival = ?)
+        GROUP BY jour_semaine
+        ORDER BY CAST(strftime('%w', flight_date) AS INTEGER)
+    """, (iata_code, iata_code)).fetchall()
+
+    return vols_jour
+
 
 class Airport:
     
