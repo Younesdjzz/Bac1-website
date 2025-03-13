@@ -1,27 +1,55 @@
 {% extends "base.html" %}
-
-
+{% block content %}
 {% block titre %}
-<h1>Statistiques</h1>
+    <h2>Number of data</h2>
 {% endblock %}
 
-{% block left_content %}{% endblock %}
-
-{% block content %}
-<h2>Country list</h2>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Iso Country</th>
+<div class="inf">
+<table class="sommaire">
+    <tr >
+        
+        <th class="name" >Number of airports</th>
+        <th class="name">Number of coutries</th>
+        <th class="name">Number of aircrafts</th>
+        <th class="name">Number of airlines</th>
+        <th class="name">Number of flights</th>
     </tr>
-    {% for country in countries %}
     <tr>
-        <td>{{ country['name'] }}</td>
-        <td>{{ country['iso_country'] }}</td>
+        <td class="name">{{ data.airports }}</td>
+        <td class="name">{{ data.countries }}</td>
+        <td class="name">{{ data.aircrafts }}</td>
+        <td class="name">{{ data.airlines }}</td>
+        <td class="name">{{ data.flights }}</td>
     </tr>
-    {% endfor %}
 
 </table>
-{% endblock %}
+</div>
+<br>
+<div class="flights">
+<table class="infor" >
+    <tr>
+        <th class="name">AIRPORTS</th>
+        <th class="name">FLIGHTS</th>
+    </tr>
+    {% for airport, count in data['flights_by_airport'].items() %}
+    <tr>
+        <td class="name">{{airport}}</td>
+        <td class="name">{{count}}</td>
+    </tr>
+    {%endfor%}
+</table>
+<table class="infor">
+    <tr>
+        <th class="name">AIRLINES</th>
+        <th class="name">FLIGHTS</th>
+    </tr>
+    {% for airline, count in data['flights_by_airline'].items() %}
+    <tr>
+        <td class="name">{{airline}}</td>
+        <td class="name">{{count}}</td>
+    </tr>
+    {%endfor%}
+</table>
+</div>
 
-{% block right_content %}{% endblock %}
+{% endblock %}

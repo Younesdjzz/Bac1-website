@@ -1,31 +1,24 @@
 from flask import (
     Blueprint, render_template, request, redirect, url_for
 )
-from mobility.models.stats import get_country_list, search_by_iso, Country
+from mobility.models.stats import *
 
-bp = Blueprint('country', __name__)
+bp = Blueprint('number_data_table', __name__)
 
-# route code
-@bp.route('/statistique')
-def country_list():
-    countries = get_country_list()
-    return render_template("statistique.html", countries=countries)
-
-@bp.route("/create_country", methods=["POST"])
-def country_create():
-    iso_country = request.form["iso_country"]
-    if not search_by_iso(str(iso_country)):
-        print("Creating country")
-        name = request.form["name"]
-        country = Country(name, iso_country)
-        country.save()
-    print("Country already exists")
-    return redirect(url_for("country.country_list"))
+@bp.route('/compute_data')
+def compute_data():
+    total_flights_airport, flights_by_airport = number_data_flight()
+    total_flights_airline, flights_by_airline = number_data_airline()
+    data = {
+        "airlines": total_flights_airline,
+        "flights_by_airline": flights_by_airline,
+        "airports": number_data_airport(),
+        "countries": number_data_country(),
+        "aircrafts": number_data_aircraft(),
+        "flights": total_flights_airport,
+        "flights_by_airport": flights_by_airport
+    }
+    return render_template("statistique.html", data=data)
 
 
-@bp.route("/delete_country/<iso_country>")
-def country_delete(iso_country):
-    country = Country.get(iso_country)
-    if country:
-        country.delete()
-    return redirect(url_for("country.country_list"))
+

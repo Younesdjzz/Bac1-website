@@ -2,38 +2,46 @@ from flask import (
    Blueprint, redirect, render_template, request, url_for
 )
 
+from mobility.db import get_db
 from mobility.models.airport import Airport
-from mobility.models.airport import get_airport_list,search_airport_by_iata_code
-
-from mobility.models.airport import get_airports, get_all_airports
+from mobility.models.airport import get_all_airports, nombre_de_vols_par_type, nombre_de_vols_par_jour
 
 
 bp = Blueprint('airport', __name__)
 
 # Define the routes code
-@bp.route('/airport')
-def airport_list():
-   # Page principal qui affiche la liste des aéroports
-   # avec leur nom, code IATA et le nom de leur pays correspondant
-   airports = get_all_airports()
-   return render_template("airports.html", airports=airports)
+@bp.route('/airport', methods=['GET'])
+def requete_aeroport():
+    db = get_db()
+    airport_name = request.args.get('airport_name')
 
-@bp.route("/create_airport", methods=["POST"])
-def airport_create():
-   # Page permettant d'ajouter un aéroport, similaire à "create_country"
-    iata_code = request.form["iata_code"]
-    if not search_airport_by_iata_code(str(iata_code)):
-        print("Creating airport")
-        name = request.form["name"]
-        iso_country = request.form["iso_country"]
-        airport = Airport(iata_code,name,iso_country)
-        airport.save()
-    return redirect(url_for("country.country_list"))
+    airports = get_all_airports()
+    vols_jour = []
+    vols_type = []
+    airport_not_found = False 
 
-@bp.route("/delete_airport/<iata_code>")
-def airport_delete(iata_code):
-   # Page permettant de retirer un aéroport, similaire à "delete_country"
-    airport = Airport.get(iata_code)
-    if airport:
-        airport.delete()
-    return redirect(url_for("airport.airport_list"))
+    if airport_name:
+        airport = db.execute("""
+            SELECT iata_code FROM airport WHERE LOWER(name) = LOWER(?)
+        """, (airport_name.lower(),)).fetchone()
+
+        if airport:
+            iata_code = airport[0]
+            vols_jour = nombre_de_vols_par_jour(iata_code)
+            vols_type = nombre_de_vols_par_type(iata_code)
+
+        if not airport:
+            airport_not_found = True
+
+        elif not vols_jour:
+            jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+            vols_jour = [{'jour_semaine': jour, 'nombre_de_vols': 0} for jour in jours_semaine]
+            vols_type = [{'name': "/", 'aircraft_type' : "/", "vols_totaux" : "/"}]
+
+    return render_template("airports.html", 
+                           airports=airports, 
+                           vols_jour=vols_jour, 
+                           vols_type=vols_type, 
+                           selected_airport=airport_name,
+                           airport_not_found=airport_not_found)
+
