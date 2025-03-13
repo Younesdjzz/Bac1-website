@@ -21,10 +21,11 @@ main {
    justify-content: center;
    align-items: stretch;
    margin: 0 auto;
+   flex:1;
 }
 
 body {
-   min-height: 100vw;
+   min-height: 3000vh;
    margin: 0;
    background: #FEFEFF;
    padding-top: 50px;
@@ -226,3 +227,42 @@ img.icon {
    margin-right: 4px;
    align-items: center;
 }
+.sommaire{height: 100px ; text-align: center; border-radius: 5%;}
+.flights {
+   
+   display: flex; 
+   gap: 20px; 
+}
+
+table.infor {
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   table-layout: fixed;
+   border-collapse:collapse;
+   width: 300%;
+   text-align: center;
+   padding:4px;
+   padding-top: 4px;
+   height: 10px;
+}
+
+th, td {
+   padding: 10px;
+   border: 1px solid transparent;
+   border-left: black;
+
+   
+ 
+
+}
+th{background: #224a52; border-radius: 6%; color:rgba(255, 255, 255, 0.851);}
+tr{background-color: #90bdae; border-radius: 6%; color:rgba(255, 255, 255, 0.851);}
+.name:hover {
+   transform: scale(1.2); 
+   margin: 15px 0;
+   
+}
+.inf{display: flex; justify-content: center; align-content: center;line-height: 10px;}
+h2{display: flex; justify-content: center; align-content: center;line-height: 2px;}
+footer{background: #224a52; text-align: center; position:fixed; bottom:0; justify-content: center;align-items: center; width: 100%; color:rgba(255, 255, 255, 0.851);}

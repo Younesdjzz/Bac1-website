@@ -1,47 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
+{% block titre %}
+    <h2>Number of data</h2>
+{% endblock %}
 
-<h2>Number of data</h2>
-<table>
-    <tr>
-        <th>Number of airports</th>
-        <th>Number of coutries</th>
-        <th>Number of aircrafts</th>
-        <th>Number of airlines</th>
-        <th>Number of flights</th>
+<div class="inf">
+<table class="sommaire">
+    <tr >
+        
+        <th class="name" >Number of airports</th>
+        <th class="name">Number of coutries</th>
+        <th class="name">Number of aircrafts</th>
+        <th class="name">Number of airlines</th>
+        <th class="name">Number of flights</th>
     </tr>
     <tr>
-        <td>{{ data.airports }}</td>
-        <td>{{ data.countries }}</td>
-        <td>{{ data.aircrafts }}</td>
-        <td>{{ data.airlines }}</td>
-        <td>{{ data.flights }}</td>
+        <td class="name">{{ data.airports }}</td>
+        <td class="name">{{ data.countries }}</td>
+        <td class="name">{{ data.aircrafts }}</td>
+        <td class="name">{{ data.airlines }}</td>
+        <td class="name">{{ data.flights }}</td>
     </tr>
 
 </table>
-
-<table>
+</div>
+<br>
+<div class="flights">
+<table class="infor" >
     <tr>
-        <th>AIRPORTS</th>
-        <th>FLIGHTS</th>
+        <th class="name">AIRPORTS</th>
+        <th class="name">FLIGHTS</th>
     </tr>
     {% for airport, count in data['flights_by_airport'].items() %}
     <tr>
-        <td>{{airport}}</td>
-        <td>{{count}}</td>
+        <td class="name">{{airport}}</td>
+        <td class="name">{{count}}</td>
     </tr>
     {%endfor%}
 </table>
-<table>
+<table class="infor">
     <tr>
-        <th>AIRLINES</th>
-        <th>FLIGHTS</th>
+        <th class="name">AIRLINES</th>
+        <th class="name">FLIGHTS</th>
     </tr>
     {% for airline, count in data['flights_by_airline'].items() %}
     <tr>
-        <td>{{airline}}</td>
-        <td>{{count}}</td>
+        <td class="name">{{airline}}</td>
+        <td class="name">{{count}}</td>
     </tr>
     {%endfor%}
 </table>
+</div>
+
 {% endblock %}
