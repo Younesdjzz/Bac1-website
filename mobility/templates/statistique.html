@@ -1,27 +1,47 @@
 {% extends "base.html" %}
-
-
-{% block titre %}
-<h1>Statistiques</h1>
-{% endblock %}
-
-{% block left_content %}{% endblock %}
-
 {% block content %}
-<h2>Country list</h2>
+
+<h2>Number of data</h2>
 <table>
     <tr>
-        <th>Name</th>
-        <th>Iso Country</th>
+        <th>Number of airports</th>
+        <th>Number of coutries</th>
+        <th>Number of aircrafts</th>
+        <th>Number of airlines</th>
+        <th>Number of flights</th>
     </tr>
-    {% for country in countries %}
     <tr>
-        <td>{{ country['name'] }}</td>
-        <td>{{ country['iso_country'] }}</td>
+        <td>{{ data.airports }}</td>
+        <td>{{ data.countries }}</td>
+        <td>{{ data.aircrafts }}</td>
+        <td>{{ data.airlines }}</td>
+        <td>{{ data.flights }}</td>
     </tr>
-    {% endfor %}
 
 </table>
-{% endblock %}
 
-{% block right_content %}{% endblock %}
+<table>
+    <tr>
+        <th>AIRPORTS</th>
+        <th>FLIGHTS</th>
+    </tr>
+    {% for airport, count in data['flights_by_airport'].items() %}
+    <tr>
+        <td>{{airport}}</td>
+        <td>{{count}}</td>
+    </tr>
+    {%endfor%}
+</table>
+<table>
+    <tr>
+        <th>AIRLINES</th>
+        <th>FLIGHTS</th>
+    </tr>
+    {% for airline, count in data['flights_by_airline'].items() %}
+    <tr>
+        <td>{{airline}}</td>
+        <td>{{count}}</td>
+    </tr>
+    {%endfor%}
+</table>
+{% endblock %}
