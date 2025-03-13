@@ -1,17 +1,8 @@
 from mobility.db import get_db
 
-def get_airports():
-    airports = [{"iata":"LGG", "name":"Liege Airport"},
-                {"iata":"BRU", "name":"Bruxelles"}]
-    return airports
-
-def get_airport_list():
-   db = get_db()
-   return db.execute('SELECT * FROM airport ORDER BY iata_code').fetchall()
-
 def get_all_airports():
     db = get_db()
-    return db.execute("SELECT iata_code, name FROM airport ORDER BY name ASC").fetchall()
+    return db.execute("SELECT name FROM airport WHERE name IS NOT NULL ORDER BY name ASC").fetchall()
 
 def search_airport_by_iata_code(iata_code: str):
   # Retourne la ligne correspondant à l'aéroport portant le code iata "iata_code"

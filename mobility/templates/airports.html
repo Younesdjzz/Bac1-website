@@ -9,21 +9,22 @@
 {% block content %}
 
 <h2>Airports list</h2>
-Nombre d'aéroports récupérés : {{ airports|length }}
-<table>
-   <tr>
-      <th>IATA code</th>
-      <th>Name</th>
-      <th>Iso country</th>
-   </tr>
-   {% for airport in airports %}
-   <tr>
-      <td>{{airport['iata_code'] }}</td>
-      <td>{{airport['name'] }}</td>
-   </tr>
-   <p></p>
-   {% endfor %}
-</table>
+
+<form>
+   <label>Choisissez un aéroport :</label>
+   <input type="input" list="airport" name="airport" id="airportInput">
+   <datalist id="airport">
+       {% for airport in airports %}
+       <option value='{{ airport[0] }}'></option>
+       {% endfor %}
+   </datalist>
+</form>
+
+<!-- Affichage de "Hello World!" après soumission du formulaire -->
+{% if submitted %}
+   <p style="font-size: 20px; font-weight: bold;">Hello World!</p>
+{% endif %}
+
 {% endblock %}
 
 {% block right_content %}{% endblock %}
