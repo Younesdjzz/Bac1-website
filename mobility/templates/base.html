@@ -12,14 +12,14 @@
 <body>
     <nav>
         <ul>
-            <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
+            <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/home.png') }}"
                         class="icon">Page d'acceuil</a></li>
             <li><a href="/equipe" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
                         class="icon">Equipe</a></li>
             <li><a href="/compute_data" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_stats.png') }}"
                         class="icon">Statistiques</a></li>
-            <li><a href="/airport" class="lien"><img src="{{ url_for('static', filename='navigateur/avion.png') }}"
-                        class="icon">Aeroports</a></li>
+            <li><a href="/airport" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
+                        class="icon">Aéroports</a></li>
         </ul>
     </nav>
 
@@ -27,22 +27,19 @@
         {% block titre %}{% endblock %}
     </div>
 
+    {% block content_up %}{% endblock %}
+
     <main>
-        <div class="cotes">
-            {% block left_content %}{% endblock %}
-        </div>
+        <div class="cotes"></div>
 
         <div class="contenu-central">
             {% block content %}{% endblock %}
         </div>
 
-        <div class="cotes">
-            {% block right_content %}{% endblock %}
-        </div>
+        <div class="cotes"></div>
     </main>
-    <footer>
-        <p>© 2025 Celestia Airlines</p>
-    </footer>
+
+    {% block content_down %}{% endblock %}
 
 </body>
 

@@ -1,9 +1,5 @@
 html {
    font-family: sans-serif;
-   background-color: #bfdccb;
-   background-size: cover;
-   background-attachment: fixed;
-   background-repeat: no-repeat;
 }
 
 
@@ -21,17 +17,18 @@ main {
    justify-content: center;
    align-items: stretch;
    margin: 0 auto;
-   flex:1;
 }
 
 body {
-   min-height: 3000vh;
+   min-height: 43vw;
    margin: 0;
    background: #FEFEFF;
    padding-top: 50px;
+   padding-bottom: 0px;
 }
 
 div.contenu-central {
+   max-height: fit-content;
    flex: 1;
    background: #fff;
    padding: 20px;
@@ -40,7 +37,7 @@ div.contenu-central {
 
 div.cotes {
    width: 13%;
-   background: #ffffff;
+   background: transparent;
 }
 
 
@@ -60,6 +57,19 @@ div.titre-box {
    padding-bottom: 5px;
    padding-top: 5px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
+}
+
+div.mini_titre-box {
+   width: max-content;
+   background-color: #ffffff;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   padding: 50px;
+   padding-bottom: 1px;
+   padding-top: 1px;
+   border-radius: 50px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+   text-align: center;
 }
 
 a.lien {
@@ -92,7 +102,7 @@ nav h1 {
 nav ul {
    display: flex;
    list-style: none;
-   margin : 0;
+   margin: 0;
    margin-left: 20%;
    padding: 0;
 }
@@ -227,42 +237,53 @@ img.icon {
    margin-right: 4px;
    align-items: center;
 }
-.sommaire{height: 100px ; text-align: center; border-radius: 5%;}
-.flights {
-   
-   display: flex; 
-   gap: 20px; 
+
+img.fond {
+
+   object-fit: cover;
+   max-height: 350px;
+   width: 100%;
+   display: block;
+   margin: 0 auto;
 }
 
-table.infor {
+.flights {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   column-gap: 30px;
+   margin: auto;
+   align-items: start;
+   justify-items: center;
+}
+
+th {
+   background: #224a52;
+   border-radius: 4%;
+   color: rgba(255, 255, 255, 0.851);
+}
+
+th,
+td {
+   padding: 10px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+}
+
+div.statistique {
    display: flex;
    justify-content: center;
-   align-content: center;
-   table-layout: fixed;
-   border-collapse:collapse;
-   width: 300%;
+   align-items: center;
+   margin: auto;
+}
+
+
+table {
+   height: 100px;
    text-align: center;
-   padding:4px;
-   padding-top: 4px;
-   height: 10px;
+   border-radius: 5%;
 }
 
-th, td {
-   padding: 10px;
-   border: 1px solid transparent;
-   border-left: black;
-
-   
- 
-
+table tr:hover {
+   transform: scale(1.17);
+   transition: transform 0.4s ease;
+   box-shadow: 8px 8px 24px #224a5240;
 }
-th{background: #224a52; border-radius: 6%; color:rgba(255, 255, 255, 0.851);}
-tr{background-color: #90bdae; border-radius: 6%; color:rgba(255, 255, 255, 0.851);}
-.name:hover {
-   transform: scale(1.2); 
-   margin: 15px 0;
-   
-}
-.inf{display: flex; justify-content: center; align-content: center;line-height: 10px;}
-h2{display: flex; justify-content: center; align-content: center;line-height: 2px;}
-footer{background: #224a52; text-align: center; position:fixed; bottom:0; justify-content: center;align-items: center; width: 100%; color:rgba(255, 255, 255, 0.851);}

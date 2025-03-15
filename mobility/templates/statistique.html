@@ -1,55 +1,67 @@
 {% extends "base.html" %}
-{% block content %}
+
 {% block titre %}
-    <h2>Number of data</h2>
+<h1>Statistiques</h1>
 {% endblock %}
 
-<div class="inf">
-<table class="sommaire">
-    <tr >
-        
-        <th class="name" >Number of airports</th>
-        <th class="name">Number of coutries</th>
-        <th class="name">Number of aircrafts</th>
-        <th class="name">Number of airlines</th>
-        <th class="name">Number of flights</th>
-    </tr>
-    <tr>
-        <td class="name">{{ data.airports }}</td>
-        <td class="name">{{ data.countries }}</td>
-        <td class="name">{{ data.aircrafts }}</td>
-        <td class="name">{{ data.airlines }}</td>
-        <td class="name">{{ data.flights }}</td>
-    </tr>
+{% block content_up %}{% endblock %}
 
-</table>
+{% block content %}
+<div class="statistique">
+    <table>
+        <tr>
+            <th>Nombre d'aéroports</th>
+            <th>Nombre de pays</th>
+            <th>Nombre d'avions</th>
+            <th>Nombre de compagnies aériennes</th>
+            <th>Nombre de vols</th>
+
+        </tr>
+        <tr>
+            <td>{{ data.airports }}</td>
+            <td>{{ data.countries }}</td>
+            <td>{{ data.aircrafts }}</td>
+            <td>{{ data.airlines }}</td>
+            <td>{{ data.flights }}</td>
+        </tr>
+    </table>
 </div>
-<br>
+
 <div class="flights">
-<table class="infor" >
-    <tr>
-        <th class="name">AIRPORTS</th>
-        <th class="name">FLIGHTS</th>
-    </tr>
-    {% for airport, count in data['flights_by_airport'].items() %}
-    <tr>
-        <td class="name">{{airport}}</td>
-        <td class="name">{{count}}</td>
-    </tr>
-    {%endfor%}
-</table>
-<table class="infor">
-    <tr>
-        <th class="name">AIRLINES</th>
-        <th class="name">FLIGHTS</th>
-    </tr>
-    {% for airline, count in data['flights_by_airline'].items() %}
-    <tr>
-        <td class="name">{{airline}}</td>
-        <td class="name">{{count}}</td>
-    </tr>
-    {%endfor%}
-</table>
-</div>
 
+    <div class="mini_titre-box">
+        <h2>Nombre de vols par aéroports</h2>
+    </div>
+
+    <div class="mini_titre-box">
+        <h2>Nombres de vols par compagnies aériennes</h2>
+    </div>
+
+    <table>
+        <tr>
+            <th>Aéroports</th>
+            <th>Vols</th>
+        </tr>
+        {% for airport, count in data['flights_by_airport'].items() %}
+        <tr>
+            <td>{{airport}}</td>
+            <td>{{count}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <table>
+        <tr>
+            <th>Compagnies aériennes</th>
+            <th>Vols</th>
+        </tr>
+        {% for airline, count in data['flights_by_airline'].items() %}
+        <tr>
+            <td>{{airline}}</td>
+            <td>{{count}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>
 {% endblock %}
+
+{% block content_down %}{% endblock %}
