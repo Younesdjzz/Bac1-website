@@ -9,7 +9,7 @@ body {
    background: #FEFEFF;
    padding-top: 50px;
    padding-bottom: 0;
-   
+
 }
 
 /* -- Le navigateur et footer-- */
@@ -126,10 +126,10 @@ div.titre-box {
 }
 
 div.titre-box:hover {
-   transform:perspective(10px);
+   transform: perspective(10px);
    transition: transform 0.4s ease;
-   box-shadow: 8px 8px 24px #224a5240;                   
-   z-index: 10;          
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
 }
 
 div.mini_titre-box {
@@ -260,7 +260,7 @@ img.logo_site {
    border-radius: 50%;
    border: 3.2px solid #ffffff;
    box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
-   top:2px;
+   top: 2px;
    left: 10px;
 }
 
@@ -278,8 +278,8 @@ img.site {
 img.site:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
-   box-shadow: 8px 8px 24px #224a5240;                   
-   z-index: 10;  
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
 }
 
 img.site:active {
@@ -354,7 +354,7 @@ div.flights {
 
 div.tableau {
    max-height: 250px;
-   overflow-y:scroll;
+   overflow-y: scroll;
    overflow-x: hidden;
    width: fit-content;
    padding-right: 32px;
@@ -372,7 +372,8 @@ td {
    background: rgba(250, 255, 253, 0.871);
 }
 
-th, td {
+th,
+td {
    padding: 10px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
@@ -387,8 +388,8 @@ table {
 table tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
-   box-shadow: 8px 8px 24px #224a5240;                   
-   z-index: 10;          
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
 }
 
 /* -- Pas encore utilisé -- */
