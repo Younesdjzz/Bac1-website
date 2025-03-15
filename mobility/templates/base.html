@@ -12,6 +12,7 @@
 <body>
     <nav>
         <ul>
+            <li><img class="logo_site" src="{{url_for('static', filename='logo_site_bleu.png')}}"></li>
             <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/home.png') }}"
                         class="icon">Page d'acceuil</a></li>
             <li><a href="/equipe" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
@@ -40,6 +41,7 @@
     </main>
 
     {% block content_down %}{% endblock %}
+    <img src="{{url_for('static', filename='fond_site.png')}}" class="fond">
 
 </body>
 
