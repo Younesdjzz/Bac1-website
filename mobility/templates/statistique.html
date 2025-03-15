@@ -38,32 +38,32 @@
     </div>
 
     <div class="tableau">
-    <table>
-        <tr>
-            <th>Aéroports</th>
-            <th>Vols</th>
-        </tr>
-        {% for airport, count in data['flights_by_airport'].items() %}
-        <tr>
-            <td>{{airport}}</td>
-            <td>{{count}}</td>
-        </tr>
-        {%endfor%}
-    </table>
+        <table>
+            <tr>
+                <th>Aéroports</th>
+                <th>Vols</th>
+            </tr>
+            {% for airport, count in data['flights_by_airport'].items() %}
+            <tr>
+                <td>{{airport}}</td>
+                <td>{{count}}</td>
+            </tr>
+            {%endfor%}
+        </table>
     </div>
     <div class="tableau">
-    <table>
-        <tr>
-            <th>Compagnies aériennes</th>
-            <th>Vols</th>
-        </tr>
-        {% for airline, count in data['flights_by_airline'].items() %}
-        <tr>
-            <td>{{airline}}</td>
-            <td>{{count}}</td>
-        </tr>
-        {%endfor%}
-    </table>
+        <table>
+            <tr>
+                <th>Compagnies aériennes</th>
+                <th>Vols</th>
+            </tr>
+            {% for airline, count in data['flights_by_airline'].items() %}
+            <tr>
+                <td>{{airline}}</td>
+                <td>{{count}}</td>
+            </tr>
+            {%endfor%}
+        </table>
     </div>
 </div>
 {% endblock %}

@@ -9,9 +9,10 @@ body {
    background: #FEFEFF;
    padding-top: 50px;
    padding-bottom: 0;
+
 }
 
-/* -- Le navigateur -- */
+/* -- Le navigateur et footer-- */
 header {
    position: fixed;
    width: 985px;
@@ -69,6 +70,7 @@ a.lien:hover {
    text-decoration: underline;
 }
 
+
 /* -- Le contenu principal -- */
 main {
    display: flex;
@@ -80,7 +82,7 @@ main {
 div.contenu-central {
    max-height: fit-content;
    flex: 1;
-   background: #fff;
+   background: rgba(250, 255, 253, 0.886);
    padding: 20px;
    box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
 }
@@ -90,6 +92,18 @@ div.cotes {
    background: transparent;
 }
 
+div.welcome {
+   position: relative;
+   background-color: #ffffffe8;
+   font-size: x-large;
+   color: #224a52;
+   padding: 30px;
+   border-radius: 100px;
+   margin-top: 50px;
+   text-align: center;
+   z-index: 5;
+}
+
 h1 {
    font-family: serif;
    margin: 1rem 0;
@@ -97,8 +111,10 @@ h1 {
 
 /* -- Les titres-box -- */
 div.titre-box {
+   position: relative;
+   z-index: 5;
    width: max-content;
-   background-color: #fafffd;
+   background: rgba(250, 255, 253, 0.8);
    margin: auto;
    margin-top: 10px;
    margin-bottom: 35px;
@@ -107,6 +123,13 @@ div.titre-box {
    padding-bottom: 5px;
    padding-top: 5px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
+}
+
+div.titre-box:hover {
+   transform: perspective(10px);
+   transition: transform 0.4s ease;
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
 }
 
 div.mini_titre-box {
@@ -122,12 +145,6 @@ div.mini_titre-box {
    text-align: center;
 }
 
-div.statistique {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: auto;
-}
 
 /* -- Style de l'équipe -- */
 div.equipe {
@@ -235,6 +252,41 @@ ul.passion {
 }
 
 /* -- Style des images -- */
+img.logo_site {
+   position: absolute;
+   width: 33px;
+   height: auto;
+   object-fit: cover;
+   border-radius: 50%;
+   border: 3.2px solid #ffffff;
+   box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
+   top: 2px;
+   left: 10px;
+}
+
+img.site {
+   position: relative;
+   width: 120px;
+   height: auto;
+   object-fit: cover;
+   border-radius: 50%;
+   border: 5px solid #ffffff;
+   box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
+   left: 4px;
+}
+
+img.site:hover {
+   transform: scale(1.17);
+   transition: transform 0.4s ease;
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
+}
+
+img.site:active {
+   transform: rotate(180deg);
+   transition: transform 0.7s ease-out;
+}
+
 img.profil {
    position: absolute;
    width: 97px;
@@ -255,6 +307,7 @@ img.logo {
    border-radius: 50%;
 }
 
+
 img.icon {
    width: 28px;
    height: 28px;
@@ -266,14 +319,31 @@ img.icon {
 
 img.fond {
    object-fit: cover;
-   max-height: 350px;
+   min-height: fit-content;
    width: 100%;
-   display: block;
-   margin: 0 auto;
+   position: absolute;
+   top: -0px;
+   z-index: -1;
+}
+
+img.fond_up {
+   object-fit: cover;
+   min-height: fit-content;
+   width: 100%;
+   position: absolute;
+   top: 0px;
+   z-index: 3;
 }
 
 /* -- Style des tables -- */
-.flights {
+div.statistique {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+}
+
+div.flights {
    display: grid;
    grid-template-columns: 1fr 1fr;
    column-gap: 30px;
@@ -284,7 +354,7 @@ img.fond {
 
 div.tableau {
    max-height: 250px;
-   overflow-y:scroll;
+   overflow-y: scroll;
    overflow-x: hidden;
    width: fit-content;
    padding-right: 32px;
@@ -295,10 +365,15 @@ div.tableau {
 th {
    background: #224a52;
    border-radius: 4%;
-   color: rgba(255, 255, 255, 0.851);
+   color: rgba(255, 255, 255);
 }
 
-th, td {
+td {
+   background: rgba(250, 255, 253, 0.871);
+}
+
+th,
+td {
    padding: 10px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
@@ -313,8 +388,8 @@ table {
 table tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
-   box-shadow: 8px 8px 24px #224a5240;                   
-   z-index: 10;          
+   box-shadow: 8px 8px 24px #224a5240;
+   z-index: 10;
 }
 
 /* -- Pas encore utilisé -- */
