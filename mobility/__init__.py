@@ -51,64 +51,17 @@ def create_app(test_config=None):
 
     @app.route('/equipe')
     def equipe():
-        team = ["Younes", "Yassine", "Zakaria", "Adjovi", "Bouchra"]
-        route_team = ["/equipe/younes", "/equipe/yassine", "/equipe/zakaria", "/equipe/adjovi", "/equipe/bouchra"]
-        image = ["younes.jpg", "yassine.png", "zakaria.jpg", "adjovi.jpg","bouchra.jpg"]
-        roles = ["Front-end web designer", "Is choosing a role...", "Is choosing a role...", "Database Management System","Database Management System"]
-        fonds = ["#313131", "#E0403A", "#999999", "#fad989","#ff66b2"]
-        couleurs = ["#ede6f3", "#F0F0F0 ", "#333333", "#703A1F","#002b17"]
+        team = ["Younes", "Yassine", "Adjovi", "Bouchra", "Zakaria",]
+        image = ["younes.jpg", "yassine.png", "adjovi.jpg","bouchra.jpg", "zakaria.jpg"]
+        roles = ["Front-end web designer", "Is choosing a role...", "Database Management","Database Management", "Is choosing a role...",]
+        fonds = ["#313131", "#E0403A", "#fad989","#ff66b2", "#999999"]
+        couleurs = ["#ede6f3", "#F0F0F0 ", "#703A1F", "#002b17", "#333333"]
+        passions = [["Jeux vidéos", "Anime (Vinland Saga)"], ["Travailler", "Anime (One piece)"], ["K-POP", "Anime", "K-drama"], ["Lecture", "Voyage"], ["Sport", "Voyage"]]
+        discord = ["younesdjzz", "yassne", "cadance2511", "bmoumen.", "zakariia_h"]
+        logos_discord = ["discord_logo_younes.png", "discord_logo_yassine.png", "discord_logo_adjovi.png", "discord_logo_bouchra.png", "discord_logo_zakaria.png"]
 
-        info_equipe = zip(team, route_team, image, roles, fonds, couleurs)
+        info_equipe = zip(team, image, roles, fonds, couleurs, passions, discord, logos_discord)
 
         return render_template('equipe.html', info_equipe=info_equipe)
-
-    @app.route('/equipe/younes')
-    def younes():
-        roles = ["Je suis actuellement le barreur du groupe",
-                 "Je m'occupe de surveiller l'avancement du projet...",
-                 "...et à motiver mon équipe à avancer !"]
-
-        passions = ["J'aime passer mon temps libre à jouer aux jeux vidéos",
-                    "J'aime bien les animes, surtout One piece et Vinland Saga",
-                    "A part ça, j'aime bien aussi m'entrainer !"]
-
-        return render_template('base_membre.html', prenom="Younes", age="18", roles=roles, passions=passions)
-
-    @app.route('/equipe/zakaria')
-    def zakaria():
-        return render_template('zakaria.html', prenom="Zakaria", age="18")
-
-    @app.route('/equipe/yassine')
-    def yassine():
-        roles = ["Je suis actuellement le Gestionnaire du code du groupe",
-                 "Je m'occupe de surveiller le bon fonctionnement du code ",]
-
-        passions = ["Lorsque j'ai du temps libre j'en profite pour me faire un peu d'argent. ",
-                    "J'aime bien les animes, comme One piece ",
-                    "J'aime également passer du temps avec ma famille."]
-
-        return render_template('base_membre.html', prenom='Yassine', age='18', roles=roles, passions=passions)
-
-    @app.route("/equipe/adjovi")
-    def adjovi():
-        roles = ["Je suis en ce moment la maitresse du temps, je veille à ce que les échéances soient respectées.",
-                 "Tic-Tac..."]
-
-        passions = ["Lorsque je n'étudie pas pour l'université, j'apprends les chorégraphies de mes chansons préférées (≧∀≦)",
-                    "J'aime énormément la K-POP et l'univers qui lui est associé !",
-                    "En parlant d'univers, j'apprécie également celui des animés, k-drama ou autres séries asiatiques ^^"]
-
-        return render_template("base_membre.html", prenom="Adjovi", age="18", roles=roles, passions=passions)
-    
-    @app.route("/equipe/bouchra")
-    def bouchra():
-        roles = ["Je suis également responsable de la gestion de la base de données, en veillant à son intégrité et à son bon fonctionnement.",
-                  "Je m'assure que les données soient correctement organisées, mises à jour et accessibles en tout temps."]
-        
-        passions = ["Je suis fascinée par la psychologie et le développement personnel.",  
-                    "J'adore voyager et découvrir de nouvelles cultures.",    
-                    "Quand j'ai du temps libre, je me plonge dans un bon livre ou je regarde des documentaires."]
-
-        return render_template("base_membre.html", prenom="Bouchra", age="20", roles=roles, passions=passions)
     
     return app

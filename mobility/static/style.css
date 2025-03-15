@@ -1,22 +1,6 @@
+/* -- Style body/html -- */
 html {
    font-family: sans-serif;
-}
-
-
-header {
-   position: fixed;
-   width: 985px;
-   margin: 0;
-   background-color: #b0bfc8;
-   margin-inline-start: 0%;
-   top: 0;
-}
-
-main {
-   display: flex;
-   justify-content: center;
-   align-items: stretch;
-   margin: 0 auto;
 }
 
 body {
@@ -24,62 +8,17 @@ body {
    margin: 0;
    background: #FEFEFF;
    padding-top: 50px;
-   padding-bottom: 0px;
+   padding-bottom: 0;
 }
 
-div.contenu-central {
-   max-height: fit-content;
-   flex: 1;
-   background: #fff;
-   padding: 20px;
-   box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
-}
-
-div.cotes {
-   width: 13%;
-   background: transparent;
-}
-
-
-h1 {
-   font-family: serif;
-   margin: 1rem 0;
-}
-
-div.titre-box {
-   width: max-content;
-   background-color: #fafffd;
-   margin: auto;
-   margin-top: 10px;
-   margin-bottom: 35px;
-   padding: 450px;
-   border-radius: 50px 50px 50px 50px;
-   padding-bottom: 5px;
-   padding-top: 5px;
-   box-shadow: 0.2px 0.8px 4px #224a5240;
-}
-
-div.mini_titre-box {
-   width: max-content;
-   background-color: #ffffff;
-   margin-top: 20px;
-   margin-bottom: 20px;
-   padding: 50px;
-   padding-bottom: 1px;
-   padding-top: 1px;
-   border-radius: 50px;
-   box-shadow: 0.2px 0.8px 4px #224a5240;
-   text-align: center;
-}
-
-a.lien {
-   color: #EBE3F5;
-   text-decoration: none;
-}
-
-a.lien:hover {
-   color: #d6ecff;
-   text-decoration: underline;
+/* -- Le navigateur -- */
+header {
+   position: fixed;
+   width: 985px;
+   margin: 0;
+   background-color: #b0bfc8;
+   margin-inline-start: 0%;
+   top: 0;
 }
 
 nav {
@@ -120,21 +59,77 @@ a.none {
    text-decoration: none;
 }
 
-a.bouton {
-   background-color: #224a52;
+a.lien {
    color: #EBE3F5;
-   padding: 6px 10px;
-   font-size: 16px;
-   border: none;
-   border-radius: 5px;
    text-decoration: none;
 }
 
-a.bouton:hover {
-   background-color: #2e6b64;
+a.lien:hover {
+   color: #d6ecff;
+   text-decoration: underline;
 }
 
+/* -- Le contenu principal -- */
+main {
+   display: flex;
+   justify-content: center;
+   align-items: stretch;
+   margin: 0 auto;
+}
 
+div.contenu-central {
+   max-height: fit-content;
+   flex: 1;
+   background: #fff;
+   padding: 20px;
+   box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
+}
+
+div.cotes {
+   width: 13%;
+   background: transparent;
+}
+
+h1 {
+   font-family: serif;
+   margin: 1rem 0;
+}
+
+/* -- Les titres-box -- */
+div.titre-box {
+   width: max-content;
+   background-color: #fafffd;
+   margin: auto;
+   margin-top: 10px;
+   margin-bottom: 35px;
+   padding: 450px;
+   border-radius: 50px 50px 50px 50px;
+   padding-bottom: 5px;
+   padding-top: 5px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+}
+
+div.mini_titre-box {
+   width: max-content;
+   background-color: #ffffff;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   padding: 50px;
+   padding-bottom: 1px;
+   padding-top: 1px;
+   border-radius: 50px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+   text-align: center;
+}
+
+div.statistique {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+}
+
+/* -- Style de l'équipe -- */
 div.equipe {
    display: grid;
    grid-template-columns: repeat(2, 1fr);
@@ -142,6 +137,12 @@ div.equipe {
    row-gap: 10px;
    width: 87%;
    margin: auto;
+}
+
+.membre-box {
+   display: flex;
+   z-index: 1;
+   flex-direction: column;
 }
 
 div.membre {
@@ -173,7 +174,6 @@ div.info h2 {
    font-weight: 500;
 }
 
-
 div.info_sup {
    position: relative;
    width: 66px;
@@ -187,8 +187,6 @@ div.info_sup {
    color: #7b8a8b;
    cursor: pointer;
    transition: all 0.3s ease;
-
-
 }
 
 .info_sup:hover {
@@ -202,17 +200,41 @@ div.info_sup {
    opacity: 1;
 }
 
-div.case {
-   background-color: #90bdae;
-   margin: 8px;
-   padding: 4px;
-   text-align: center;
-   font-size: 16px;
-   border: 3px solid #0e4c2d;
-   border-radius: 8px;
-   width: fit-content;
+/* -- Info supplémentaire des membres -- */
+.bandelette {
+   display: none;
+   align-items: center;
+   border-radius: 0px 0px 10px 50px;
+   box-shadow: 8px 8px 11px rgba(0, 0, 0, 0.1);
+   padding: 10px 20px;
+   width: 350px;
+   position: relative;
+   bottom: 40px;
+   background-color: var(--fond);
+   color: var(--couleur);
+   z-index: -1;
+   background: linear-gradient(80deg, var(--fond) 77.3%, white 22.7%);
 }
 
+.bandelette:target {
+   display: block;
+}
+
+.bandelette .close {
+   display: block;
+   text-align: right;
+   text-decoration: none;
+   font-weight: bold;
+   margin-top: 5px;
+}
+
+ul.passion {
+   position: relative;
+   margin: 0;
+   bottom: 8px;
+}
+
+/* -- Style des images -- */
 img.profil {
    position: absolute;
    width: 97px;
@@ -225,8 +247,12 @@ img.profil {
 }
 
 img.logo {
-   width: 50px;
+   width: 30px;
    height: auto;
+   margin-right: 5px;
+   object-fit: cover;
+   vertical-align: middle;
+   border-radius: 50%;
 }
 
 img.icon {
@@ -239,7 +265,6 @@ img.icon {
 }
 
 img.fond {
-
    object-fit: cover;
    max-height: 350px;
    width: 100%;
@@ -247,6 +272,7 @@ img.fond {
    margin: 0 auto;
 }
 
+/* -- Style des tables -- */
 .flights {
    display: grid;
    grid-template-columns: 1fr 1fr;
@@ -268,14 +294,6 @@ td {
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
 
-div.statistique {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: auto;
-}
-
-
 table {
    height: 100px;
    text-align: center;
@@ -286,4 +304,30 @@ table tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
+}
+
+/* -- Pas encore utilisé -- */
+div.case {
+   background-color: #90bdae;
+   margin: 8px;
+   padding: 4px;
+   text-align: center;
+   font-size: 16px;
+   border: 3px solid #0e4c2d;
+   border-radius: 8px;
+   width: fit-content;
+}
+
+a.bouton {
+   background-color: #224a52;
+   color: #EBE3F5;
+   padding: 6px 10px;
+   font-size: 16px;
+   border: none;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+a.bouton:hover {
+   background-color: #2e6b64;
 }
