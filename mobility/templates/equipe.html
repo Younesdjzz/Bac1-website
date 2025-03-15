@@ -8,16 +8,28 @@
 
 {% block content %}
 <div class="equipe">
-    {% for membre, route, image, role, fond, couleur in info_equipe %}
-    <div class="membre" style="--fond: {{fond}}">
-        <img class="profil" src='{{ url_for("static", filename="equipe/"+image) }}'>
-        <div class="info" style="--couleur: {{couleur}}">
-            <h2>{{membre}}</h2>
-            {{role}}
+    {% for membre, image, role, fond, couleur, passions, discord, logo_discord in info_equipe %}
+    <div class="membre-box">
+        <div class="membre" style="--fond: {{fond}}">
+            <img class="profil" src='{{ url_for("static", filename="equipe/"+image) }}'>
+            <div class="info" style="--couleur: {{couleur}}">
+                <h2>{{membre}}</h2>
+                {{role}}
+            </div>
+            <a href="#{{membre}}" class="none">
+                <div class="info_sup">&#9776;</div>
+            </a>
         </div>
-        <a href={{route}} class="none">
-            <div class="info_sup" style="--fond: {{fond}}; --couleur: {{couleur}}">&#9776;</div>
-        </a>
+        <div id="{{membre}}" class="bandelette" style="--fond: {{fond}}; --couleur: {{couleur}}">
+            <p>Mes passions :</p>
+            <ul class="passion">
+                {% for passion in passions %}
+                <li>{{passion}}</li>
+                {% endfor %}
+            </ul>
+            <img class="logo" src="{{ url_for('static', filename='discord/'+logo_discord) }}">{{discord}}
+            <a href="#" class="none close">✖</a>
+        </div>
     </div>
     {% endfor %}
 </div>
