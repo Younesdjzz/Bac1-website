@@ -282,17 +282,27 @@ img.fond {
    justify-items: center;
 }
 
+div.tableau {
+   max-height: 250px;
+   overflow-y:scroll;
+   overflow-x: hidden;
+   width: fit-content;
+   padding-right: 32px;
+   padding-left: 32px;
+
+}
+
 th {
    background: #224a52;
    border-radius: 4%;
    color: rgba(255, 255, 255, 0.851);
 }
 
-th,
-td {
+th, td {
    padding: 10px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
+
 
 table {
    height: 100px;
@@ -303,7 +313,8 @@ table {
 table tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
-   box-shadow: 8px 8px 24px #224a5240;
+   box-shadow: 8px 8px 24px #224a5240;                   
+   z-index: 10;          
 }
 
 /* -- Pas encore utilisé -- */
