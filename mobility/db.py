@@ -29,6 +29,7 @@ def close_db(e=None):
         db.close()
 
 def init_db():
+    """Initialise la base de données en exécutant le script de schéma si la base n'existe pas déjà."""
     db = get_db()
     # Vérifier si la base de données existe déjà pour ne pas la recréer
     if not os.path.exists(current_app.config['DATABASE']):

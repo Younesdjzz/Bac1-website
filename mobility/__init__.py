@@ -4,6 +4,17 @@ from . import stats
 
 
 def create_app(test_config=None):
+    """
+    Créer et configure un application Flask 
+    
+    post:
+        Retourne une instance configurée de l'application Flask.
+        Les blueprints 'airport' et 'stats' sont enregistrés.
+        Les routes principales ('/', '/equipe') sont définies.
+        La configuration est chargée selon le mode (test ou production).
+        Le dossier instance est créé s'il n'existe pas.
+        La fonction db.init_app(app) a été appelée pour initialiser l'accès à la base de données.
+    """
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     
@@ -44,6 +55,9 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/')
     def index():
+        """
+        Défini les variables pour la page d'accueuil 
+        """
         bienvenu = "Bienvenue sur le site web de Celestia airlines"
         membres = "Younes, Yassine, Zakaria, Adjovi, et Bouchra"
 
@@ -51,9 +65,12 @@ def create_app(test_config=None):
 
     @app.route('/equipe')
     def equipe():
+        """
+        Defini les variables pour les pages de présentations de l'équipe
+        """
         team = ["Younes", "Yassine", "Adjovi", "Bouchra", "Zakaria",]
         image = ["younes.jpg", "yassine.png", "adjovi.jpg","bouchra.jpg", "zakaria.jpg"]
-        roles = ["Front-end web designer", "Is choosing a role...", "Database Management","Database Management", "Is choosing a role...",]
+        roles = ["Front-end web designer", "Database Management", "Database Management","Database Management", "Is choosing a role...",]
         fonds = ["#313131", "#E0403A", "#fad989","#ff66b2", "#999999"]
         couleurs = ["#ede6f3", "#F0F0F0 ", "#703A1F", "#002b17", "#333333"]
         passions = [["Jeux vidéos", "Anime (Vinland Saga)"], ["Travailler", "Anime (One piece)"], ["K-POP", "Anime", "K-drama"], ["Lecture", "Voyage"], ["Sport", "Voyage"]]
