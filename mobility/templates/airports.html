@@ -13,7 +13,7 @@
 </div>
 
 <form method="GET" action="{{ url_for('airport.requete_aeroport') }}">
-    <label for="airport">Choisez un aéroport :</label>
+    <label for="airport">Choisissez un aéroport :</label>
     <input list="airports" id="airport" name="airport_name" placeholder="Tapez le nom de l'aéroport" autocomplete="off">
     <datalist id="airports">
         {% for airport in airports %}
