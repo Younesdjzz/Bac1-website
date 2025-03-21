@@ -78,7 +78,50 @@ def nombre_de_vols_par_jour(iata_code):
     """, (iata_code, iata_code)).fetchall()
 
     return vols_jour
+def get_flight_info_for_airports(iata_code: str, date: str = '2025-01-01'):
+    """
+    Cette fonction retourne les informations concernant les vols (destination, distance, émissions de CO₂)
+    pour un aéroport donné (par code IATA) pour une date spécifiée.
 
+    pré:
+        iata_code : le code IATA de l'aéroport (ex : 'BRU')
+        date : la date des vols à consulter (par défaut '2025-01-01')
+    post:
+        Retourne une liste des informations de vol pour cet aéroport :
+        - Nom de l'aéroport de départ
+        - Nom de l'aéroport d'arrivée
+        - Distance du vol (en km)
+        - Émissions de CO₂ (en kg)
+    """
+    db = get_db()
+    query = """
+    SELECT 
+        ap_dep.name AS "Aéroport de départ",
+        ap_dest.name AS "Aéroport d'arrivée",
+        ROUND(
+            6371 * ACOS(
+                COS(RADIANS(ap_dep.latitude_deg)) * COS(RADIANS(ap_dest.latitude_deg)) *
+                COS(RADIANS(ap_dest.longitude_deg) - RADIANS(ap_dep.longitude_deg)) +
+                SIN(RADIANS(ap_dep.latitude_deg)) * SIN(RADIANS(ap_dest.latitude_deg))
+            ), 2
+        ) AS "Distance (km)",
+        ROUND(
+            0.115 * (
+                6371 * ACOS(
+                    COS(RADIANS(ap_dep.latitude_deg)) * COS(RADIANS(ap_dest.latitude_deg)) *
+                    COS(RADIANS(ap_dest.longitude_deg) - RADIANS(ap_dep.longitude_deg)) +
+                    SIN(RADIANS(ap_dep.latitude_deg)) * SIN(RADIANS(ap_dest.latitude_deg))
+                )
+            ), 2
+        ) AS "Émissions CO₂ (kg)"
+    FROM flight f
+    JOIN airport ap_dep ON f.iata_departure = ap_dep.iata_code
+    JOIN airport ap_dest ON f.iata_arrival = ap_dest.iata_code
+    WHERE f.flight_date = ?
+    AND (f.iata_departure = ? OR f.iata_arrival = ?)
+    ORDER BY ap_dep.name, ap_dest.name;
+    """
+    return db.execute(query, (date, iata_code, iata_code)).fetchall()
 
 class Airport:
     """
