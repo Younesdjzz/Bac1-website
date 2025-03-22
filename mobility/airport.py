@@ -5,7 +5,7 @@ from flask import (
 from mobility.db import get_db
 from mobility.models.airport import Airport
 from mobility.models.airport import get_all_airports, nombre_de_vols_par_type, nombre_de_vols_par_jour
-from mobility.models.airport import get_flight_info_for_airports
+
 
 bp = Blueprint('airport', __name__)
 
@@ -27,17 +27,14 @@ def requete_aeroport():
             vols_type: soit la liste des vols par type pour l'aéroport trouvé, soit une liste avec des valeurs par défaut.
             selected_airport: le nom de l'aéroport tel qu'indiqué dans la requête.
             airport_not_found: un booléen indiquant si l'aéroport recherché n'a pas été trouvé dans la base de données.
-            flight_info: informations de vol (destination, distance, émissions CO₂)
     """
     db = get_db()
     airport_name = request.args.get('airport_name')
-    selected_date = request.args.get('date', '2025-01-01')  # Définit la date par défaut si non spécifiée
 
     airports = get_all_airports()
     vols_jour = []
     vols_type = []
-    flight_info = []  # Variable pour stocker les informations de vol
-    airport_not_found = False
+    airport_not_found = False 
 
     if airport_name:
         airport = db.execute("""
@@ -48,21 +45,19 @@ def requete_aeroport():
             iata_code = airport[0]
             vols_jour = nombre_de_vols_par_jour(iata_code)
             vols_type = nombre_de_vols_par_type(iata_code)
-            # Appeler la fonction pour obtenir les informations de vol
-            flight_info = get_flight_info_for_airports(iata_code, selected_date)
 
         if not airport:
             airport_not_found = True
 
         elif not vols_jour:
-            jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+            jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'jeudi', 'Vendredi', 'Samedi', 'Dimanche']
             vols_jour = [{'jour_semaine': jour, 'nombre_de_vols': 0} for jour in jours_semaine]
-            vols_type = [{'name': '/', 'aircraft_type': '/', 'vols_totaux': '/'}]
+            vols_type = [{'name': "/", 'aircraft_type' : "/", "vols_totaux" : "/"}]
 
     return render_template("airports.html", 
                            airports=airports, 
                            vols_jour=vols_jour, 
                            vols_type=vols_type, 
-                           flight_info=flight_info,  # Passer les informations de vol au template
                            selected_airport=airport_name,
                            airport_not_found=airport_not_found)
+
