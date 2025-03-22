@@ -50,7 +50,7 @@ def requete_aeroport():
             airport_not_found = True
 
         elif not vols_jour:
-            jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+            jours_semaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
             vols_jour = [{'jour_semaine': jour, 'nombre_de_vols': 0} for jour in jours_semaine]
             vols_type = [{'name': "/", 'aircraft_type' : "/", "vols_totaux" : "/"}]
 
