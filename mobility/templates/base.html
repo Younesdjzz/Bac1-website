@@ -11,9 +11,11 @@
 
 <body>
     <nav>
+        <div class="nav-left">
+            <img class="logo_site" src="{{url_for('static', filename='logo_site_bleu.png')}}" alt="Logo">Celestia Airlines
+        </div>
         <ul>
-            <li><img class="logo_site" src="{{url_for('static', filename='logo_site_bleu.png')}}"></li>
-            <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/home.png') }}"
+            <li><a href="/" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_home.png') }}"
                         class="icon">Page d'acceuil</a></li>
             <li><a href="/equipe" class="lien"><img src="{{ url_for('static', filename='navigateur/icon_equipe.png') }}"
                         class="icon">Equipe</a></li>
@@ -23,6 +25,9 @@
             <li><a href="/airport" class="lien"><img
                         src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
                         class="icon">Aéroports</a></li>
+            <li><a href="/airport" class="lien"><img
+                        src="{{ url_for('static', filename='navigateur/icon_voyages.png') }}"
+                        class="icon">Voyages</a></li>
         </ul>
     </nav>
 

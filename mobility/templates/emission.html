@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block titre %}
+<h1>Listes des aéroports</h1>
+{% endblock %}
+
+{% block content_up %}{% endblock %}
+
+{% block content %}
+
+<div class="mini_titre-box">
+    <h2>Choix de la destination</h2>
+</div>
+
+<form method="GET" action="{{ url_for('airport.requete_aeroport') }}">
+    <label for="airport">Choisissez l'aéroport de départ</label>
+    <input list="airports" id="airport" name="airport_name" placeholder="Tapez le nom de l'aéroport" autocomplete="off">
+    <datalist id="airports">
+        {% for airport in airports %}
+        <option value="{{ airport.name }}">
+            {% endfor %}
+    </datalist>
+    <label for="airport">Choisissez l'aéroport d'arrivée :</label>
+    <input list="airports" id="airport" name="airport_name" placeholder="Tapez le nom de l'aéroport" autocomplete="off">
+    <datalist id="airports">
+        {% for airport in airports %}
+        <option value="{{ airport.name }}">
+            {% endfor %}
+    </datalist>
+    <button type="submit">Voir les détails</button>
+</form>
+
+{% if airport_not_found %}
+<p>L'aéroport "{{ selected_airport }}" n'est pas répertorié dans notre base de données</p>
+{% endif %}
+
+{% if selected_airport and not airport_not_found %}
+<div class="flights">
+
+    <div class="mini_titre-box">
+        <h2>Vols par jour</h2>
+    </div>
+
+    <div class="mini_titre-box">
+        <h2>Nombres de vols par type d'appareil</h2>
+    </div>
+
+    <table>
+
+        <tr>
+            {% for vol in vols_jour %}
+            <th>{{ vol.jour_semaine }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for vol in vols_jour %}
+            <td>{{ vol.nombre_de_vols }}</td>
+            {% endfor %}
+        </tr>
+
+    </table>
+
+
+
+    <table>
+        <tr>
+            <th>Type d'appareil</th>
+            <th>Nombres de vols</th>
+        </tr>
+        {% for vol in vols_type %}
+        <tr>
+            <td>{{ vol.aircraft_type }}</td>
+            <td>{{ vol.vols_totaux }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block content_down %}{% endblock %}
