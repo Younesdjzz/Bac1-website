@@ -5,7 +5,7 @@ from mobility.models.stats import *
 
 bp = Blueprint('number_data_table', __name__)
 
-@bp.route('/compute_data')
+@bp.route('/statistiques')
 def compute_data():
     """Calcule diverses statistiques sur les vols, compagnies aériennes, aéroports, pays et avions,
     puis retourne le rendu du template "statistique.html" en transmettant ces données."""
