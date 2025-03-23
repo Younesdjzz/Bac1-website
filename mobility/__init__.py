@@ -29,7 +29,7 @@ def create_app(test_config=None):
     from . import airport
     app.register_blueprint(airport.bp)
     app.register_blueprint(stats.bp)
-    
+    app.register_blueprint(emission.bp)
 
 
     app.add_url_rule('/', endpoint='index')
