@@ -1,6 +1,5 @@
 from mobility.db import get_db
 
-
 def aeroport_info(iata_code): 
     db = get_db()
     return db.execute("""SELECT 

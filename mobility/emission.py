@@ -8,9 +8,7 @@ from decimal import Decimal
 import math
 from enum import Enum
 
-
 bp = Blueprint('emission', __name__)
-
 
 
 def get_flights():
@@ -21,16 +19,6 @@ def get_flights():
     return l
         
 
-
-
-
-
-
-
-
-
-
-
 class AirCraft(Enum):
     S = 0   #1T
     M = 1   #2.5T
@@ -38,8 +26,6 @@ class AirCraft(Enum):
     J = 3   #12T
     Erreur = 4
     
-
-
 def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: Decimal) -> Decimal:
     '''Cette fonction va retourner la distance entre 2 points'''
     R = 6378
@@ -61,17 +47,12 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
         conso = 0
     
     #calcul de la durée de vol
-    time = distance/800
+    duree = distance/800
 
     #calcul de la qtt de CO2 émit
-    CO2_emit = conso*3.15*2*time
+    CO2_emit = conso*3.15*2*duree
     
     return CO2_emit
-
-
-
-
-
 
 
 
