@@ -25,25 +25,8 @@ def get_flights():
 
 
 
-def departures(l):
-    name = []
-    for airport_and_flight in l:
-        for airport in airport_and_flight:
-
-            name.append(airport[0])
-    return name
 
 
-def arrivals(l):
-    d = {}
-    for af in l:
-        for a in af:
-            a_dep = a[0] 
-            a_arr = a[3]
-            if a_dep not in d:
-                d[a_dep] = []
-            d[a_dep].append(a_arr)
-    return d
 
 
 
@@ -86,39 +69,10 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     return CO2_emit
 
 
-def dico_dist(l):
-    d = {}
-    for af in l:
-        for a in af:
-            a_dep = a[0]
-            lat_from = a[1] 
-            long_from = a[2]
-            lat_to = a[4] 
-            long_to = a[5]
-            if a_dep not in d:
-                d[a_dep] = []
-            d[a_dep].append(distance(lat_from,long_from,lat_to,long_to))
-    return d
 
 
-def dico_emiss(l):
-    d = {}
-    for af in l:
-        for a in af:
-            a_dep = a[0]
-            lat_from = a[1] 
-            long_from = a[2]
-            lat_to = a[4] 
-            long_to = a[5]
-            type = a[6]
-            if type in ["M","S","J","H"]:
-                aircraft = AirCraft[a[6]]
-            else:
-                aircraft = AirCraft[4]
-            if a_dep not in d:
-                d[a_dep] = []
-            d[a_dep].append(emission(distance(lat_from,long_from,lat_to,long_to),aircraft ))
-    return d
+
+
 
 
 @bp.route('/emission')
