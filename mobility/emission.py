@@ -1,47 +1,77 @@
-from enum import Enum
-import math
-from decimal import Decimal
+from flask import (
+    Blueprint, render_template, current_app
+)
+from mobility.models.emission import aeroport_info
 from mobility.db import get_db
-class AirCraft(Enum):
-    L = 0
-    M = 1
-    H = 2
-    J = 3
 
+from decimal import Decimal
+import math
+from enum import Enum
+
+bp = Blueprint('emission', __name__)
+
+
+def get_flights():
+    """Récupère les vols depuis la base de données dans le contexte Flask"""
+    with current_app.app_context():
+         
+            l = [aeroport_info("BRU"),aeroport_info("CRL"),aeroport_info("LGG"),aeroport_info("OST"),aeroport_info("ANR")]
+    return l
+        
+
+class AirCraft(Enum):
+    S = 0   #1T
+    M = 1   #2.5T
+    H = 2   #5T
+    J = 3   #12T
+    Erreur = 4
+    
 def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: Decimal) -> Decimal:
-    return 0
+    '''Cette fonction va retourner la distance entre 2 points'''
+    R = 6378
+
+    D = R*(math.acos(math.sin(math.radians(lat_from))*math.sin(math.radians(lat_to))+math.cos(math.radians(lat_from))*math.cos(math.radians(lat_to))*(math.cos(math.radians(long_from)-math.radians(long_to)))))
+    return D
 
 def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
-    return 0
+    #condition pour définir la consommation par type d'appareil
+    if aircraft == AirCraft.S:
+        conso = 1
+    elif aircraft == AirCraft.M:
+        conso = 2.5
+    elif aircraft == AirCraft.H:
+        conso = 5
+    elif aircraft == AirCraft.J:
+        conso = 12
+    else: 
+        conso = 0
+    
+    #calcul de la durée de vol
+    duree = distance/800
 
-def vols_depart_5_aeroports(iata_codes):
-    """
-    Cette fonction retourne les informations sur tous les vols partant des 5 plus grands aéroports belges
-    le 1er janvier 2025.
+    #calcul de la qtt de CO2 émit
+    CO2_emit = conso*3.15*2*duree
     
-    Pré:
-        iata_codes : une liste de 5 codes IATA des aéroports (BRU, CRL, LGG, OST, ANR).
-        La connexion avec la base de données doit être établie.
-    
-    Post:
-        La fonction retourne une liste de tuples, chaque tuple contenant les informations suivantes :
-        (flight_id, iata_flight, flight_date, iata_departure, departure_airport, 
-         iata_arrival, arrival_airport, departure_time, arrival_time, airline, aircraft)
-    """
-    db = get_db()  
-    vols = db.execute("""
-        SELECT f.flight_id, f.iata_flight, f.flight_date, 
-               f.iata_departure, a1.name AS departure_airport, 
-               f.iata_arrival, a2.name AS arrival_airport, 
-               f.departure_time, f.arrival_time, 
-               al.name AS airline, ac.name AS aircraft
-        FROM flight f
-        JOIN airport a1 ON f.iata_departure = a1.iata_code
-        JOIN airport a2 ON f.iata_arrival = a2.iata_code
-        JOIN airline al ON f.iata_airline = al.iata_airline
-        JOIN aircraft ac ON f.iata_aircraft = ac.iata_aircraft
-        WHERE f.iata_departure IN ('BRU','CRL','LGG','OST','ANR')
-          AND f.flight_date = '2025-01-01'
-    """, tuple(iata_codes)).fetchall()
-    
-    return vols
+    return CO2_emit
+
+@bp.route('/emission')
+def page_emission():
+    l = get_flights()
+    d = {}
+    for i in l:
+        if not i:
+            continue  
+        a_dep = i[0][0]  
+        if a_dep not in d:
+            d[a_dep] = []
+        for j in i:
+            if j[6] in ["M","S","J","H"]:
+                aircraft = AirCraft[j[6]]
+            else:
+                aircraft = AirCraft[4]
+            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),emission(distance(j[1],j[2],j[4],j[5]), aircraft) ])
+            #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
+
+    return render_template("emission.html", data=d)
+
+

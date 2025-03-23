@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template
 from . import stats
-from . import emission
 
 def create_app(test_config=None):
     """
@@ -26,10 +25,15 @@ def create_app(test_config=None):
             DATABASE=os.path.join(app.instance_path, "../instance/db.sqlite"),
         )
 
+    from . import db
+    db.init_app(app)
     from . import airport
+    from . import emission
     app.register_blueprint(airport.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(emission.bp)
+    
+    
 
 
     app.add_url_rule('/', endpoint='index')
@@ -47,8 +51,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import db
-    db.init_app(app)
+    
 
     # No need to call db.init_db() because we're using an existing database
 
