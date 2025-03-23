@@ -54,8 +54,6 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     
     return CO2_emit
 
-
-
 @bp.route('/emission')
 def page_emission():
     l = get_flights()
