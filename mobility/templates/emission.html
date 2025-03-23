@@ -1,17 +1,30 @@
 {% extends "base.html" %}
 
 {% block titre %}
-<h1>Voyages</h1>
+<h1>Émissions de CO₂ par Aéroport de Départ</h1>
 {% endblock %}
-
-{% block content_up %}{% endblock %}
 
 {% block content %}
-
-<div class="mini_titre-box">
-    <h2>Choix de la destination</h2>
-</div>
-
+    {% for dep, flights in data.items() %}
+        <h2>Aéroport de départ : {{ dep }}</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Aéroport d'arrivée</th>
+                    <th>Distance (km)</th>
+                    <th>Émissions CO₂ (kg)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flight in flights %}
+                <tr>
+                    <td>{{ flight[1] }}</td> <!-- Aéroport d'arrivée -->
+                    <td>{{ flight[2] | round(2) }}</td> <!-- Distance arrondie à 2 décimales -->
+                    <td>{{ flight[3] | round(2) }}</td> <!-- Émissions arrondies à 2 décimales -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    {% endfor %}
 {% endblock %}
-
-{% block content_down %}{% endblock %}
