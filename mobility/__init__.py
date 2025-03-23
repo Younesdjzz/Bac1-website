@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template
 from . import stats
-
+from . import emission
 
 def create_app(test_config=None):
     """
