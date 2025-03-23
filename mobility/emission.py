@@ -66,7 +66,6 @@ def page_emission():
         a_dep = i[0][0]  
         if a_dep not in d:
             d[a_dep] = []
-
         for j in i:
             if j[6] in ["M","S","J","H"]:
                 aircraft = AirCraft[j[6]]
