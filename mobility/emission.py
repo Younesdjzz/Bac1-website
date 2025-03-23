@@ -12,6 +12,7 @@ def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: D
     return 0
 
 def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
+<<<<<<< HEAD
     return 0
 
 def vols_depart_5_aeroports(iata_codes):
@@ -45,3 +46,6 @@ def vols_depart_5_aeroports(iata_codes):
     """, tuple(iata_codes)).fetchall()
     
     return vols
+=======
+    return 0
+>>>>>>> 205f983a9fa8e0c12ccdb7472325fbecb59d3f7c
