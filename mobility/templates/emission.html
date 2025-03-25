@@ -1,30 +1,60 @@
 {% extends "base.html" %}
 
 {% block titre %}
-<h1>Émissions de CO₂ par Aéroport de Départ</h1>
+<h1>Émissions de CO₂ du 1er Janvier 2025</h1>
 {% endblock %}
 
 {% block content %}
-    {% for dep, flights in data.items() %}
-        <h2>Aéroport de départ : {{ dep }}</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Aéroport d'arrivée</th>
-                    <th>Distance (km)</th>
-                    <th>Émissions CO₂ (kg)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for flight in flights %}
-                <tr>
-                    <td>{{ flight[1] }}</td> <!-- Aéroport d'arrivée -->
-                    <td>{{ flight[2] | round(2) }}</td> <!-- Distance arrondie à 2 décimales -->
-                    <td>{{ flight[3] | round(2) }}</td> <!-- Émissions arrondies à 2 décimales -->
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <br>
-    {% endfor %}
+{% for dep, flights in data.items() %}
+<div class="mini_titre-box">
+    <h2>Aéroport de départ : {{ dep }}</h2>
+</div>
+
+{% set count = namespace(airports={}) %}
+<!-- variable qui compte le nombre de fois où un même aeroport de départ est présent-->
+{% for flight in flights %}
+    {% if flight[1] in count.airports %}
+        {% set _ = count.airports.update({flight[1]: count.airports[flight[1]] + 1}) %}
+    {% else %}
+        {% set _ = count.airports.update({flight[1]: 1}) %}
+    {% endif %}
+{% endfor %}
+
+<div class="tableau">
+    <table>
+        <thead>
+            <tr>
+                <th>Aéroport d'arrivée</th>
+                <th>Nombres de vols</th>
+                <th>Distance (km)</th>
+                <th>Émissions CO₂ (kg) par vol</th>
+            </tr>
+        </thead>
+
+        {% set bilan_carb = namespace(val=0) %} <!--Bilan carbone-->
+        {% set affiche = namespace(airports=[]) %} <!--Liste pour savoir si un airport est déjà affiché-->
+
+        {% for flight in flights %}
+            {% if flight[1] not in affiche.airports %}
+            <tr>
+                <td>
+                {% if count.airports[flight[1]] > 1 and flight[1] not in affiche.airports %}
+                    {% set affiche.airports = affiche.airports.append(flight[1]) or affiche.airports %}
+                {% endif %}
+                {{ flight[1] }}
+                </td> <!-- Aéroport d'arrivée -->
+                <td>{{ count.airports[flight[1]] }}</td>
+                <td>{{ flight[2] | round(2) }}</td> <!-- Distance arrondie à 2 décimales -->
+                <td>{{ flight[3] | round(2) }}</td> <!-- Émissions arrondies à 2 décimales -->
+            </tr>
+            {% endif %}
+            {% set bilan_carb.val = bilan_carb.val + flight[3] | round(2) %}
+        {% endfor %}
+
+    </table>
+</div>
+<div class="mini_titre-box">
+    <h2>Bilan carbone : {{ bilan_carb.val | round(2) }} kg CO2</h2>
+</div>
+{% endfor %}
 {% endblock %}
