@@ -151,6 +151,12 @@ div.mini_titre-box {
    text-align: center;
 }
 
+div.double_titre {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   width:min-content;
+   column-gap: 20px;
+}
 
 /* -- Style de l'équipe -- */
 div.equipe {
