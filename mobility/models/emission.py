@@ -2,6 +2,7 @@ from mobility.db import get_db
 
 def aeroport_info(iata_code): 
     db = get_db()
+    
     return db.execute("""SELECT 
                       dep_airport.name AS "aeroport_dep",
                       dep_airport.latitude_deg AS "lat_dep", 
