@@ -74,6 +74,10 @@ INSERT INTO flight (
     iata_airline, iata_aircraft, iata_flight, flight_date,
     iata_departure, iata_arrival, departure_time, arrival_time
 ) VALUES 
-("AF", "A320", "AF123", "2025-03-26", "CDG", "HEL", "08:00", "11:00"),
-("AY", "E190", "AY456", "2025-03-26", "HEL", "CDG", "13:00", "16:00");
+("AF", "A320", "AF123", "2025-03-26", "CDG", "CRL", "08:00", "11:00"),
+("AY", "E190", "AY456", "2025-03-26", "CRL", "CDG", "13:00", "16:00");
+
+INSERT INTO country VALUES ("FR", "France");
+INSERT INTO country VALUES ("BE", "Belgique");
+
 COMMIT;
