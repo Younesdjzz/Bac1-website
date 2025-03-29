@@ -9,19 +9,10 @@ body {
    background: #FEFEFF;
    padding-top: 50px;
    padding-bottom: 0;
-
+   background-color: #BCE0DD;
 }
 
 /* -- Le navigateur et footer-- */
-header {
-   position: fixed;
-   width: 985px;
-   margin: 0;
-   background-color: #b0bfc8;
-   margin-inline-start: 0%;
-   top: 0;
-}
-
 nav {
    position: fixed;
    width: 100vw;
@@ -34,6 +25,20 @@ nav {
    z-index: 100;
 }
 
+nav .nav-left {
+   margin-left: 110px;
+   display: flex;
+   align-items: center;
+   color:#ffffff;
+   font-size: large;
+   font-weight: bold;
+}
+
+nav .nav-left img {
+   margin-right: 7px;
+}
+
+
 nav h1 {
    flex: auto;
    margin: 0;
@@ -43,7 +48,8 @@ nav ul {
    display: flex;
    list-style: none;
    margin: 0;
-   margin-left: 20%;
+   margin-left: auto;
+   margin-right:200px;
    padding: 0;
 }
 
@@ -52,6 +58,7 @@ nav ul li span,
 header {
    display: flex;
    padding: 0.5rem;
+   margin-left: 15px;
    text-decoration: none;
    align-items: center;
 }
@@ -69,7 +76,6 @@ a.lien:hover {
    color: #d6ecff;
    text-decoration: underline;
 }
-
 
 /* -- Le contenu principal -- */
 main {
@@ -145,6 +151,12 @@ div.mini_titre-box {
    text-align: center;
 }
 
+div.double_titre {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   width:min-content;
+   column-gap: 20px;
+}
 
 /* -- Style de l'équipe -- */
 div.equipe {
@@ -253,15 +265,12 @@ ul.passion {
 
 /* -- Style des images -- */
 img.logo_site {
-   position: absolute;
    width: 33px;
    height: auto;
    object-fit: cover;
    border-radius: 50%;
    border: 3.2px solid #ffffff;
    box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
-   top: 2px;
-   left: 10px;
 }
 
 img.site {
@@ -363,17 +372,19 @@ div.tableau {
 }
 
 th {
+   position: sticky;
+   top: 0;
    background: #224a52;
    border-radius: 4%;
    color: rgba(255, 255, 255);
+   z-index: 11;
 }
 
 td {
    background: rgba(250, 255, 253, 0.871);
 }
 
-th,
-td {
+th, td {
    padding: 10px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
@@ -385,7 +396,7 @@ table {
    border-radius: 5%;
 }
 
-table tr:hover {
+tbody tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;

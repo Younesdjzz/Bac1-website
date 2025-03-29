@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block titre %}
+<h1>Émissions de CO₂ du 1er Janvier 2025</h1>
+{% endblock %}
+
+{% block content %}
+{% for dep, flights in data.items() %}
+    {% set bilan_carb = namespace(val=0) %}  <!-- Bilan carbone pour cet aéroport de départ -->
+
+    {% for flight in flights %}
+        {% set bilan_carb.val = bilan_carb.val + (flight[3] or 0) %}  <!-- Calcul du bilan carbone -->
+    {% endfor %}
+
+    <div class="double_titre">
+        <div class="mini_titre-box">
+            <h2>Aéroport de départ : {{ dep }}</h2>
+        </div>
+    
+        <div class="mini_titre-box">
+            <h3>Bilan carbone : {{ bilan_carb.val | round(2) }} kg CO₂</h3>
+        </div>
+    </div>
+    {% set count = namespace(airports={}) %}  <!-- Compteur du nombre de vols -->
+    {% set emissions = namespace(total={}) %}  <!-- Dictionnaire des émissions totales par aéroport d’arrivée -->
+
+    {% for flight in flights %}
+        {% if flight[1] in count.airports %}
+            {% set _ = count.airports.update({flight[1]: count.airports[flight[1]] + 1}) %}
+            {% set _ = emissions.total.update({flight[1]: (emissions.total[flight[1]] or 0) + (flight[3] or 0)}) %}
+        {% else %}
+            {% set _ = count.airports.update({flight[1]: 1}) %}
+            {% set _ = emissions.total.update({flight[1]: flight[3] or 0}) %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="tableau">
+        <table>
+            <thead>
+                <tr>
+                    <th>Aéroport d'arrivée</th>
+                    <th>Nombre de vols</th>
+                    <th>Distance (km)</th>
+                    <th>Émissions CO₂ totales (kg)</th>
+                </tr>
+            </thead>
+
+            {% set affiche = namespace(airports=[]) %}  <!-- Liste des aéroports affichés -->
+
+            {% for flight in flights %}
+                {% if flight[1] not in affiche.airports %}
+                    <tr>
+                        <td>
+                            {% if count.airports[flight[1]] > 1 and flight[1] not in affiche.airports %}
+                                {% set affiche.airports = affiche.airports.append(flight[1]) or affiche.airports %}
+                            {% endif %}
+                            {{ flight[1] }}
+                        </td>
+                        <td>{{ count.airports[flight[1]] }}</td>
+                        <td>{{ (flight[2] or 0) | round(2) }}</td>
+                        <td>{{ (emissions.total[flight[1]] or 0) | round(2) }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+{% endfor %}
+{% endblock %}
