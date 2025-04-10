@@ -7,6 +7,7 @@
     <title>Celestia Airlines</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='logo_site_bleu.png') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -22,12 +23,15 @@
             <li><a href="/statistiques" class="lien"><img
                         src="{{ url_for('static', filename='navigateur/icon_stats.png') }}"
                         class="icon">Statistiques</a></li>
+            <li><a href="/graphiques" class="lien"><img
+                        src="{{ url_for('static', filename='navigateur/icon_graph.png') }}"
+                        class="icon">Graphiques</a></li>
             <li><a href="/airport" class="lien"><img
                         src="{{ url_for('static', filename='navigateur/icon_site_blanc.png') }}"
                         class="icon">Aéroports</a></li>
-            <li><a href="/voyages" class="lien"><img
-                        src="{{ url_for('static', filename='navigateur/icon_voyages.png') }}"
-                        class="icon">Voyages</a></li>
+            <li><a href="/emissions" class="lien"><img
+                        src="{{ url_for('static', filename='navigateur/icon_emission.png') }}"
+                        class="icon">Emission</a></li>
         </ul>
     </nav>
 

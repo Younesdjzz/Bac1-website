@@ -68,7 +68,7 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     
     return CO2_emit
 
-@bp.route('/voyages')
+@bp.route('/emissions')
 def page_emission():
     ''' Pré: Cette fonction ne prends pas d'argument
         Post: cette fonction renvoie un dictionnaire qui aura pour clés, les aéroports de départ et comme valeurs, 
@@ -77,15 +77,15 @@ def page_emission():
         d = {"a_dep1" : [["a_dep1": a_arr, distance,émission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
     l = get_flights()
-    d = {}
+    d = {} 
     for i in l:
+        s = 0
         if not i:
             continue  
         a_dep = i[0][0]  
         if a_dep not in d:
             d[a_dep] = []
         for j in i:
-            s = 0 
             if j[6] in ["M","S","J","H"]:
                 aircraft = AirCraft[j[6]]
             else:

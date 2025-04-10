@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block titre %}
+<h1>Graphique des émissions de CO₂</h1>
+{% endblock %}
+
+{% block content %}
+<div class="mini_titre-box">
+    <h2>Émissions des 4 grands aéroports belges (2024-2025)</h2>
+</div>
+
+<canvas id="grand_aeroport" width="400" height="100"></canvas>
+<script>
+    // l'identifiant est celui du canevas
+    var ctx = document.getElementById('grand_aeroport').getContext('2d');
+    // création du graphique
+    var aeroport = {{ data[0] | tojson }};  // Labels (aéroports)
+    var emission = {{ data[1] | tojson }};  // Données (émissions)
+    console.log(aeroport);  // Vérifie les labels (aéroports)
+    console.log(emission);  // Vérifie les valeurs des émissions
+
+    var myChart = new Chart(ctx, {
+        type: 'bar', // le type du graphique
+        data: { // les données
+            labels: aeroport,
+            datasets: [{
+                label: 'emission',
+                data: emission
+            }]
+        }
+    }
+    );
+</script>
+
+<div class="mini_titre-box">
+    <h2>Comparaison avec les émissions en Belgique (2022)</h2>
+</div>
+<canvas id="belgique" width="400" height="100"></canvas>
+<script>
+    // l'identifiant est celui du canevas
+    var ctx = document.getElementById('belgique').getContext('2d');
+    // création du graphique
+    var aeroport = {{ data[0] | tojson }};  // Labels (aéroports)
+    var emission = {{ data[1] | tojson }};  // Données (émissions)
+    console.log(aeroport);  // Vérifie les labels (aéroports)
+    console.log(emission);  // Vérifie les valeurs des émissions
+
+    var myChart = new Chart(ctx, {
+        type: 'bar', // le type du graphique
+        data: { // les données
+            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
+            datasets: [{
+                label: 'emission',
+                data: [31200000, 55000000, 17000000, 103200000]
+            }]
+        }
+    }
+    );
+</script>
+{% endblock %}
