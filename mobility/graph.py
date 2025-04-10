@@ -1,15 +1,15 @@
 from flask import (
     Blueprint, render_template, current_app
 )
-from mobility.models.emission import aeroport_info
+
 from mobility.db import get_db
 
 from decimal import Decimal
 import math
 from enum import Enum
+from mobility.models.graph import aeroport_bel_info
 
 bp = Blueprint('emission', __name__)
-
 
 def get_flights():
     """ Récupère les vols depuis la base de données dans le contexte Flask
@@ -22,7 +22,7 @@ def get_flights():
     """
     with current_app.app_context():
          
-            l = [aeroport_info("BRU"),aeroport_info("CRL"),aeroport_info("LGG"),aeroport_info("OST"),aeroport_info("ANR")]
+            l = [aeroport_bel_info("BRU"),aeroport_bel_info("CRL"),aeroport_bel_info("LGG"),aeroport_bel_info("OST"),aeroport_bel_info("ANR")]
     return l
         
 
@@ -74,7 +74,7 @@ def page_emission():
         Post: cette fonction renvoie un dictionnaire qui aura pour clés, les aéroports de départ et comme valeurs, 
         une liste qui contient des listes par départ . 
         Le dico peut se représenter comme telle: 
-        d = {"a_dep1" : [["a_dep1": a_arr, distance,émission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
+        d = {"a_dep1" : [["a_dep1": a_arr,emission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
     l = get_flights()
     d = {}
@@ -91,15 +91,10 @@ def page_emission():
             else:
                 aircraft = AirCraft[4]
             emission = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
-            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),emission])
+            d[a_dep].append([j[0], j[3],emission])
             #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
             s += emission
         d[a_dep].append(s)
 
-    return render_template("emission.html", data=d)
-
-
-
-
-
+    return render_template("graph.html", data=d)
 
