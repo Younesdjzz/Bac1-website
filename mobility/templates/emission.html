@@ -18,7 +18,7 @@
         </div>
     
         <div class="mini_titre-box">
-            <h3>Bilan carbone : {{ bilan_carb.val | round(2) }} kg CO₂</h3>
+            <h3>Bilan carbone : {{ bilan_carb.val | round(2) }} T CO₂</h3>
         </div>
     </div>
     {% set count = namespace(airports={}) %}  <!-- Compteur du nombre de vols -->
@@ -41,7 +41,7 @@
                     <th>Aéroport d'arrivée</th>
                     <th>Nombre de vols</th>
                     <th>Distance (km)</th>
-                    <th>Émissions CO₂ totales (kg)</th>
+                    <th>Émissions CO₂ totales (T)</th>
                 </tr>
             </thead>
 
@@ -71,7 +71,7 @@
     </div>
 
     <div class="mini_titre-box">
-        <h3>Bilan carbone : 0 kg CO₂</h3>
+        <h3>Bilan carbone : 0 T CO₂</h3>
     </div>
 </div>
 {% endblock %}

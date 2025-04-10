@@ -46,7 +46,7 @@ def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: D
 def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     ''' Pré: cette fonction prend en argument la distance et le type d'appareil qui est un objet de 
         la classe AirCraft 
-        Post: cette fonction retourne l'émission de CO2 en kg
+        Post: cette fonction retourne l'émission de CO2 en tonne
     '''
     #condition pour définir la consommation par type d'appareil
     if aircraft == AirCraft.S:

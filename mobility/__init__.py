@@ -71,14 +71,14 @@ def create_app(test_config=None):
         """
         Defini les variables pour les pages de présentations de l'équipe
         """
-        team = ["Younes", "Yassine", "Adjovi", "Bouchra", "Zakaria",]
-        image = ["younes.jpg", "yassine.png", "adjovi.jpg","bouchra.jpg", "zakaria.jpg"]
-        roles = ["Front-end web designer", "Database Management", "Database Management","Database Management", "Is choosing a role...",]
+        team = ["Younes", "Yassine", "Adjovi", "Bouchra"]
+        image = ["younes.jpg", "yassine.png", "adjovi.jpg","bouchra.jpg"]
+        roles = ["Front-end web designer", "Python test Specialist", "Database Management","Database Management"]
         fonds = ["#313131", "#E0403A", "#fad989","#ff66b2", "#999999"]
         couleurs = ["#ede6f3", "#F0F0F0 ", "#703A1F", "#002b17", "#333333"]
-        passions = [["Jeux vidéos", "Anime (Vinland Saga)"], ["Travailler", "Anime (One piece)"], ["K-POP", "Anime", "K-drama"], ["Lecture", "Voyage"], ["Sport", "Voyage"]]
-        discord = ["younesdjzz", "yassne", "cadance2511", "bmoumen.", "zakariia_h"]
-        logos_discord = ["discord_logo_younes.png", "discord_logo_yassine.png", "discord_logo_adjovi.png", "discord_logo_bouchra.png", "discord_logo_zakaria.png"]
+        passions = [["Jeux vidéos", "Anime (Vinland Saga)"], ["Travailler", "Anime (One piece)"], ["K-POP", "Anime", "K-drama"], ["Lecture", "Voyage"]]
+        discord = ["younesdjzz", "yassne", "cadance2511", "bmoumen."]
+        logos_discord = ["discord_logo_younes.png", "discord_logo_yassine.png", "discord_logo_adjovi.png", "discord_logo_bouchra.png"]
 
         info_equipe = zip(team, image, roles, fonds, couleurs, passions, discord, logos_discord)
 
