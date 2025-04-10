@@ -1,6 +1,7 @@
 /* -- Style body/html -- */
 html {
    font-family: sans-serif;
+   scroll-behavior: smooth;
 }
 
 body {

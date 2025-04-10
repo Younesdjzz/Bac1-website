@@ -46,7 +46,7 @@ def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: D
 def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     ''' Pré: cette fonction prend en argument la distance et le type d'appareil qui est un objet de 
         la classe AirCraft 
-        Post: cette fonction retourne l'émission de CO2 en kg
+        Post: cette fonction retourne l'émission de CO2 en tonne
     '''
     #condition pour définir la consommation par type d'appareil
     if aircraft == AirCraft.S:
@@ -90,10 +90,10 @@ def page_emission():
                 aircraft = AirCraft[j[6]]
             else:
                 aircraft = AirCraft[4]
-            emission = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
-            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),emission])
+            co2 = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
+            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),co2])
             #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
-            s += emission
+            s += co2
         d[a_dep].append(s)
 
     return render_template("emission.html", data=d)
