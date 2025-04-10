@@ -1,6 +1,5 @@
 import os
 from flask import Flask, render_template
-from . import stats
 
 def create_app(test_config=None):
     """
@@ -29,9 +28,12 @@ def create_app(test_config=None):
     db.init_app(app)
     from . import airport
     from . import emission
+    from . import stats
+    from . import graph
     app.register_blueprint(airport.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(emission.bp)
+    app.register_blueprint(graph.bp)
     
     
 

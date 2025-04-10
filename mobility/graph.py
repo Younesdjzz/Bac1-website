@@ -9,7 +9,7 @@ import math
 from enum import Enum
 from mobility.models.graph import aeroport_bel_info
 
-bp = Blueprint('emission', __name__)
+bp = Blueprint('graph', __name__)
 
 def get_flights():
     """ Récupère les vols depuis la base de données dans le contexte Flask
@@ -68,7 +68,7 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     
     return CO2_emit
 
-@bp.route('/voyages')
+@bp.route('/graphiques')
 def page_emission():
     ''' Pré: Cette fonction ne prends pas d'argument
         Post: cette fonction renvoie un dictionnaire qui aura pour clés, les aéroports de départ et comme valeurs, 
@@ -90,10 +90,10 @@ def page_emission():
                 aircraft = AirCraft[j[6]]
             else:
                 aircraft = AirCraft[4]
-            emission = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
-            d[a_dep].append([j[0], j[3],emission])
+            co2 = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
+            d[a_dep].append([j[0], j[3],co2])
             #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
-            s += emission
+            s += co2
         d[a_dep].append(s)
 
     return render_template("graph.html", data=d)
