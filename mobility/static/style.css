@@ -404,28 +404,30 @@ tbody tr:hover {
    z-index: 10;
 }
 
-/* -- Pas encore utilisé -- */
-div.case {
-   background-color: #90bdae;
-   margin: 8px;
-   padding: 4px;
-   text-align: center;
-   font-size: 16px;
-   border: 3px solid #0e4c2d;
-   border-radius: 8px;
+/* -- Style des graphique -- */
+div.graphique_gauche {
+   display: grid;
+   grid-auto-flow: column; /* Empile les éléments verticalement, puis crée une nouvelle colonne si nécessaire */
+   grid-template-rows: repeat(2, 1fr);
+   gap: 20px; /* Espacement entre les éléments */
    width: fit-content;
+   margin: left;
+ }
+
+div.graphique_droite {
+   position: absolute;
+   width:fit-content;
+   margin: left;
+   top: 25rem;
+   left: 62rem;
+}
+ 
+canvas {
+   width: 50%;
+   height: 350px;
 }
 
-a.bouton {
-   background-color: #224a52;
-   color: #EBE3F5;
-   padding: 6px 10px;
-   font-size: 16px;
-   border: none;
-   border-radius: 5px;
-   text-decoration: none;
+#pays {
+   height: 55vh;
 }
-
-a.bouton:hover {
-   background-color: #2e6b64;
-}
+ 
