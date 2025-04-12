@@ -30,10 +30,12 @@ def create_app(test_config=None):
     from . import emission
     from . import stats
     from . import graph
+    from . import avis
     app.register_blueprint(airport.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(emission.bp)
     app.register_blueprint(graph.bp)
+    app.register_blueprint(avis.bp)
     
     
 
