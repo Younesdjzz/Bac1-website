@@ -4,41 +4,69 @@
 <h1>Vos avis sur notre site web</h1>
 {% endblock %}
 
-<!-- <button class="message" type="submit"><img src="{{ url_for('static', filename='navigateur/icon_avis.png') }}"class="icon"></button>-->
 {% block content %}
+<!-- Affichage des avis soumis -->
 <div class="message-box">
-    hey j'aime le site
+    hey j'aime le site <!--Juste la pour voir le div-->
+    {% for avis in avis_list %}
+        <p><strong>{{ avis.entete }}</strong></p>
+        <p>{{ avis.message }}</p>
+        <p><strong>Note:</strong> {{ avis.etoiles }} étoiles</p>
+        {% if avis.photo_profil %}
+            <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}" alt="Photo de profil">
+        {% endif %}
+    {% endfor %}
 </div>
 
 <div class="donner_avis" onclick="ouvrirModale()">
     <h1>Donnez votre avis ici !</h1>
 </div>
 
-<!-- Modale cachée au départ -->
+<!-- Modale -->
 <div id="avis" class="avis">
     <div class="popup">
-        <div class="rating">
-            {% for etoile in etoiles %}
-                <input type="radio" id={{etoile[0]}} name="note" value="{{etoile[1]}}" required/>
-                <label for={{etoile[0]}}>★</label>
+        <form action="{{ url_for('avis.envoyer_avis') }}" method="POST" enctype="multipart/form-data">
+            <!-- Étoiles -->
+            <div class="rating">
+                {% for etoile in donner_etoiles %}
+                    <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required/>
+                    <label for="{{etoile[0]}}">★</label>
+                {% endfor %}
+            </div>
+            
+            <!-- Photo -->
+            <h2>Choisissez une photo de profil</h2>
+            {% for image in images %}
+                <label>
+                    <input type="radio" name="photo_profil" value="{{ image }}" required>
+                    <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image">
+                </label>
             {% endfor %}
-        </div>
-        <h2>Entête</h2>
-        <textarea rows="1" cols="35" placeholder="Votre entête..." required></textarea>
-        <h2>Laissez votre avis</h2>
-        <p><textarea rows="2" cols="50" placeholder="Votre avis..." required></textarea></p>
-        <button onclick="fermerModale()">Envoyer</button>
+
+            <!-- Entête -->
+            <h2>Entête</h2>
+            <textarea name="entete" rows="1" cols="35" placeholder="Votre entête..." required></textarea>
+
+            <!-- Avis -->
+            <h2>Laissez votre avis</h2>
+            <textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea>
+            
+            <!-- Boutons -->
+            <button type="submit">Envoyer</button>
+            <button type="button" onclick="fermerModale()">✖</button>
+        </form>
     </div>
 </div>
 
 <script>
     function ouvrirModale() {
         document.getElementById("avis").style.display = "flex";
+        document.getElementById("titre-box").style.zIndex = "0";
+        document.getElementById("nav").style.zIndex = "0";
     }
-    
+
     function fermerModale() {
         document.getElementById("avis").style.display = "none";
     }
 </script>
-    
 {% endblock %}

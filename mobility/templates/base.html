@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav>
+    <nav id="nav">
         <div class="nav-left">
             <img class="logo_site" src="{{url_for('static', filename='logo_site_bleu.png')}}" alt="Logo">Celestia Airlines
         </div>
@@ -38,7 +38,7 @@
         </ul>
     </nav>
 
-    <div class="titre-box">
+    <div id="titre-box" class="titre-box">
         {% block titre %}{% endblock %}
     </div>
 
