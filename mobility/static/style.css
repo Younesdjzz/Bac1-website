@@ -13,7 +13,7 @@ body {
    background-color: #BCE0DD;
 }
 
-/* -- Le navigateur et footer-- */
+/* -- Le navigateur --*/
 nav {
    position: fixed;
    width: 100vw;
@@ -23,7 +23,7 @@ nav {
    display: flex;
    align-items: center;
    padding: 0 0.5rem;
-   z-index: 100;
+   z-index: 99;
 }
 
 nav .nav-left {
@@ -38,7 +38,6 @@ nav .nav-left {
 nav .nav-left img {
    margin-right: 7px;
 }
-
 
 nav h1 {
    flex: auto;
@@ -84,6 +83,7 @@ main {
    justify-content: center;
    align-items: stretch;
    margin: 0 auto;
+   position: relative;
 }
 
 div.contenu-central {
@@ -92,6 +92,8 @@ div.contenu-central {
    background: rgba(250, 255, 253, 0.886);
    padding: 20px;
    box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
+   position: relative;
+   z-index: 0;
 }
 
 div.cotes {
@@ -107,8 +109,10 @@ div.welcome {
    padding: 30px;
    border-radius: 100px;
    margin-top: 50px;
+   width: 70%;
+   margin: auto;
    text-align: center;
-   z-index: 5;
+   z-index: 4;
 }
 
 h1 {
@@ -119,7 +123,7 @@ h1 {
 /* -- Les titres-box -- */
 div.titre-box {
    position: relative;
-   z-index: 5;
+   z-index: 1;
    width: max-content;
    background: rgba(250, 255, 253, 0.8);
    margin: auto;
@@ -136,7 +140,6 @@ div.titre-box:hover {
    transform: perspective(10px);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
 }
 
 div.mini_titre-box {
@@ -171,7 +174,7 @@ div.equipe {
 
 .membre-box {
    display: flex;
-   z-index: 1;
+   z-index: 0;
    flex-direction: column;
 }
 
@@ -242,7 +245,7 @@ div.info_sup {
    bottom: 40px;
    background-color: var(--fond);
    color: var(--couleur);
-   z-index: -1;
+   z-index: -2;
    background: linear-gradient(80deg, var(--fond) 77.3%, white 22.7%);
 }
 
@@ -289,7 +292,7 @@ img.site:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
+   z-index: 9;
 }
 
 img.site:active {
@@ -317,7 +320,6 @@ img.logo {
    border-radius: 50%;
 }
 
-
 img.icon {
    width: 28px;
    height: 28px;
@@ -333,7 +335,7 @@ img.fond {
    width: 100%;
    position: absolute;
    top: -0px;
-   z-index: -1;
+   z-index: -2;
 }
 
 img.fond_up {
@@ -342,7 +344,7 @@ img.fond_up {
    width: 100%;
    position: absolute;
    top: 0px;
-   z-index: 3;
+   z-index: 0;
 }
 
 /* -- Style des tables -- */
@@ -369,7 +371,6 @@ div.tableau {
    width: fit-content;
    padding-right: 32px;
    padding-left: 32px;
-
 }
 
 th {
@@ -378,7 +379,7 @@ th {
    background: #224a52;
    border-radius: 4%;
    color: rgba(255, 255, 255);
-   z-index: 11;
+   z-index: 10;
 }
 
 td {
@@ -390,7 +391,6 @@ th, td {
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
 
-
 table {
    height: 100px;
    text-align: center;
@@ -401,27 +401,27 @@ tbody tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
+   z-index: 9;
 }
 
 /* -- Style des graphique -- */
 div.graphique_gauche {
    display: grid;
-   grid-auto-flow: column; /* Empile les éléments verticalement, puis crée une nouvelle colonne si nécessaire */
+   grid-auto-flow: column;
    grid-template-rows: repeat(2, 1fr);
-   gap: 20px; /* Espacement entre les éléments */
+   gap: 20px;
    width: fit-content;
    margin: left;
- }
+}
 
 div.graphique_droite {
    position: absolute;
    width:fit-content;
    margin: left;
-   top: 25rem;
-   left: 62rem;
+   top: 12rem;
+   left: 49rem;
 }
- 
+
 canvas {
    width: 50%;
    height: 350px;
@@ -442,6 +442,7 @@ div.message-box {
    border: solid black;
 }
 
+/*boutton donner_avis animé*/
 div.donner_avis {
    display: flex;
    margin: auto;
@@ -451,12 +452,50 @@ div.donner_avis {
    align-items: center;
    justify-content: center;
    border-radius: 15px;
-   background-color: #ffffffc7;
+   background: #f6f6f6;
    border: solid rgb(226, 242, 255) 1px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
+   position: relative;
+   cursor: pointer;
 }
 
-/* Le conteneur pour donner son avis */
+@property --angle{
+   syntax: "<angle>";
+   initial-value: 0deg;
+   inherits: false;
+}
+
+div.donner_avis::before,
+div.donner_avis::after {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   translate: -50% -50%;
+   width: 100%;
+   height: 100%;
+   border-radius: 17px;
+   padding: 3px;
+   background: conic-gradient(from var(--angle), #b8f3d5, #5fe3c0, #1ac5aa, #b8f3d5);
+   z-index: -1;
+   animation: 3s spin linear infinite;
+}
+
+div.donner_avis::before {
+   filter: blur(0.4rem);
+   opacity: 0.5;
+}
+
+@keyframes spin {
+   from{
+      --angle: 0deg;
+   }
+   to{
+      --angle: 360deg;
+   }
+}
+/*fin boutton donner_avis animé*/
+
 div.avis {
    position: fixed;
    top: 0;
@@ -464,6 +503,7 @@ div.avis {
    width: 100%;
    height: 100%;
    backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
    background-color: rgba(0, 0, 0, 0.4);
    display: none;
    justify-content: center;
@@ -490,23 +530,30 @@ div.rating {
    direction: rtl; /*Affiche les animations d'étoiles de gauche à droite (rtl = direction inverse)*/
    font-size: 2rem;
    display: inline-flex;
- }
- 
+}
+
 div.rating input {
    display: none;
 }
- 
+
 div.rating label {
    color: #ccc;
    cursor: pointer;
    transition: color 0.3s;
- }
- 
-div.rating input:checked ~ label { /*Couleur des étoiles checked*/
-   color: #224a52;
 }
- 
+
+div.rating input:checked ~ label {
+   color: #1ac5aa;
+}
+
 div.rating label:hover,
-div.rating label:hover ~ label { /*Couleur des étoiles lorsque l'on passe dessus + sans oublier les précedentes*/
-   color: #224a52;
-} 
+div.rating label:hover ~ label {
+   color: #1ac5aa;
+}
+
+img.photo_choix {
+   max-width: 100px; 
+   max-height: 100px;
+   border-radius: 50%;
+   margin: 5px;
+}
