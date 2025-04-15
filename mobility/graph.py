@@ -73,16 +73,13 @@ def requete_emission():
     for vol in resultats:
         if not vol[8] in emission_par_aéroport:
             emission_par_aéroport[vol[8]]= [0]
-        
-        a_dep = vol[4]
+
+      
         lat_from = vol[5]
         lon_from = vol[6]
-        a_arr = vol[10]
         lat_to = vol[11]
         lon_to = vol[12]
         type_app = vol[13]
-
- 
 
         if not type_app or type_app not in ["M", "S", "J", "H"]:
             aircraft = AirCraft["M"]
@@ -96,8 +93,7 @@ def requete_emission():
 
         emission_par_aéroport[pays].append((liste[0]/total_emissions)*100)
 
-        
-
     return render_template("graph.html", datas=emission_par_aéroport,airports=airports,total_emissions=total_emissions)
     
+
 

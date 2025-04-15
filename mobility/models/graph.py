@@ -51,7 +51,8 @@ def flight_world_info(airport_dep,date_deb,date_fin):
     JOIN country AS dep_country ON dep_airport.iso_country = dep_country.iso_country
     JOIN country AS arr_country ON arr_airport.iso_country = arr_country.iso_country
 
-
+ 
+                           
     JOIN aircraft ON flight.iata_aircraft = aircraft.iata_aircraft
 	WHERE dep_airport_name = ? 
 	AND flight.flight_date BETWEEN ? AND ?
