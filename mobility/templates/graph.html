@@ -1,81 +1,106 @@
 {% extends "base.html" %}
 
 {% block titre %}
-<h1>Graphique des émissions en tonnes de CO₂ (2024-2025)</h1>
+    <h1>Émissions de CO₂ liées aux vols des aéroports belges</h1>
+{% endblock %}
+
+{% block content_up %}
+    <!-- Contenu avant la section principale (s'il y en a besoin) -->
 {% endblock %}
 
 {% block content %}
-<!-- Conteneur des 2 mini-titres -->
-<div class="double_titre">
-    <div class="mini_titre-box">
-        <h2>Comparaison de 2022 avec les grands aéroports belges</h2>
+    <!-- ========================== PARTIE 1 - Tous les aéroports belges ========================== -->
+    {% if data %}
+    <div class="section">
+        <h2>Émissions totales des 5 aéroports belges</h2>
+
+        {% set total_be = namespace(val=0) %}
+        {% for e in data["emissions"] %}
+            {% set total_be.val = total_be.val + e %}
+        {% endfor %}
+
+        <p><strong>Total cumulé :</strong> {{ total_be.val | round(2) }} tonnes de CO₂</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Aéroport</th>
+                    <th>Émissions (tonnes CO₂)</th>
+                    <th>Part relative (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(data["aeroports"]|length) %}
+                <tr>
+                    <td>{{ data["aeroports"][i] }}</td>
+                    <td>{{ data["emissions"][i] | round(2) }}</td>
+                    <td>{{ (data["emissions"][i] / total_be.val * 100) | round(1) }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Comparaison :</strong> Cela représente environ {{ (total_be.val / 16000000 * 100) | round(2) }}% des émissions annuelles de la Wallonie (~16 Mt CO₂).</p>
     </div>
-    <div class="mini_titre-box">
-        <h2>Pays émetteurs par aéroport</h2>
+    {% endif %}
+
+    <!-- ========================== PARTIE 2 - Formulaire et résultats filtrés ========================== -->
+    <div class="section">
+        <h2>Émissions d’un aéroport pour une période donnée</h2>
+        <form method="get" action="{{ url_for('graph.requete_emission') }}">
+            <label for="dep">Aéroport de départ :</label>
+            <input list="airports" name="dep" id="dep" placeholder="Tapez le nom de l'aéroport" autocomplete="off" required>
+            
+            <!-- Datalist pour l'autocomplétion des aéroports -->
+            <datalist id="airports">
+                {% for airport in airports %}
+                    <option value="{{ airport.name }}">  <!-- airport.name est le nom de l'aéroport -->
+                {% endfor %}
+            </datalist>
+
+            <label for="date_deb">Date de début :</label>
+            <input type="date" name="date_deb" value="{{ request.args.get('date_deb', '') }}" required>
+
+            <label for="date_fin">Date de fin :</label>
+            <input type="date" name="date_fin" value="{{ request.args.get('date_fin', '') }}" required>
+
+            <button type="submit">Afficher</button>
+        </form>
     </div>
-</div>
-<!-- Conteneur des deux graphiques -->
-<div class="graphique_gauche">
-    <canvas id="grand_aeroport"></canvas>
-    <canvas id="belgique"></canvas>
-</div>
 
-<div class="graphique_droite">
-    <canvas id="pays"></canvas>
-</div>
+    {% if datas %}
+    <div class="section">
+        <h3>Émissions par pays pour l’aéroport sélectionné</h3>
 
-<script>
-    // Graphique des émissions des 4 grands aéroports
-    var ctx = document.getElementById('grand_aeroport').getContext('2d');
-    var aeroport = {{ data[0] | tojson }};  // Labels (aéroports)
-    var emission = {{ data[1] | tojson }};  // Données (émissions)
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: aeroport,
-            datasets: [{
-                label: 'Tonnes de CO₂',
-                data: emission,
-                backgroundColor: '#224a52',
-            }]
-        },
-        options: {
-        plugins: { legend: {display: false} },
-        scales: { y: {title: {display: true, 
-                              text: 'Tonnes de CO₂'}} },
-        }
-    });
+        {% set total_filtered = namespace(val=0) %}
+        {% for v in datas.values() %}
+            {% set total_filtered.val = total_filtered.val + v[0] %}
+        {% endfor %}
 
-    // Graphique comparatif des émissions belges
-    var ctx2 = document.getElementById('belgique').getContext('2d');
-    var myChart2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
-            datasets: [{
-                label: 'Tonnes de CO₂',
-                data: [31200000, 55000000, 17000000, 103200000],
-                backgroundColor: '#224a52',
-            }]
-        },
-        options: {
-        plugins: { legend: {display: false} },
-        scales: { y: {title: {display: true, 
-                              text: 'Tonnes de CO₂'}} },
-        }
-    });
+        <p><strong>Émissions totales :</strong> {{ total_filtered.val | round(2) }} tonnes de CO₂</p>
 
-    // Graphique des émissions par pays
-    var ctx3 = document.getElementById('pays').getContext('2d');
-    var myChart3 = new Chart(ctx3, {
-        type: 'pie',
-        data: {
-            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
-            datasets: [{
-                label: 'Tonnes de CO₂',
-                data: [31200000/206400000*100, 55000000/206400000*100, 17000000/206400000*100, 103200000/206400000*100],
-            }]
-        }
-    });
-  </script>  
+        <table>
+            <thead>
+                <tr>
+                    <th>Pays de destination</th>
+                    <th>Émissions (tonnes CO₂)</th>
+                    <th>Part (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country, val in datas.items() %}
+                <tr>
+                    <td>{{ country }}</td>
+                    <td>{{ val[0] | round(2) }}</td>  <!-- val[0] est le CO₂ -->
+                    <td>{{ val[1] | round(1) }}%</td>  <!-- val[1] est le pourcentage -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block content_down %}
+    <!-- Contenu sous la section principale (si nécessaire) -->
 {% endblock %}
