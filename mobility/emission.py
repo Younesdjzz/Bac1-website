@@ -2,7 +2,6 @@ from flask import (
     Blueprint, render_template, current_app
 )
 from mobility.models.emission import aeroport_info
-from mobility.db import get_db
 
 from decimal import Decimal
 import math

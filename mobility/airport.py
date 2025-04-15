@@ -1,10 +1,9 @@
 from flask import (
-   Blueprint, redirect, render_template, request, url_for
+   Blueprint, render_template, request
 )
 
 from mobility.db import get_db
-from mobility.models.airport import Airport
-from mobility.models.airport import get_all_airports, nombre_de_vols_par_type, nombre_de_vols_par_jour
+from mobility.models.airport import get_all_airports, get_iata_by_airport_name, nombre_de_vols_par_type, nombre_de_vols_par_jour
 
 bp = Blueprint('airport', __name__)
 
@@ -35,9 +34,7 @@ def requete_aeroport():
     vols_type = []
     airport_not_found = False 
     if airport_name:
-        airport = db.execute("""
-            SELECT iata_code FROM airport WHERE LOWER(name) = LOWER(?)
-        """, (airport_name.lower(),)).fetchone()
+        airport = get_iata_by_airport_name(airport_name)
 
         if airport:
             iata_code = airport[0]
