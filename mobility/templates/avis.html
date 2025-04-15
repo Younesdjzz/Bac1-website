@@ -6,16 +6,31 @@
 
 {% block content %}
 <!-- Affichage des avis soumis -->
-<div class="message-box">
-    hey j'aime le site <!--Juste la pour voir le div-->
+<div class="avis-box">
     {% for avis in avis_list %}
-        <p><strong>{{ avis.entete }}</strong></p>
-        <p>{{ avis.message }}</p>
-        <p><strong>Note:</strong> {{ avis.etoiles }} étoiles</p>
-        {% if avis.photo_profil %}
-            <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}" alt="Photo de profil">
-        {% endif %}
+    {% if avis.photo_profil %}
+    <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
+        alt="Photo de profil">
+    {% endif %}
+    <p>{{ avis.prenom }}</p>
+    <p><strong>{{ avis.entete }}</strong></p>
+    <p>{{ avis.message }}</p>
+    <p><strong>Note:</strong> {{ avis.etoiles }} étoiles</p>
     {% endfor %}
+</div>
+
+<!--Juste la pour voir le div-->
+<div class="avis-box">
+    <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_chat.png')}}"
+        alt="Photo de profil">
+    Testeur
+    <div class="message-box">
+        <div class="entete">
+            Avis sur le site
+        </div>
+        hey j'aime le site
+    </div>
+    <p><strong>Note:</strong> 5 étoiles</p>
 </div>
 
 <div class="donner_avis" onclick="ouvrirModale()">
@@ -29,18 +44,22 @@
             <!-- Étoiles -->
             <div class="rating">
                 {% for etoile in donner_etoiles %}
-                    <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required/>
-                    <label for="{{etoile[0]}}">★</label>
+                <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required />
+                <label for="{{etoile[0]}}">★</label>
                 {% endfor %}
             </div>
-            
+
+            <!-- Prénom -->
+            <h2>Entrez votre prénom</h2>
+            <p><textarea name="prenom" rows="1" cols="20" placeholder="Votre prénom..." required></textarea></p>
+
             <!-- Photo -->
             <h2>Choisissez une photo de profil</h2>
             {% for image in images %}
-                <label>
-                    <input type="radio" name="photo_profil" value="{{ image }}" required>
-                    <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image">
-                </label>
+            <label>
+                <input type="radio" name="photo_profil" value="{{ image }}" required>
+                <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image">
+            </label>
             {% endfor %}
 
             <!-- Entête -->
@@ -49,8 +68,8 @@
 
             <!-- Avis -->
             <h2>Laissez votre avis</h2>
-            <textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea>
-            
+            <p><textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea></p>
+
             <!-- Boutons -->
             <button type="submit">Envoyer</button>
             <button type="button" onclick="fermerModale()">✖</button>
@@ -67,6 +86,8 @@
 
     function fermerModale() {
         document.getElementById("avis").style.display = "none";
+        document.getElementById("titre-box").style.zIndex = "8";
+        document.getElementById("nav").style.zIndex = "99";
     }
 </script>
 {% endblock %}
