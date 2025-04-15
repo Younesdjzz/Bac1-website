@@ -2,10 +2,10 @@ from flask import (
    Blueprint, redirect, render_template, request, url_for
 )
 
-import json
 
 from mobility.models.graph import aeroport_bel_info,flight_world_info,get_all_airports
 from mobility.emission import emission,distance,AirCraft
+
 
 bp = Blueprint('graph', __name__)
 
