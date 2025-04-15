@@ -432,14 +432,43 @@ canvas {
 }
 
 /* -- Style de la page avis -- */
-div.message-box {
+div.avis-box {
    margin: 15px;
    max-width: 600px;
    height: fit-content;
    padding: 20px;
    border-radius: 15px;
-   background-color: #ffffffaf;
+   background-color: #ffffff;
    border: solid black;
+}
+
+div.message-box {
+   margin-left: 20%;
+   width: fit-content;
+   background: blue;
+}
+
+div.entete {
+   font-size: 22px;
+   font-weight: 500;
+   background: green;
+   width:fit-content;
+}
+
+img.photo_choix {
+   max-width: 100px; 
+   max-height: 100px;
+   border-radius: 50%;
+   margin: 5px;
+}
+
+img.photo_avis {
+   width: 80px;
+   height: 80px;
+   object-fit: cover;
+   border-radius: 50%;
+   border: 3px solid #ffffff;
+   box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
 }
 
 /*boutton donner_avis animé*/
@@ -452,7 +481,7 @@ div.donner_avis {
    align-items: center;
    justify-content: center;
    border-radius: 15px;
-   background: #f6f6f6;
+   background-image: conic-gradient(#d8e7df, #ffffff,#d8e7df);
    border: solid rgb(226, 242, 255) 1px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
    position: relative;
@@ -495,7 +524,6 @@ div.donner_avis::before {
    }
 }
 /*fin boutton donner_avis animé*/
-
 div.avis {
    position: fixed;
    top: 0;
@@ -513,16 +541,34 @@ div.avis {
 
 /* La boîte de dialogue */
 div.popup {
-   background: white;
+   background: linear-gradient(0deg, white 95%, #224a52 5%);
    padding: 30px;
    border-radius: 15px;
    box-shadow: 0 0 10px black;
    text-align: center;
 }
 
-textarea {
+textarea, input {
    resize: none;
    font-family: sans-serif;
+   border:solid #224a52 2px;
+   text-align: center;
+   border-radius: 7px;
+}
+
+input {
+   padding: 5px;
+}
+
+button {
+   font-family: sans-serif;
+   color: white;
+   font-weight: 400;
+   font-size: 16px;
+   background-color: #224a52;
+   padding: 5px;
+   text-align: center;
+   border-radius: 7px;
 }
 
 /* Le système d'étoile */
@@ -549,11 +595,4 @@ div.rating input:checked ~ label {
 div.rating label:hover,
 div.rating label:hover ~ label {
    color: #1ac5aa;
-}
-
-img.photo_choix {
-   max-width: 100px; 
-   max-height: 100px;
-   border-radius: 50%;
-   margin: 5px;
 }
