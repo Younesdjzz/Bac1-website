@@ -33,4 +33,4 @@ def envoyer_avis():
     # (note, entete, message, photo_profil)
 
     flash("Avis envoyé avec succès !", "success")
-    return redirect(url_for("avis"))
+    return redirect(url_for("avis.avis"))

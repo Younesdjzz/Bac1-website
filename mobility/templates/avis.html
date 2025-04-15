@@ -5,38 +5,140 @@
 {% endblock %}
 
 {% block content %}
+
 <!-- Affichage des avis soumis -->
-<div class="avis-box">
-    {% for avis in avis_list %}
-    {% if avis.photo_profil %}
-    <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
-        alt="Photo de profil">
-    {% endif %}
-    <p>{{ avis.prenom }}</p>
-    <p><strong>{{ avis.entete }}</strong></p>
-    <p>{{ avis.message }}</p>
-    <p><strong>Note:</strong> {{ avis.etoiles }} étoiles</p>
+<div class="avis-list">
+    {% for avis in avis_liste %}
+    <div class="{% if loop.index0 % 2 == 0 %}avis-box-left{% else %}avis-box-right{% endif %}">
+        <div class="profil_avis">
+            <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
+                alt="Photo de profil">
+            <div class="info_avis">
+                <h2>{{ avis.prenom }}</h2>
+                <div class="rating">
+                    {% for i in range(5, 0, -1) %}
+                        {% if i <= avis.note %} 
+                            <label style="color: #1ac5aa;">★</label>
+                        {% else %}
+                            <label style="color: #ccc;">★</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="entete">
+            {{ avis.entete }}
+        </div>
+        <div class="message-box">
+            {{ avis.message }}
+        </div>
+    </div>
     {% endfor %}
 </div>
 
-<!--Juste la pour voir le div-->
-<div class="avis-box">
-    <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_chat.png')}}"
-        alt="Photo de profil">
-    Testeur
-    <div class="message-box">
-        <div class="entete">
-            Avis sur le site
+<!--Juste la pour voir le design (c'est des exemples)-->
+<div class="avis-list">
+    <div class="avis-box-left">
+    <div class="profil_avis">
+        <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_invincible.jpg')}}"
+            alt="Photo de profil">
+        <div class="info_avis">
+            <h2>Younes</h2>
+            <div class="rating">
+                {% for i in range(5, 0, -1) %}
+                {% if i <= 5 %} <label style="color: #1ac5aa;">★</label>
+                    {% else %}
+                    <label style="color: #ccc;">★</label>
+                    {% endif %}
+                    {% endfor %}
+            </div>
         </div>
-        hey j'aime le site
     </div>
-    <p><strong>Note:</strong> 5 étoiles</p>
+    <div class="entete">
+        Avis sur le site
+    </div>
+    <div class="message-box">
+        Hey j'aime le site, c'est trop beau, j'aime bien le vert et je pense que tout le monde fais du bon travail !
+    </div>
+    </div>
+
+    <div class="avis-box-right">
+    <div class="profil_avis">
+        <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_fille1.jpg')}}"
+            alt="Photo de profil">
+        <div class="info_avis">
+            <h2>Sofia</h2>
+            <div class="rating">
+                {% for i in range(5, 0, -1) %}
+                {% if i <= 2 %} <label style="color: #1ac5aa;">★</label>
+                    {% else %}
+                    <label style="color: #ccc;">★</label>
+                    {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="entete">
+        Le design
+    </div>
+    <div class="message-box">
+        Je viens de voir votre site et franchement je plains le groupe 1... le design laisse a désirer...
+    </div>
+    </div>
+
+    <div class="avis-box-left">
+    <div class="profil_avis">
+        <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_luffy.jpg')}}"
+            alt="Photo de profil">
+        <div class="info_avis">
+            <h2>Luffy</h2>
+            <div class="rating">
+                {% for i in range(5, 0, -1) %}
+                {% if i <= 1 %} <label style="color: #1ac5aa;">★</label>
+                    {% else %}
+                    <label style="color: #ccc;">★</label>
+                    {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="entete">
+        Viande
+    </div>
+    <div class="message-box">
+        J'aime la viande
+    </div>
+    </div>
+
+    <div class="avis-box-right">
+    <div class="profil_avis">
+        <img class="photo_avis" src="{{ url_for('static', filename='uploads/profil_singe.jpg')}}"
+            alt="Photo de profil">
+        <div class="info_avis">
+            <h2>Ahmad</h2>
+            <div class="rating">
+                {% for i in range(5, 0, -1) %}
+                {% if i <= 4 %} <label style="color: #1ac5aa;">★</label>
+                    {% else %}
+                    <label style="color: #ccc;">★</label>
+                    {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="entete">
+        Le site web
+    </div>
+    <div class="message-box">
+        Franchement pas mal pas mal
+    </div>
+    </div>
 </div>
+<!--Fin des exemple-->
 
 <div class="donner_avis" onclick="ouvrirModale()">
     <h1>Donnez votre avis ici !</h1>
 </div>
-
 <!-- Modale -->
 <div id="avis" class="avis">
     <div class="popup">
@@ -45,7 +147,7 @@
             <div class="rating">
                 {% for etoile in donner_etoiles %}
                 <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required />
-                <label for="{{etoile[0]}}">★</label>
+                <label class="avis" for="{{etoile[0]}}">★</label>
                 {% endfor %}
             </div>
 
@@ -80,7 +182,7 @@
 <script>
     function ouvrirModale() {
         document.getElementById("avis").style.display = "flex";
-        document.getElementById("titre-box").style.zIndex = "0";
+        document.getElementById("titre-box").style.zIndex = "-1";
         document.getElementById("nav").style.zIndex = "0";
     }
 
