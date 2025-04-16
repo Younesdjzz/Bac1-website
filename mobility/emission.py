@@ -75,9 +75,9 @@ def page_emission():
         Le dico peut se représenter comme telle: 
         d = {"a_dep1" : [["a_dep1": a_arr, distance,émission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
-    l = get_flights()
+    liste_des_aéroports = get_flights()
     d = {} 
-    for i in l:
+    for i in liste_des_aéroports:
         s = 0
         if not i:
             continue  
