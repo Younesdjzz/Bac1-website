@@ -9,6 +9,81 @@
 {% endblock %}
 
 {% block content %}
+<!-- Conteneur des 2 mini-titres -->
+<div class="double_titre">
+    <div class="mini_titre-box">
+        <h2>Comparaison de 2022 avec les grands aéroports belges</h2>
+    </div>
+    <div class="mini_titre-box">
+        <h2>Pays émetteurs par aéroport</h2>
+    </div>
+</div>
+<!-- Conteneur des deux graphiques -->
+<div class="graphique_gauche">
+    <canvas id="grand_aeroport"></canvas>
+    <canvas id="belgique"></canvas>
+</div>
+
+<div class="graphique_droite">
+    <canvas id="pays"></canvas>
+</div>
+
+<script>
+    // Graphique des émissions des 4 grands aéroports
+    var ctx = document.getElementById('grand_aeroport').getContext('2d');
+    var aeroport = {{ data[0] | tojson }};  // Labels (aéroports)
+    var emission = {{ data[1] | tojson }};  // Données (émissions)
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: aeroport,
+            datasets: [{
+                label: 'Tonnes de CO₂',
+                data: emission,
+                backgroundColor: '#224a52',
+            }]
+        },
+        options: {
+        plugins: { legend: {display: false} },
+        scales: { y: {title: {display: true, 
+                              text: 'Tonnes de CO₂'}} },
+        }
+    });
+
+// Graphique comparatif des émissions belges
+var ctx2 = document.getElementById('belgique').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
+            datasets: [{
+                label: 'Tonnes de CO₂',
+                data: [31200000, 55000000, 17000000, 103200000],
+                backgroundColor: '#224a52',
+            }]
+        },
+        options: {
+        plugins: { legend: {display: false} },
+        scales: { y: {title: {display: true, 
+                              text: 'Tonnes de CO₂'}} },
+        }
+    });
+
+    // Graphique des émissions par pays
+    var ctx3 = document.getElementById('pays').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
+            datasets: [{
+                label: 'Tonnes de CO₂',
+                data: [31200000/206400000*100, 55000000/206400000*100, 17000000/206400000*100, 103200000/206400000*100],
+            }]
+        }
+    });
+  </script>
+
+
     <!-- ========================== PARTIE 1 - Tous les aéroports belges ========================== -->
     {% if data %}
     <div class="section">
