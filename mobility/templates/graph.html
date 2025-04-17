@@ -31,6 +31,7 @@
     <canvas id="pays"></canvas>
 </div>
 
+<!-- ========================== PARTIE 1 - Les grands aéroports belges ========================== -->
 <script>
     // Graphique des émissions des 4 grands aéroports
     var ctx = document.getElementById('grand_aeroport').getContext('2d');
@@ -105,37 +106,36 @@
 
         <h3 class="requete_graphique">Émissions totales : {{ total_filtered.val | round(2) }} tonnes de CO₂</h3>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Pays de destination</th>
-                    <th>Émissions (tonnes CO₂)</th>
-                    <th>Part (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for country, val in datas.items() %}
-                <tr>
-                    <td>{{ country }}</td>
-                    <td>{{ val[0] | round(2) }}</td>  <!-- val[0] est le CO₂ -->
-                    <td>{{ val[1] | round(1) }}%</td>  <!-- val[1] est le pourcentage -->
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% set pays = [] %} <!--Une liste avec les pays connectés avec l'aéroport-->
+        {% set pourcentage = [] %} <!--Une liste avec le % d'emission de chaque pays-->
+        {% set part = namespace(somme=100) %} <!--Le pourcentage restant-->
+        {% for country, val in datas.items() %}
+            {% if val[1] >= 5 %} <!--On ajoute le pays et son pourcentage dans notre liste que si c'est >= 3%-->
+                {% set _ = pays.append(country) %}
+                {% set _ = pourcentage.append(val[1] | round(1)) %}
+                {% set part.somme = part.somme - (val[1] | round(1))%}
+            {% endif %}
+        {% endfor %}
+
+        {% if pays | length > 1 %} <!--On ajoute le pourcentage restant que si on a pas moins de 2 pays dans notre liste-->
+            {% set _ = pays.append("Autre") %}
+            {% set _ = pourcentage.append(part.somme) %} 
+        {% endif %}
+
 <script>
     // Graphique du poucentage d'emission par pays pour un aéroport choisi
     document.getElementById("aeroport_chargement").style.display = "none";
     document.getElementById("graphique_chargement").style.display = "none";
     document.getElementById("emission_chargement").style.display = "none";
+
     var ctx3 = document.getElementById('pays').getContext('2d');
     var myChart3 = new Chart(ctx3, {
         type: 'pie',
         data: {
-            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
+            labels: {{pays | tojson}},
             datasets: [{
-                label: 'Tonnes de CO₂',
-                data: [31200000/206400000*100, 55000000/206400000*100, 17000000/206400000*100, 103200000/206400000*100],
+                label: 'Part en %',
+                data: {{pourcentage | tojson}},
             }]
         }
     });

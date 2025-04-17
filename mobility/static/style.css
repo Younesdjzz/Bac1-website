@@ -481,8 +481,9 @@ h3.requete_graphique {
 
 img.graphique {
    margin-top: 10px;
-   width: 400px;
+   width: 380px;
    border-radius: 50%;
+   background-color: #b6e2cd;
    border: solid white 2px;
    opacity: 70%;
 }

@@ -27,13 +27,13 @@ def get_all_flights():
 
 @bp.route('/graphiques', methods=['GET'])
 def page_graphique():
+    ''' Pré: Cette fonction ne prends pas d'argument
+        Post: Si on charge la page, la fonction retourne les 4 aéroports belges ainsi que leurs émissions totales
+              Si on remplie le formulaire, cette fonction renvoie en plus des données précédentes, un dictionnaire qui aura
+        pour clés les aéroports de départ et comme valeurs, une liste qui contient des listes par départ . 
+        Le dico peut se représenter comme telle: 
+        d = {"a_dep1" : [["a_dep1": a_arr,emission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
-    Pré: Cette fonction peut être appelée avec ou sans paramètres GET :
-         - sans paramètres : vue globale
-         - avec ?dep=XXX&date_deb=YYYY-MM-DD&date_fin=YYYY-MM-DD : vue filtrée
-    Post: renvoie les données nécessaires à l'affichage graphique
-    '''
-    # --- Partie de l'ancienne route `/graphiques`
     liste_des_aeroports = get_all_flights()
     airports = get_all_airports()
     liste_aeroport = []
@@ -63,8 +63,7 @@ def page_graphique():
     date_deb = request.args.get('date_deb')
     date_fin = request.args.get('date_fin')
 
-    if airport_dep and date_deb and date_fin:
-        # --- Partie de l'ancienne route `/graphiques/emission`
+    if airport_dep and date_deb and date_fin: # Si on remplie le formulaire de la page
         resultats = flight_world_info(airport_dep, date_deb, date_fin)
         total_emissions = 0
         emission_par_aéroport = {}
