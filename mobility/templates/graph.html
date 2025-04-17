@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block titre %}
-    <h1>Émissions de CO₂ liées aux vols des aéroports belges</h1>
+    <h1>Graphique des émissions en tonnes de CO₂ (2024-2025)</h1>
 {% endblock %}
 
 {% block content_up %}
@@ -20,19 +20,23 @@
 </div>
 <!-- Conteneur des deux graphiques -->
 <div class="graphique_gauche">
+    <h2 id="aeroport_chargement" class="requete_graphique">Aéroport : ...</h2>
     <canvas id="grand_aeroport"></canvas>
+    <h3 id="emission_chargement" class="requete_graphique">Émissions : Aucunes données chargées</h3>
     <canvas id="belgique"></canvas>
 </div>
 
 <div class="graphique_droite">
+    <img class="graphique" id="graphique_chargement" src="{{url_for('static', filename='question_mark.png')}}">
     <canvas id="pays"></canvas>
 </div>
 
+<!-- ========================== PARTIE 1 - Les grands aéroports belges ========================== -->
 <script>
     // Graphique des émissions des 4 grands aéroports
     var ctx = document.getElementById('grand_aeroport').getContext('2d');
-    var aeroport = {{ data[0] | tojson }};  // Labels (aéroports)
-    var emission = {{ data[1] | tojson }};  // Données (émissions)
+    var aeroport = {{ data["aeroports"] | tojson }};  // Labels (aéroports)
+    var emission = {{ data["emissions"] | tojson }};  // Données (émissions)
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -42,16 +46,16 @@
                 data: emission,
                 backgroundColor: '#224a52',
             }]
-        },
+            },
         options: {
         plugins: { legend: {display: false} },
         scales: { y: {title: {display: true, 
                               text: 'Tonnes de CO₂'}} },
         }
     });
-
-// Graphique comparatif des émissions belges
-var ctx2 = document.getElementById('belgique').getContext('2d');
+    
+    // Graphique comparatif des émissions belges
+    var ctx2 = document.getElementById('belgique').getContext('2d');
     var myChart2 = new Chart(ctx2, {
         type: 'bar',
         data: {
@@ -68,116 +72,83 @@ var ctx2 = document.getElementById('belgique').getContext('2d');
                               text: 'Tonnes de CO₂'}} },
         }
     });
+</script>
 
-    // Graphique des émissions par pays
-    var ctx3 = document.getElementById('pays').getContext('2d');
-    var myChart3 = new Chart(ctx3, {
-        type: 'pie',
-        data: {
-            labels: ['Wallonie', 'Flandre', 'Bruxelles-Capitale', 'Belgique'],
-            datasets: [{
-                label: 'Tonnes de CO₂',
-                data: [31200000/206400000*100, 55000000/206400000*100, 17000000/206400000*100, 103200000/206400000*100],
-            }]
-        }
-    });
-  </script>
-
-
-    <!-- ========================== PARTIE 1 - Tous les aéroports belges ========================== -->
-    {% if data %}
-    <div class="section">
-        <h2>Émissions totales des 5 aéroports belges</h2>
-
-        {% set total_be = namespace(val=0) %}
-        {% for e in data["emissions"] %}
-            {% set total_be.val = total_be.val + e %}
-        {% endfor %}
-
-        <p><strong>Total cumulé :</strong> {{ total_be.val | round(2) }} tonnes de CO₂</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Aéroport</th>
-                    <th>Émissions (tonnes CO₂)</th>
-                    <th>Part relative (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in range(data["aeroports"]|length) %}
-                <tr>
-                    <td>{{ data["aeroports"][i] }}</td>
-                    <td>{{ data["emissions"][i] | round(2) }}</td>
-                    <td>{{ (data["emissions"][i] / total_be.val * 100) | round(1) }}%</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <p><strong>Comparaison :</strong> Cela représente environ {{ (total_be.val / 16000000 * 100) | round(2) }}% des émissions annuelles de la Wallonie (~16 Mt CO₂).</p>
-    </div>
-    {% endif %}
-
-
-    
-    <!-- ========================== PARTIE 2 - Formulaire et résultats filtrés ========================== -->
-    <div class="section">
-        <h2>Émissions d’un aéroport pour une période donnée</h2>
-        <form method="get" action="{{ url_for('graph.requete_emission') }}">
-            <label for="dep">Aéroport de départ :</label>
-            <input list="airports" name="dep" id="dep" placeholder="Tapez le nom de l'aéroport" autocomplete="off" required>
+<!-- ========================== PARTIE 2 - Formulaire et résultats filtrés ========================== -->
+<form method="get" action="{{ url_for('graph.page_graphique') }}">
+    <div class="requete_graphique">
+        <label for="dep">Aéroport de départ :</label>
+        <input list="airports" name="dep" id="dep" placeholder="Tapez le nom de l'aéroport" autocomplete="off" required>
             
-            <!-- Datalist pour l'autocomplétion des aéroports -->
-            <datalist id="airports">
-                {% for airport in airports %}
-                    <option value="{{ airport.name }}">  <!-- airport.name est le nom de l'aéroport -->
-                {% endfor %}
-            </datalist>
+        <!-- Datalist pour l'autocomplétion des aéroports -->
+        <datalist id="airports">
+            {% for airport in airports %}
+                <option value="{{ airport.name }}">  <!-- airport.name est le nom de l'aéroport -->
+            {% endfor %}
+        </datalist>
 
-            <label for="date_deb">Date de début :</label>
-            <input type="date" name="date_deb" value="{{ request.args.get('date_deb', '') }}" required>
+        <label for="date_deb">Date de début :</label>
+        <input type="date" name="date_deb" value="{{ request.args.get('date_deb', '') }}" required>
 
-            <label for="date_fin">Date de fin :</label>
-            <input type="date" name="date_fin" value="{{ request.args.get('date_fin', '') }}" required>
-
-            <button type="submit">Afficher</button>
-        </form>
+        <label for="date_fin">Date de fin :</label>
+        <input type="date" name="date_fin" value="{{ request.args.get('date_fin', '') }}" required>
     </div>
+    <button class="requete_graphique" type="submit">Afficher</button>
+</form>
 
-    {% if datas %}
-    <div class="section">
-        <h3>Émissions par pays pour l’aéroport sélectionné</h3>
+{% if datas %}
+        <h2 class="requete_graphique">Aéroport : {{choix_aeroport}}</h2>
 
         {% set total_filtered = namespace(val=0) %}
         {% for v in datas.values() %}
             {% set total_filtered.val = total_filtered.val + v[0] %}
         {% endfor %}
 
-        <p><strong>Émissions totales :</strong> {{ total_filtered.val | round(2) }} tonnes de CO₂</p>
+        <h3 class="requete_graphique">Émissions totales : {{ total_filtered.val | round(2) }} tonnes de CO₂</h3>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Pays de destination</th>
-                    <th>Émissions (tonnes CO₂)</th>
-                    <th>Part (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for country, val in datas.items() %}
-                <tr>
-                    <td>{{ country }}</td>
-                    <td>{{ val[0] | round(2) }}</td>  <!-- val[0] est le CO₂ -->
-                    <td>{{ val[1] | round(1) }}%</td>  <!-- val[1] est le pourcentage -->
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% endif %}
-{% endblock %}
+        {% set pays = [] %} <!--Une liste avec les pays connectés avec l'aéroport-->
+        {% set pourcentage = [] %} <!--Une liste avec le % d'emission de chaque pays-->
+        {% set part = namespace(somme=100) %} <!--Le pourcentage restant-->
+        {% for country, val in datas.items() %}
+            {% if val[1] >= 5 %} <!--On ajoute le pays et son pourcentage dans notre liste que si c'est >= 3%-->
+                {% set _ = pays.append(country) %}
+                {% set _ = pourcentage.append(val[1] | round(1)) %}
+                {% set part.somme = part.somme - (val[1] | round(1))%}
+            {% endif %}
+        {% endfor %}
 
-{% block content_down %}
-    <!-- Contenu sous la section principale (si nécessaire) -->
+        {% if pays | length > 1 %} <!--On ajoute le pourcentage restant que si on a pas moins de 2 pays dans notre liste-->
+            {% set _ = pays.append("Autre") %}
+            {% set _ = pourcentage.append(part.somme) %} 
+        {% endif %}
+
+<script>
+    // Graphique du poucentage d'emission par pays pour un aéroport choisi
+    document.getElementById("aeroport_chargement").style.display = "none";
+    document.getElementById("graphique_chargement").style.display = "none";
+    document.getElementById("emission_chargement").style.display = "none";
+
+    var ctx3 = document.getElementById('pays').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: {{pays | tojson}},
+            datasets: [{
+                label: 'Part en %',
+                data: {{pourcentage | tojson}},
+            }]
+        }
+    });
+</script>
+{% endif %}
+
+{% if choix_aeroport and not datas %}
+    <h2 class="requete_graphique">Aéroport : {{choix_aeroport}}</h2>
+    <h3 class="requete_graphique">Émissions : Aucunes données disponibles</h3>
+    <script>
+        document.getElementById("aeroport_chargement").style.display = "none";
+        document.getElementById("emission_chargement").style.display = "none";
+    </script>
+{% endif %}
+
 {% endblock %}

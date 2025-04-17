@@ -2,7 +2,6 @@ from flask import (
    Blueprint, render_template, request
 )
 
-from mobility.db import get_db
 from mobility.models.airport import get_all_airports, get_iata_by_airport_name, nombre_de_vols_par_type, nombre_de_vols_par_jour
 
 bp = Blueprint('airport', __name__)
@@ -26,7 +25,6 @@ def requete_aeroport():
             selected_airport: le nom de l'aéroport tel qu'indiqué dans la requête.
             airport_not_found: un booléen indiquant si l'aéroport recherché n'a pas été trouvé dans la base de données.
     """
-    db = get_db()
     airport_name = request.args.get('airport_name')
 
     airports = get_all_airports()

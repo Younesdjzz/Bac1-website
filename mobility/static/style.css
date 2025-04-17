@@ -124,12 +124,12 @@ h1 {
 div.titre-box {
    position: relative;
    z-index: 1;
-   width: max-content;
+   max-width: 1100px;
+   text-align: center;
    background: rgba(250, 255, 253, 0.8);
    margin: auto;
    margin-top: 10px;
    margin-bottom: 35px;
-   padding: 450px;
    border-radius: 50px 50px 50px 50px;
    padding-bottom: 5px;
    padding-top: 5px;
@@ -423,6 +423,71 @@ div.graphique_droite {
    left: 49rem;
 }
 
+div.requete_graphique {
+   position: absolute;
+   display: grid;
+   grid-template-columns: repeat(2, 180px);
+   column-gap: 0;
+   column-gap: 4px;
+   font-weight: 600;
+   width: fit-content;
+   padding: 5px;
+   text-align: right;
+   align-items: center;
+   top: 44rem;
+   left: 44rem;
+}
+
+button.requete_graphique {
+   position: absolute;
+   width: 90px;
+   height: 40px;
+   top: 45.85rem;
+   left: 68.5rem;
+}
+
+h2.requete_graphique {
+   font-family: Georgia, 'Times New Roman', Times, serif;
+   padding: 14px;
+   border-radius: 35px;
+   text-align: center;
+   width: 300px;
+   position: absolute;
+   top: 5.6rem;
+   left: 51rem;
+}
+
+h2.requete_graphique::after{
+   content:'';
+   position: absolute;
+   width: 310px;
+   height: 2px;
+   bottom: 5px;
+   left: 7px;
+   border-radius: 10px;
+   background: black;
+
+}
+
+h3.requete_graphique {
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+   padding: 20px;
+   border-radius: 35px;
+   background-color: #ffffff;
+   position: absolute;
+   top: 37.4rem;
+   left: 48rem;
+}
+
+img.graphique {
+   margin-top: 10px;
+   width: 380px;
+   border-radius: 50%;
+   background-color: #b6e2cd;
+   border: solid white 2px;
+   opacity: 70%;
+}
+
 canvas {
    width: 50%;
    height: 350px;
@@ -654,10 +719,12 @@ input {
    border: solid #224a52 2px;
    text-align: center;
    border-radius: 7px;
+   accent-color:#224a52;
 }
 
 input {
    padding: 5px;
+   accent-color:#224a52;
 }
 
 button {
@@ -669,6 +736,7 @@ button {
    padding: 5px;
    text-align: center;
    border-radius: 7px;
+   cursor: pointer;
 }
 
 /* Le système d'étoile */
