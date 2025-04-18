@@ -115,6 +115,27 @@ div.welcome {
    z-index: 4;
 }
 
+div.disclaimer {
+   position: absolute;
+   background-color: #ffffffc1;
+   color: #224a52;
+   font-size: small;
+   bottom: 20px;
+   left: 200px;
+   padding: 40px;
+   padding-top: 10px;
+   padding-bottom: 25px;
+   border-radius: 100px;
+   width: 70%;
+   text-align: center;
+   z-index: 4;
+}
+
+a.contact {
+   color: #0254eb;
+   font-weight: 600;
+}
+
 h1 {
    font-family: serif;
    margin: 1rem 0;
