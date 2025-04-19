@@ -11,7 +11,7 @@
     {% for avis in avis_liste %}
     <div class="{% if loop.index0 % 2 == 0 %}avis-box-left{% else %}avis-box-right{% endif %}">
         <div class="profil_avis">
-            <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
+            <img class="photo_avis" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
                 alt="Photo de profil">
             <div class="info_avis">
                 <h2>{{ avis.prenom }}</h2>
@@ -32,11 +32,6 @@
         <div class="message-box">
             {{ avis.message }}
         </div>
-        <form action="{{ url_for('avis.supprimer_avis', avis_id=avis.id) }}" method="POST" style="display:inline;">
-            <button type="submit" style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-                🗑 Supprimer
-            </button>
-        </form>
     </div>
     {% endfor %}
 </div>
