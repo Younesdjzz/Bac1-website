@@ -10,6 +10,15 @@ def get_all_airports():
     db = get_db()
     return db.execute("SELECT name FROM airport WHERE name IS NOT NULL ORDER BY name ASC").fetchall()
 
+# Trouver l'iata d'un aeroport:
+def get_iata_by_airport_name(airport_name) :
+    """
+    Pré : airport_name = le nom de l'aeroport
+    Post : return l'iata de cet aéroport
+    """
+    db = get_db()
+    return db.execute("SELECT iata_code FROM airport WHERE LOWER(name) = LOWER(?)", (airport_name.lower(),)).fetchone()
+
 def search_airport_by_iata_code(iata_code: str):
     """
     Cette fonction retourne les données de l'aeroport correspondant au IATA code spécifiée

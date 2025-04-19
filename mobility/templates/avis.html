@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block titre %}
+<h1>Vos avis sur notre site web</h1>
+{% endblock %}
+
+{% block content %}
+
+<!-- Affichage des avis soumis -->
+<div class="avis-list">
+    {% for avis in avis_liste %}
+    <div class="{% if loop.index0 % 2 == 0 %}avis-box-left{% else %}avis-box-right{% endif %}">
+        <div class="profil_avis">
+            <img class="photo_avis" src="{{ url_for('static', filename='uploads/' + avis.photo_profil) }}"
+                alt="Photo de profil">
+            <div class="info_avis">
+                <h2>{{ avis.prenom }}</h2>
+                <div class="rating">
+                    {% for i in range(5, 0, -1) %}
+                        {% if i <= avis.note %} 
+                            <label style="color: #1ac5aa;">★</label>
+                        {% else %}
+                            <label style="color: #ccc;">★</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="entete">
+            {{ avis.entete }}
+        </div>
+        <div class="message-box">
+            {{ avis.message }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="donner_avis" onclick="ouvrirModale()">
+    <h1>Donnez votre avis ici !</h1>
+</div>
+<!-- Modale -->
+<div id="avis" class="avis">
+    <div class="popup">
+    <!-- Formulaire dans la modale -->
+    <form action="{{ url_for('avis.envoyer_avis') }}" method="POST" enctype="multipart/form-data">
+    <!-- Étoiles -->
+    <div class="rating">
+        {% for etoile in donner_etoiles %}
+            <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required />
+            <label class="avis" for="{{etoile[0]}}">★</label>
+        {% endfor %}
+    </div>
+
+    <!-- Prénom -->
+    <h2>Entrez votre prénom</h2>
+    <textarea name="prenom" rows="1" cols="20" placeholder="Votre prénom..." required></textarea>
+
+    <!-- Photo -->
+    <h2>Choisissez une photo de profil</h2>
+    <div class="photo-choices">
+        {% for image in images %}
+            <label>
+                <input type="radio" name="photo_profil" value="{{ image }}" required>
+                <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image">
+            </label>
+        {% endfor %}
+    </div>
+
+    <!-- Entête -->
+    <h2>Entête</h2>
+    <textarea name="entete" rows="1" cols="35" placeholder="Votre entête..." required></textarea>
+
+    <!-- Avis -->
+    <h2>Laissez votre avis</h2>
+    <textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea>
+
+    <!-- Boutons -->
+    <button type="submit">Envoyer</button>
+    <button type="button" onclick="fermerModale()">✖</button>
+    </form>
+
+    </div>
+</div>
+
+<script>
+    function ouvrirModale() {
+        document.getElementById("avis").style.display = "flex";
+        document.getElementById("titre-box").style.zIndex = "-1";
+        document.getElementById("nav").style.zIndex = "0";
+    }
+
+    function fermerModale() {
+        document.getElementById("avis").style.display = "none";
+        document.getElementById("titre-box").style.zIndex = "8";
+        document.getElementById("nav").style.zIndex = "99";
+    }
+</script>
+{% endblock %}

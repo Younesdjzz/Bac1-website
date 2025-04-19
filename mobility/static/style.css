@@ -1,6 +1,7 @@
 /* -- Style body/html -- */
 html {
    font-family: sans-serif;
+   scroll-behavior: smooth;
 }
 
 body {
@@ -12,7 +13,7 @@ body {
    background-color: #BCE0DD;
 }
 
-/* -- Le navigateur et footer-- */
+/* -- Le navigateur --*/
 nav {
    position: fixed;
    width: 100vw;
@@ -22,14 +23,14 @@ nav {
    display: flex;
    align-items: center;
    padding: 0 0.5rem;
-   z-index: 100;
+   z-index: 99;
 }
 
 nav .nav-left {
    margin-left: 110px;
    display: flex;
    align-items: center;
-   color:#ffffff;
+   color: #ffffff;
    font-size: large;
    font-weight: bold;
 }
@@ -37,7 +38,6 @@ nav .nav-left {
 nav .nav-left img {
    margin-right: 7px;
 }
-
 
 nav h1 {
    flex: auto;
@@ -49,7 +49,7 @@ nav ul {
    list-style: none;
    margin: 0;
    margin-left: auto;
-   margin-right:200px;
+   margin-right: 200px;
    padding: 0;
 }
 
@@ -83,6 +83,7 @@ main {
    justify-content: center;
    align-items: stretch;
    margin: 0 auto;
+   position: relative;
 }
 
 div.contenu-central {
@@ -91,6 +92,8 @@ div.contenu-central {
    background: rgba(250, 255, 253, 0.886);
    padding: 20px;
    box-shadow: 9px 0px 16px rgba(0, 0, 0, 0.1);
+   position: relative;
+   z-index: 0;
 }
 
 div.cotes {
@@ -106,8 +109,31 @@ div.welcome {
    padding: 30px;
    border-radius: 100px;
    margin-top: 50px;
+   width: 70%;
+   margin: auto;
    text-align: center;
-   z-index: 5;
+   z-index: 4;
+}
+
+div.disclaimer {
+   position: absolute;
+   background-color: #ffffffc1;
+   color: #224a52;
+   font-size: small;
+   bottom: 20px;
+   left: 200px;
+   padding: 40px;
+   padding-top: 10px;
+   padding-bottom: 25px;
+   border-radius: 100px;
+   width: 70%;
+   text-align: center;
+   z-index: 4;
+}
+
+a.contact {
+   color: #0254eb;
+   font-weight: 600;
 }
 
 h1 {
@@ -118,13 +144,13 @@ h1 {
 /* -- Les titres-box -- */
 div.titre-box {
    position: relative;
-   z-index: 5;
-   width: max-content;
+   z-index: 1;
+   max-width: 1100px;
+   text-align: center;
    background: rgba(250, 255, 253, 0.8);
    margin: auto;
    margin-top: 10px;
    margin-bottom: 35px;
-   padding: 450px;
    border-radius: 50px 50px 50px 50px;
    padding-bottom: 5px;
    padding-top: 5px;
@@ -135,7 +161,6 @@ div.titre-box:hover {
    transform: perspective(10px);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
 }
 
 div.mini_titre-box {
@@ -154,7 +179,7 @@ div.mini_titre-box {
 div.double_titre {
    display: grid;
    grid-template-columns: repeat(2, 1fr);
-   width:min-content;
+   width: min-content;
    column-gap: 20px;
 }
 
@@ -170,7 +195,7 @@ div.equipe {
 
 .membre-box {
    display: flex;
-   z-index: 1;
+   z-index: 0;
    flex-direction: column;
 }
 
@@ -241,7 +266,7 @@ div.info_sup {
    bottom: 40px;
    background-color: var(--fond);
    color: var(--couleur);
-   z-index: -1;
+   z-index: -2;
    background: linear-gradient(80deg, var(--fond) 77.3%, white 22.7%);
 }
 
@@ -288,7 +313,7 @@ img.site:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
+   z-index: 9;
 }
 
 img.site:active {
@@ -316,7 +341,6 @@ img.logo {
    border-radius: 50%;
 }
 
-
 img.icon {
    width: 28px;
    height: 28px;
@@ -332,7 +356,7 @@ img.fond {
    width: 100%;
    position: absolute;
    top: -0px;
-   z-index: -1;
+   z-index: -2;
 }
 
 img.fond_up {
@@ -341,7 +365,7 @@ img.fond_up {
    width: 100%;
    position: absolute;
    top: 0px;
-   z-index: 3;
+   z-index: 0;
 }
 
 /* -- Style des tables -- */
@@ -368,7 +392,6 @@ div.tableau {
    width: fit-content;
    padding-right: 32px;
    padding-left: 32px;
-
 }
 
 th {
@@ -377,18 +400,18 @@ th {
    background: #224a52;
    border-radius: 4%;
    color: rgba(255, 255, 255);
-   z-index: 11;
+   z-index: 10;
 }
 
 td {
    background: rgba(250, 255, 253, 0.871);
 }
 
-th, td {
+th,
+td {
    padding: 10px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
 }
-
 
 table {
    height: 100px;
@@ -400,31 +423,361 @@ tbody tr:hover {
    transform: scale(1.17);
    transition: transform 0.4s ease;
    box-shadow: 8px 8px 24px #224a5240;
-   z-index: 10;
+   z-index: 9;
 }
 
-/* -- Pas encore utilisé -- */
-div.case {
-   background-color: #90bdae;
-   margin: 8px;
-   padding: 4px;
-   text-align: center;
-   font-size: 16px;
-   border: 3px solid #0e4c2d;
-   border-radius: 8px;
+/* -- Style des graphique -- */
+div.graphique_gauche {
+   display: grid;
+   grid-auto-flow: column;
+   grid-template-rows: repeat(2, 1fr);
+   gap: 20px;
    width: fit-content;
+   margin: left;
 }
 
-a.bouton {
-   background-color: #224a52;
-   color: #EBE3F5;
-   padding: 6px 10px;
+div.graphique_droite {
+   position: absolute;
+   width: fit-content;
+   margin: left;
+   top: 12rem;
+   left: 49rem;
+}
+
+div.requete_graphique {
+   position: absolute;
+   display: grid;
+   grid-template-columns: repeat(2, 180px);
+   column-gap: 0;
+   column-gap: 4px;
+   font-weight: 600;
+   width: fit-content;
+   padding: 5px;
+   text-align: right;
+   align-items: center;
+   top: 44rem;
+   left: 44rem;
+}
+
+button.requete_graphique {
+   position: absolute;
+   width: 90px;
+   height: 40px;
+   top: 45.85rem;
+   left: 68.5rem;
+}
+
+h2.requete_graphique {
+   font-family: Georgia, 'Times New Roman', Times, serif;
+   padding: 14px;
+   border-radius: 35px;
+   text-align: center;
+   width: 300px;
+   position: absolute;
+   top: 5.6rem;
+   left: 51rem;
+}
+
+h2.requete_graphique::after{
+   content:'';
+   position: absolute;
+   width: 310px;
+   height: 2px;
+   bottom: 5px;
+   left: 7px;
+   border-radius: 10px;
+   background: black;
+
+}
+
+h3.requete_graphique {
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+   padding: 20px;
+   border-radius: 35px;
+   background-color: #ffffff;
+   position: absolute;
+   top: 37.4rem;
+   left: 48rem;
+}
+
+img.graphique {
+   margin-top: 10px;
+   width: 380px;
+   border-radius: 50%;
+   background-color: #b6e2cd;
+   border: solid white 2px;
+   opacity: 70%;
+}
+
+canvas {
+   width: 50%;
+   height: 350px;
+}
+
+#pays {
+   height: 55vh;
+}
+
+/* -- Style de la page avis -- */
+div.avis-list {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+  
+   width: 100%;
+}
+
+div.avis-box-left, div.avis-box-right {
+   position: relative;
+   margin: 15px;
+   max-width: 400px;
+   height: fit-content;
+   padding: 8px;
+   padding-right: 40px;
+   border-radius: 15px;
+   background-color: #ffffffbf;
+   border: solid #e9fff5 5px;
+}
+
+div.avis-box-left::before, div.avis-box-right::before,
+div.avis-box-left::after, div.avis-box-right::after  {
+   content: '';
+   position: absolute;
+   border-radius: 50%;
+   background-color: #e9fff5;
+}
+
+/*Avis à gauche*/
+div.avis-box-left::before {
+   bottom: -10px;
+   left: -10px;
+   height: 18px;
+   width: 18px;
+}
+
+div.avis-box-left::after {
+   bottom: -13px;
+   left: -15px;
+   height: 15px;
+   width: 15px;
+}
+
+/*Avis à droite*/
+div.avis-box-right::before {
+   bottom: -10px;
+   right: -10px;
+   height: 18px;
+   width: 18px;
+}
+
+div.avis-box-right::after {
+   bottom: -13px;
+   right: -15px;
+   height: 15px;
+   width: 15px;
+}
+
+div.profil_avis {
+   display: flex;
+   align-items: center;
+   position: relative;
+}
+
+div.info_avis {
+   margin-left: 20px;
+   line-height: 0.35;
+   font-family: 'Poppins', sans-serif;
+   margin-bottom: 20px;
+}
+
+div.info_avis h2 {
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+   font-weight: 200;
+   font-size: 22px;
+}
+
+div.entete {
+   margin-left: 4%;
+   margin-top: 7px;
+   margin-bottom: 9px;
+   position: relative;
+   font-size: 22px;
+   font-weight: 500;
+   width: fit-content;
+   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+div.entete::after {
+   content: '';
+   position: absolute;
+   bottom: -2px;
+   left: 0;
+   height: 10%;
+   border-radius: 30%;
+   width: 80%;
+   background: linear-gradient(to left, rgb(224, 255, 248), rgb(112, 255, 222));
+}
+
+div.message-box {
+   width: fit-content;
+   font-family: Tahoma, Geneva, Verdana;
+   line-height: 1.4;
+   margin-left: 2%;
+}
+
+img.photo_choix {
+   max-width: 100px;
+   max-height: 100px;
+   border-radius: 50%;
+   margin: 5px;
+}
+
+img.photo_avis {
+   width: 68px;
+   height: 68px;
+   object-fit: cover;
+   border-radius: 50%;
+   border: 3px solid #ffffff;
+   box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
+}
+
+/*boutton donner_avis animé*/
+div.donner_avis {
+   display: flex;
+   margin: auto;
+   margin-top: 40px;
+   width: 800px;
+   height: 60px;
+   align-items: center;
+   justify-content: center;
+   border-radius: 15px;
+   background-image: conic-gradient(#f3fff8, #ffffff, #f3fff8);
+   border: solid rgb(226, 242, 255) 1px;
+   box-shadow: 0.2px 0.8px 4px #224a5240;
+   position: relative;
+   cursor: pointer;
+}
+
+div.donner_avis h1 {
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+   font-weight: 400;
+   font-size: 26px;
+}
+
+@property --angle {
+   syntax: "<angle>";
+   initial-value: 0deg;
+   inherits: false;
+}
+
+div.donner_avis::before,
+div.donner_avis::after {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   translate: -50% -50%;
+   width: 100%;
+   height: 100%;
+   border-radius: 17px;
+   padding: 3px;
+   background: conic-gradient(from var(--angle), #b8f3d5, #5fe3c0, #1ac5aa, #b8f3d5);
+   z-index: -1;
+   animation: 3s spin linear infinite;
+}
+
+div.donner_avis::before {
+   filter: blur(0.4rem);
+   opacity: 0.5;
+}
+
+@keyframes spin {
+   from {
+      --angle: 0deg;
+   }
+
+   to {
+      --angle: 360deg;
+   }
+}
+
+/*Css de la popup*/
+div.avis {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
+   background-color: rgba(0, 0, 0, 0.4);
+   display: none;
+   justify-content: center;
+   align-items: center;
+   z-index: 200;
+}
+
+/* La boîte de dialogue */
+div.popup {
+   background: linear-gradient(0deg, white 95%, #224a52 5%);
+   padding: 30px;
+   max-height: 80vh;
+   max-width: 190vh;
+   overflow-y: auto;
+   border-radius: 15px;
+   box-shadow: 0 0 10px black;
+   text-align: center;
+}
+
+textarea,
+input {
+   resize: none;
+   font-family: sans-serif;
+   border: solid #224a52 2px;
+   text-align: center;
+   border-radius: 7px;
+   accent-color:#224a52;
+}
+
+input {
+   padding: 5px;
+   accent-color:#224a52;
+}
+
+button {
+   font-family: sans-serif;
+   color: white;
+   font-weight: 400;
    font-size: 16px;
-   border: none;
-   border-radius: 5px;
-   text-decoration: none;
+   background-color: #224a52;
+   padding: 5px;
+   text-align: center;
+   border-radius: 7px;
+   cursor: pointer;
 }
 
-a.bouton:hover {
-   background-color: #2e6b64;
+/* Le système d'étoile */
+div.rating {
+   direction: rtl;
+   /*Affiche les animations d'étoiles de gauche à droite (rtl = direction inverse)*/
+   font-size: 2rem;
+   display: inline-flex;
+}
+
+div.rating input {
+   display: none;
+}
+
+div.rating label.avis {
+   color: #ccc;
+   cursor: pointer;
+   transition: color 0.3s;
+}
+
+div.rating input:checked~label {
+   color: #1ac5aa;
+}
+
+div.rating label:hover,
+div.rating label:hover~label {
+   color: #1ac5aa;
 }

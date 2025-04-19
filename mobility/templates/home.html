@@ -4,15 +4,29 @@
 <h1>Page d'acceuil</h1>
 {% endblock %}
 
-{% block content_up %}{% endblock %}
-
-{% block content %}
+{% block content_up %}
 <div class="welcome">
     <div class="contenu_welcome">
         <h2>{{bienvenu}}</h2>
         <p><img class="site" src="{{url_for('static', filename='logo_site_bleu.png')}}"></p>
     </div>
 </div>
+
+<div class="disclaimer">
+    <h3>/!\ Propriété intellectuelle</h3>
+  
+    Les images présentes sur ce site sont utilisées <strong>à des fins illustratives</strong>. Si vous êtes titulaire des <strong>droits d’auteur</strong> sur l’une de ces images et souhaitez qu’elle soit <strong>retirée ou créditée</strong>, merci de <a href="/equipe" class="contact">nous contacter</a>. <strong>Nous nous engagerons à corriger cette situation dans les plus brefs délais</strong>.
+  
+    Ce site <strong>n’a aucun but commercial</strong>, et les visuels utilisés ne sont pas revendiqués comme des créations originales, sauf indication contraire.
+
+    <h3>/!\ Intellectual property</h3>
+
+    The images on this site are used <strong>for illustrative purposes</strong> only. If you are the <strong>copyright holder</strong> of any of these images and wish to have it <strong>removed or credited</strong>, please <a href="/equipe" class="contact">contact us</a>. <strong>We are committed to resolving the issue as quickly as possible</strong>.
+
+    This site <strong>has no commercial intent</strong>, and the visuals used are not claimed as original creations unless otherwise stated.
+
+</div>
+  
 {% endblock %}
 
 {% block content_down %}<img class="fond_up" src="{{url_for('static', filename='fond_site.png')}}">{% endblock %}

@@ -6,19 +6,13 @@
 
 {% block content %}
 {% for dep, flights in data.items() %}
-    {% set bilan_carb = namespace(val=0) %}  <!-- Bilan carbone pour cet aéroport de départ -->
-
-    {% for flight in flights %}
-        {% set bilan_carb.val = bilan_carb.val + (flight[3] or 0) %}  <!-- Calcul du bilan carbone -->
-    {% endfor %}
-
     <div class="double_titre">
         <div class="mini_titre-box">
             <h2>Aéroport de départ : {{ dep }}</h2>
         </div>
     
         <div class="mini_titre-box">
-            <h3>Bilan carbone : {{ bilan_carb.val | round(2) }} kg CO₂</h3>
+            <h3>Bilan carbone : {{ flights[-1] | round(2) }} T CO₂ </h3>
         </div>
     </div>
     {% set count = namespace(airports={}) %}  <!-- Compteur du nombre de vols -->
@@ -41,14 +35,14 @@
                     <th>Aéroport d'arrivée</th>
                     <th>Nombre de vols</th>
                     <th>Distance (km)</th>
-                    <th>Émissions CO₂ totales (kg)</th>
+                    <th>Émissions CO₂ totales (T)</th>
                 </tr>
             </thead>
 
             {% set affiche = namespace(airports=[]) %}  <!-- Liste des aéroports affichés -->
 
             {% for flight in flights %}
-                {% if flight[1] not in affiche.airports %}
+                {% if flight[1] not in affiche.airports and flight != flights[-1] %}
                     <tr>
                         <td>
                             {% if count.airports[flight[1]] > 1 and flight[1] not in affiche.airports %}
@@ -71,7 +65,7 @@
     </div>
 
     <div class="mini_titre-box">
-        <h3>Bilan carbone : 0 kg CO₂</h3>
+        <h3>Bilan carbone : 0 T CO₂</h3>
     </div>
 </div>
 {% endblock %}

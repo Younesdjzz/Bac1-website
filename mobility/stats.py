@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template, request, redirect, url_for
+    Blueprint, render_template
 )
 from mobility.models.stats import *
 

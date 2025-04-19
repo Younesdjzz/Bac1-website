@@ -2,7 +2,6 @@ from flask import (
     Blueprint, render_template, current_app
 )
 from mobility.models.emission import aeroport_info
-from mobility.db import get_db
 
 from decimal import Decimal
 import math
@@ -46,7 +45,7 @@ def distance(lat_from: Decimal, long_from: Decimal,  lat_to: Decimal, long_to: D
 def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     ''' Pré: cette fonction prend en argument la distance et le type d'appareil qui est un objet de 
         la classe AirCraft 
-        Post: cette fonction retourne l'émission de CO2 en kg
+        Post: cette fonction retourne l'émission de CO2 en tonne
     '''
     #condition pour définir la consommation par type d'appareil
     if aircraft == AirCraft.S:
@@ -68,17 +67,18 @@ def emission(distance: Decimal, aircraft: AirCraft) -> Decimal:
     
     return CO2_emit
 
-@bp.route('/voyages')
+@bp.route('/emissions')
 def page_emission():
     ''' Pré: Cette fonction ne prends pas d'argument
         Post: cette fonction renvoie un dictionnaire qui aura pour clés, les aéroports de départ et comme valeurs, 
-        une liste qui contient des listes par de vols. 
+        une liste qui contient des listes par départ . 
         Le dico peut se représenter comme telle: 
-        d = {"a_dep1" : [[a_dep1, lat_dep, long_dep,a_arr,lat_arr,long_arr,type d'appareil (ex: "M")],[a_dep1...]],"a_dep2":[[a_dep2,...]]}
+        d = {"a_dep1" : [["a_dep1": a_arr, distance,émission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
-    l = get_flights()
-    d = {}
-    for i in l:
+    liste_des_aéroports = get_flights()
+    d = {} 
+    for i in liste_des_aéroports:
+        s = 0
         if not i:
             continue  
         a_dep = i[0][0]  
@@ -89,9 +89,16 @@ def page_emission():
                 aircraft = AirCraft[j[6]]
             else:
                 aircraft = AirCraft[4]
-            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),emission(distance(j[1],j[2],j[4],j[5]), aircraft) ])
+            co2 = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
+            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),co2])
             #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
+            s += co2
+        d[a_dep].append(s)
 
     return render_template("emission.html", data=d)
+
+
+
+
 
 
