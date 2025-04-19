@@ -517,101 +517,76 @@ canvas {
 #pays {
    height: 55vh;
 }
-
 /* -- Style de la page avis -- */
 div.avis-list {
    display: grid;
    grid-template-columns: repeat(2, 1fr);
-  
    width: 100%;
 }
 
 div.avis-box-left, div.avis-box-right {
-   position: relative;
    margin: 15px;
    max-width: 400px;
    height: fit-content;
    padding: 8px;
-   padding-right: 40px;
    border-radius: 15px;
    background-color: #ffffffbf;
    border: solid #e9fff5 5px;
 }
 
-/*Avis à gauche*/
-div.avis-box-left::before {
+/* Avis à gauche */
+div.avis-box-left::before, div.avis-box-left::after,
+div.avis-box-right::before, div.avis-box-right::after {
    content: '';
    position: absolute;
-   bottom: -10px;
-   left: -10px;
    height: 18px;
    width: 18px;
    border-radius: 50%;
    background-color: #e9fff5;
+}
+
+div.avis-box-left::before {
+   bottom: -10px;
+   left: -10px;
 }
 
 div.avis-box-left::after {
-   content: '';
-   position: absolute;
    bottom: -13px;
    left: -15px;
-   height: 15px;
-   width: 15px;
-   border-radius: 50%;
-   background-color: #e9fff5;
 }
 
-/*Avis à droite*/
 div.avis-box-right::before {
-   content: '';
-   position: absolute;
    bottom: -10px;
    right: -10px;
-   height: 18px;
-   width: 18px;
-   border-radius: 50%;
-   background-color: #e9fff5;
 }
 
 div.avis-box-right::after {
-   content: '';
-   position: absolute;
    bottom: -13px;
    right: -15px;
-   height: 15px;
-   width: 15px;
-   border-radius: 50%;
-   background-color: #e9fff5;
 }
 
 div.profil_avis {
    display: flex;
    align-items: center;
-   position: relative;
 }
 
 div.info_avis {
    margin-left: 20px;
    line-height: 0.35;
-   font-family: 'Poppins', sans-serif;
    margin-bottom: 20px;
 }
 
 div.info_avis h2 {
-   font-family:Verdana, Geneva, Tahoma, sans-serif;
-   font-weight: 200;
    font-size: 22px;
+   font-weight: 200;
 }
 
 div.entete {
    margin-left: 4%;
    margin-top: 7px;
    margin-bottom: 9px;
-   position: relative;
    font-size: 22px;
    font-weight: 500;
-   width: fit-content;
-   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 div.entete::after {
@@ -622,12 +597,10 @@ div.entete::after {
    height: 10%;
    border-radius: 30%;
    width: 80%;
-   background: linear-gradient(to left, rgb(224, 255, 248), rgb(112, 255, 222));
 }
 
 div.message-box {
    width: fit-content;
-   font-family: Tahoma, Geneva, Verdana;
    line-height: 1.4;
    margin-left: 2%;
 }
@@ -647,68 +620,31 @@ img.photo_avis {
    border: 3px solid #ffffff;
    box-shadow: 2px 4px 17px rgba(0, 0, 0, 0.1);
 }
-
-/*boutton donner_avis animé*/
+/* Bouton donner_avis */
 div.donner_avis {
    display: flex;
    margin: auto;
    margin-top: 40px;
-   width: 800px;
+   width: 100%;
+   max-width: 800px;
    height: 60px;
    align-items: center;
    justify-content: center;
    border-radius: 15px;
-   background-image: conic-gradient(#f3fff8, #ffffff, #f3fff8);
-   border: solid rgb(226, 242, 255) 1px;
+   background-color: #f3fff8; 
+   border: solid rgb(26, 108, 175) 1px;
    box-shadow: 0.2px 0.8px 4px #224a5240;
    position: relative;
    cursor: pointer;
 }
 
 div.donner_avis h1 {
-   font-family:Verdana, Geneva, Tahoma, sans-serif;
-   font-weight: 400;
    font-size: 26px;
+   font-weight: 400;
 }
 
-@property --angle {
-   syntax: "<angle>";
-   initial-value: 0deg;
-   inherits: false;
-}
 
-div.donner_avis::before,
-div.donner_avis::after {
-   content: '';
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   translate: -50% -50%;
-   width: 100%;
-   height: 100%;
-   border-radius: 17px;
-   padding: 3px;
-   background: conic-gradient(from var(--angle), #b8f3d5, #5fe3c0, #1ac5aa, #b8f3d5);
-   z-index: -1;
-   animation: 3s spin linear infinite;
-}
-
-div.donner_avis::before {
-   filter: blur(0.4rem);
-   opacity: 0.5;
-}
-
-@keyframes spin {
-   from {
-      --angle: 0deg;
-   }
-
-   to {
-      --angle: 360deg;
-   }
-}
-
-/*Css de la popup*/
+/* Popup */
 div.avis {
    position: fixed;
    top: 0;
@@ -716,13 +652,13 @@ div.avis {
    width: 100%;
    height: 100%;
    backdrop-filter: blur(5px);
-   -webkit-backdrop-filter: blur(5px);
    background-color: rgba(0, 0, 0, 0.4);
    display: none;
    justify-content: center;
    align-items: center;
    z-index: 200;
 }
+
 
 /* La boîte de dialogue */
 div.popup {
@@ -740,12 +676,11 @@ input {
    border: solid #224a52 2px;
    text-align: center;
    border-radius: 7px;
-   accent-color:#224a52;
+   accent-color: #224a52;
 }
 
 input {
    padding: 5px;
-   accent-color:#224a52;
 }
 
 button {
@@ -760,10 +695,9 @@ button {
    cursor: pointer;
 }
 
-/* Le système d'étoile */
+/* Système d'étoiles */
 div.rating {
    direction: rtl;
-   /*Affiche les animations d'étoiles de gauche à droite (rtl = direction inverse)*/
    font-size: 2rem;
    display: inline-flex;
 }
@@ -785,4 +719,10 @@ div.rating input:checked~label {
 div.rating label:hover,
 div.rating label:hover~label {
    color: #1ac5aa;
+}
+
+/* fenêtre contenant le formulaire car problème d'affichage*/
+div.popup {
+   max-height: 80vh; 
+   overflow-y: auto; 
 }

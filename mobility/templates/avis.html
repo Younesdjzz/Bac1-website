@@ -32,6 +32,11 @@
         <div class="message-box">
             {{ avis.message }}
         </div>
+        <form action="{{ url_for('avis.supprimer_avis', avis_id=avis.id) }}" method="POST" style="display:inline;">
+            <button type="submit" style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                🗑 Supprimer
+            </button>
+        </form>
     </div>
     {% endfor %}
 </div>
@@ -42,40 +47,44 @@
 <!-- Modale -->
 <div id="avis" class="avis">
     <div class="popup">
-        <form action="{{ url_for('avis.envoyer_avis') }}" method="POST" enctype="multipart/form-data">
-            <!-- Étoiles -->
-            <div class="rating">
-                {% for etoile in donner_etoiles %}
-                <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required />
-                <label class="avis" for="{{etoile[0]}}">★</label>
-                {% endfor %}
-            </div>
+    <!-- Formulaire dans la modale -->
+    <form action="{{ url_for('avis.envoyer_avis') }}" method="POST" enctype="multipart/form-data">
+    <!-- Étoiles -->
+    <div class="rating">
+        {% for etoile in donner_etoiles %}
+            <input type="radio" id="{{etoile[0]}}" name="note" value="{{etoile[1]}}" required />
+            <label class="avis" for="{{etoile[0]}}">★</label>
+        {% endfor %}
+    </div>
 
-            <!-- Prénom -->
-            <h2>Entrez votre prénom</h2>
-            <p><textarea name="prenom" rows="1" cols="20" placeholder="Votre prénom..." required></textarea></p>
+    <!-- Prénom -->
+    <h2>Entrez votre prénom</h2>
+    <textarea name="prenom" rows="1" cols="20" placeholder="Votre prénom..." required></textarea>
 
-            <!-- Photo -->
-            <h2>Choisissez une photo de profil</h2>
-            {% for image in images %}
+    <!-- Photo -->
+    <h2>Choisissez une photo de profil</h2>
+    <div class="photo-choices">
+        {% for image in images %}
             <label>
                 <input type="radio" name="photo_profil" value="{{ image }}" required>
                 <img class="photo_choix" src="{{ url_for('static', filename='uploads/' + image) }}" alt="Image">
             </label>
-            {% endfor %}
+        {% endfor %}
+    </div>
 
-            <!-- Entête -->
-            <h2>Entête</h2>
-            <textarea name="entete" rows="1" cols="35" placeholder="Votre entête..." required></textarea>
+    <!-- Entête -->
+    <h2>Entête</h2>
+    <textarea name="entete" rows="1" cols="35" placeholder="Votre entête..." required></textarea>
 
-            <!-- Avis -->
-            <h2>Laissez votre avis</h2>
-            <p><textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea></p>
+    <!-- Avis -->
+    <h2>Laissez votre avis</h2>
+    <textarea name="message" rows="2" cols="50" placeholder="Votre avis..." required></textarea>
 
-            <!-- Boutons -->
-            <button type="submit">Envoyer</button>
-            <button type="button" onclick="fermerModale()">✖</button>
-        </form>
+    <!-- Boutons -->
+    <button type="submit">Envoyer</button>
+    <button type="button" onclick="fermerModale()">✖</button>
+    </form>
+
     </div>
 </div>
 
