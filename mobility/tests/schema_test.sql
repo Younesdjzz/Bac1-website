@@ -37,6 +37,7 @@ CREATE TABLE aircraft (
     aircraft_type TEXT NOT NULL
 );
 
+
 -- Table des vols
 CREATE TABLE flight (
     flight_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,7 +78,7 @@ INSERT INTO flight (
 ("AF", "A320", "AF123", "2025-03-26", "CDG", "CRL", "08:00", "11:00"),
 ("AY", "E190", "AY456", "2025-03-26", "CRL", "CDG", "13:00", "16:00");
 
+
 INSERT INTO country VALUES ("FR", "France");
 INSERT INTO country VALUES ("BE", "Belgique");
-
 COMMIT;
