@@ -18,7 +18,8 @@ def avis():
     images = []
     chemin_uploads = os.path.join('mobility/static/uploads')
     for f in os.listdir(chemin_uploads):
-        images.append(f)
+        if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')) : # Pour corriger le bug du choix "image" (alt)
+            images.append(f)
 
     db = get_db()
     avis_liste = db.execute("SELECT * FROM avis ORDER BY date DESC").fetchall()

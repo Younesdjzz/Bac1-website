@@ -26,7 +26,7 @@ nav {
    z-index: 99;
 }
 
-nav .nav-left {
+nav .nav-left { /* Pour le logo Celestia Airlines */
    margin-left: 110px;
    display: flex;
    align-items: center;
@@ -86,7 +86,7 @@ main {
    position: relative;
 }
 
-div.contenu-central {
+div.contenu-central { /* Pour le contenu sur la page (au centre) */
    max-height: fit-content;
    flex: 1;
    background: rgba(250, 255, 253, 0.886);
@@ -96,12 +96,18 @@ div.contenu-central {
    z-index: 0;
 }
 
-div.cotes {
+div.cotes { /* Pour les espaces à gauche et à droite du contenu central */
    width: 13%;
    background: transparent;
 }
 
-div.welcome {
+h1 {
+   font-family: serif;
+   margin: 1rem 0;
+}
+
+/* -- Style de la page d'acceuil -- */
+div.welcome { /* Pour le grand div de la page d'acceuil */
    position: relative;
    background-color: #ffffffe8;
    font-size: x-large;
@@ -115,7 +121,7 @@ div.welcome {
    z-index: 4;
 }
 
-div.disclaimer {
+div.disclaimer { /* Pour le disclaimer en dessous du welcome de la page d'acceuil */
    position: absolute;
    background-color: #ffffffc1;
    color: #224a52;
@@ -136,13 +142,8 @@ a.contact {
    font-weight: 600;
 }
 
-h1 {
-   font-family: serif;
-   margin: 1rem 0;
-}
-
 /* -- Les titres-box -- */
-div.titre-box {
+div.titre-box {  
    position: relative;
    z-index: 1;
    max-width: 1100px;
@@ -183,7 +184,7 @@ div.double_titre {
    column-gap: 20px;
 }
 
-/* -- Style de l'équipe -- */
+/* -- Style de la page équipe -- */
 div.equipe {
    display: grid;
    grid-template-columns: repeat(2, 1fr);
@@ -426,7 +427,7 @@ tbody tr:hover {
    z-index: 9;
 }
 
-/* -- Style des graphique -- */
+/* -- Style de la page graphique -- */
 div.graphique_gauche {
    display: grid;
    grid-auto-flow: column;
