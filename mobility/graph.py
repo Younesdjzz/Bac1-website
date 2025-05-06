@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, redirect, render_template, request, url_for
+    Blueprint, render_template, request
 )
 
 
@@ -32,7 +32,7 @@ def page_graphique():
               Si on remplie le formulaire, cette fonction renvoie en plus des données précédentes, un dictionnaire qui aura
         pour clés les aéroports de départ et comme valeurs, une liste qui contient des listes par départ . 
         Le dico peut se représenter comme telle: 
-        d = {"a_dep1" : [["a_dep1": a_arr,emission],[a_dep1...], s = somme des émissions],"a_dep2":[[a_dep2,...]]}
+        d = {"a_dep1" : [["a_dep1": a_arr,emission],[a_dep1...], somme des émissions],"a_dep2":[[a_dep2,...]]}
     '''
     liste_des_aeroports = get_all_flights()
     airports = get_all_airports()
@@ -40,7 +40,7 @@ def page_graphique():
     emission_total = []
 
     for aeroport_de_depart in liste_des_aeroports:
-        s = 0
+        somme_CO2 = 0
         if not aeroport_de_depart:
             continue
         aeroport = aeroport_de_depart[0][0]
@@ -51,8 +51,8 @@ def page_graphique():
                 aircraft = AirCraft["M"]
             co2 = emission(distance(
                 vols_par_aéroport[1], vols_par_aéroport[2], vols_par_aéroport[4], vols_par_aéroport[5]), aircraft)
-            s += co2
-        emission_total.append(s)
+            somme_CO2 += co2
+        emission_total.append(somme_CO2)
         liste_aeroport.append(aeroport)
 
     data = {
@@ -83,8 +83,7 @@ def page_graphique():
             else:
                 aircraft = AirCraft[type_app]
 
-            CO2 = emission(distance(lat_from, lon_from,
-                           lat_to, lon_to), aircraft)
+            CO2 = emission(distance(lat_from, lon_from,lat_to, lon_to), aircraft)
             emission_par_aéroport[vol[8]][0] += CO2
             total_emissions += CO2
 
