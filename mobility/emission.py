@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template, current_app
+    Blueprint, render_template
 )
 from mobility.models.emission import aeroport_info
 
@@ -19,9 +19,9 @@ def get_flights():
         - troisième niveau: liste par vols ;
         => un vol = [a_dep1, lat_dep, long_dep,a_arr,lat_arr,long_arr,type d'appareil (ex: "M")]
     """
-    with current_app.app_context():
+
          
-            l = [aeroport_info("BRU"),aeroport_info("CRL"),aeroport_info("LGG"),aeroport_info("OST"),aeroport_info("ANR")]
+    l = [aeroport_info("BRU"),aeroport_info("CRL"),aeroport_info("LGG"),aeroport_info("OST"),aeroport_info("ANR")]
     return l
         
 
@@ -77,23 +77,23 @@ def page_emission():
     '''
     liste_des_aéroports = get_flights()
     d = {} 
-    for i in liste_des_aéroports:
-        s = 0
-        if not i:
+    for aeroport in liste_des_aéroports:
+        somme_CO2 = 0
+        if not aeroport :
             continue  
-        a_dep = i[0][0]  
+        a_dep = aeroport[0][0]  
         if a_dep not in d:
             d[a_dep] = []
-        for j in i:
-            if j[6] in ["M","S","J","H"]:
-                aircraft = AirCraft[j[6]]
+        for vol in aeroport:
+            if vol[6] in ["M","S","J","H"]:
+                aircraft = AirCraft[vol[6]]
             else:
                 aircraft = AirCraft[4]
-            co2 = emission(distance(j[1],j[2],j[4],j[5]), aircraft)
-            d[a_dep].append([j[0], j[3],distance(j[1],j[2],j[4],j[5]),co2])
-            #j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
-            s += co2
-        d[a_dep].append(s)
+            co2 = emission(distance(vol[1],vol[2],vol[4],vol[5]), aircraft)
+            d[a_dep].append([vol[0], vol[3],distance(vol[1],vol[2],vol[4],vol[5]),co2])
+            #remplacer les j par vol dans le code j[0] = a_dep, j[1]=lat_dep, j[2]=long_dep, j[3]=a_arr,j[4]=lat_arr,j[5]=long_arr, j[6]=type_aircraft
+            somme_CO2 += co2
+        d[a_dep].append(somme_CO2)
 
     return render_template("emission.html", data=d)
 

@@ -782,3 +782,32 @@ div.rating label:hover,
 div.rating label:hover~label {
    color: #1ac5aa;
 }
+
+@media (max-width: 768px) {
+   div.avis-list {
+      grid-template-columns: 1fr;
+   }
+
+   div.donner_avis {
+      width: 90%;
+   }
+
+   div.avis-box-left,
+   div.avis-box-right {
+      max-width: 100%;
+      margin: 10px auto;
+   }
+
+   div.entete {
+      font-size: 18px;
+   }
+
+   div.message-box {
+      font-size: 15px;
+   }
+
+   div.popup {
+      width: 90%;
+      padding: 20px;
+   }
+}
