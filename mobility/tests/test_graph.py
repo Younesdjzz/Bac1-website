@@ -6,7 +6,7 @@ import tempfile
 import os
 from mobility import create_app
 from mobility.db import get_db, close_db
-from mobility.models.graph import aeroport_bel_info
+from mobility.models.graph import aeroport_bel_info,flight_world_info
 
 class AeroportBelInfoTestCase(unittest.TestCase):
 
@@ -42,3 +42,30 @@ class AeroportBelInfoTestCase(unittest.TestCase):
 
 
 
+class FlightWorldInfoTestCase (unittest.TestCase):
+
+    def setUp(self):
+        self.app = create_app({'TESTING': True})
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        self.db = get_db()
+        # on suppose que la base contient déjà des vols pour les tests
+
+    def test_vols_trouves(self):
+        with self.app.app_context():
+            resultats = flight_world_info("Brussels Airport", "2024-01-01", "2024-01-31")
+            self.assertIsInstance(resultats, list)
+            self.assertTrue(len(resultats) > 0)
+            for vol in resultats:
+                self.assertIn("dep_airport_name", vol)
+                self.assertIn("arr_airport_name", vol)
+                self.assertIn("flight_date", vol)
+                self.assertIn("type_app", vol)
+
+    def test_aucun_vol(self):
+        with self.app.app_context():
+            resultats = flight_world_info("Inexistant Airport", "1990-01-01", "1990-01-31")
+            self.assertEqual(resultats, [])
+
+    def tearDown(self):
+        self.app_context.pop()
