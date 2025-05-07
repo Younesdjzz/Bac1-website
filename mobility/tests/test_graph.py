@@ -45,11 +45,15 @@ class AeroportBelInfoTestCase(unittest.TestCase):
 class FlightWorldInfoTestCase (unittest.TestCase):
 
     def setUp(self):
-        self.app = create_app({'TESTING': True})
+        self.db_fd, self.db_path = tempfile.mkstemp()
+        self.app = create_app({'TESTING': True, 'DATABASE': self.db_path})
         self.app_context = self.app.app_context()
         self.app_context.push()
+
         self.db = get_db()
-        # on suppose que la base contient déjà des vols pour les tests
+        with open(os.path.join(os.path.dirname(__file__), "schema_test.sql"), "rb") as f:
+            self.db.executescript(f.read().decode("utf8"))
+
 
     def test_vols_trouves(self):
         with self.app.app_context():
@@ -68,4 +72,6 @@ class FlightWorldInfoTestCase (unittest.TestCase):
             self.assertEqual(resultats, [])
 
     def tearDown(self):
-        self.app_context.pop()
+        close_db()
+        os.close(self.db_fd)
+        os.unlink(self.db_path)
