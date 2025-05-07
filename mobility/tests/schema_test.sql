@@ -88,4 +88,13 @@ VALUES
     ('BRU', 'Brussels Airport', 50.9014, 4.4844, 'BE'),
     ('CDG', 'Charles de Gaulle', 49.0097, 2.5479, 'FR');
 
+CREATE TABLE avis (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                prenom TEXT NOT NULL,
+                entete TEXT NOT NULL,
+                message TEXT NOT NULL,
+                note INTEGER NOT NULL,
+                photo_profil TEXT
+            );
+
 COMMIT;
