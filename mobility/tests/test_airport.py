@@ -37,7 +37,7 @@ class AirportTestCase(unittest.TestCase):
         result = search_airport_by_iata_code("CDG")[0]    
         self.assertEqual(result[1:],("Charles de Gaulle", 49.0097, 2.5479, "FR"))
         result = search_airport_by_iata_code("CRL")[0]    
-        self.assertEqual(result[1:],("Brussels-South Charleroi", 60, 70, "BE"))
+        self.assertEqual(result[1:],("Brussels-South Charleroi", 50.4594, 4.4539, "BE"))
         
 
     def test_nombre_de_vols_par_type(self):
@@ -47,7 +47,7 @@ class AirportTestCase(unittest.TestCase):
 
     def test_nombre_de_vols_par_jour(self):
         result = nombre_de_vols_par_jour("CDG")
-        self.assertEqual(len(result), 1)  # ← le test est maintenant logique
+        self.assertEqual(len(result), 2)  # ← le test est maintenant logique
 
     def test_airport_get(self):
         airport = Airport.get("CDG")

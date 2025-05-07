@@ -34,17 +34,18 @@ class TestUser(unittest.TestCase):
         total_airlines, airlines_flight_count = number_data_airline()
 
         
-        self.assertEqual(total_airlines, 2)
+        self.assertEqual(total_airlines, 3)
 
 
         expected_counts = {
             "Air France": 1, 
-            "Finnair": 1
+            "Finnair": 1,
+            "Test Airline": 1
         }
         self.assertEqual(airlines_flight_count, expected_counts)
     def test_number_data_airport(self):
         total_airports = number_data_airport()
-        self.assertEqual(total_airports, 2)
+        self.assertEqual(total_airports, 3)
     def test_number_data_country(self):
         total_countries = number_data_country()
         self.assertEqual(total_countries, 2)  
@@ -55,10 +56,11 @@ class TestUser(unittest.TestCase):
     
     def test_number_data_flight(self):
         total_flight, flights_per_airport = number_data_flight()
-        self.assertEqual(total_flight, 2)
+        self.assertEqual(total_flight, 3)
         expected_counts = {
-            "Charles de Gaulle": 1,
-            "Brussels-South Charleroi": 1
+            'Brussels Airport': 1,
+            'Brussels-South Charleroi': 1,
+            'Charles de Gaulle': 1
         }
         self.assertEqual(flights_per_airport, expected_counts)
     def tearDown(self):

@@ -59,12 +59,13 @@ CREATE TABLE flight (
 );
 
 -- Aéroports
-INSERT INTO airport VALUES ("CDG", "Charles de Gaulle", 49.0097, 2.5479, "FR");
-INSERT INTO airport VALUES ("CRL", "Brussels-South Charleroi", 60, 70, "BE");
+
+INSERT INTO airport VALUES ("CRL", "Brussels-South Charleroi", 50.4594, 4.4539, "BE");
 
 -- Compagnies aériennes
 INSERT INTO airline VALUES ("AF", "Air France");
 INSERT INTO airline VALUES ("AY", "Finnair");
+INSERT INTO airline (iata_airline, name) VALUES ('ZZ', 'Test Airline');
 
 -- Types d’aéronefs
 INSERT INTO aircraft VALUES ("A320", "Airbus A320", "Jet");
@@ -76,9 +77,15 @@ INSERT INTO flight (
     iata_departure, iata_arrival, departure_time, arrival_time
 ) VALUES 
 ("AF", "A320", "AF123", "2025-03-26", "CDG", "CRL", "08:00", "11:00"),
-("AY", "E190", "AY456", "2025-03-26", "CRL", "CDG", "13:00", "16:00");
+("AY", "E190", "AY456", "2025-03-26", "CRL", "CDG", "13:00", "16:00"),
+('ZZ', 'A320', 'ZZ001', '2024-01-15', 'BRU', 'CDG', '10:00', '12:00');
 
+INSERT INTO country (iso_country, name)
+VALUES ('BE', 'Belgium'), ('FR', 'France');
 
-INSERT INTO country VALUES ("FR", "France");
-INSERT INTO country VALUES ("BE", "Belgique");
+INSERT INTO airport (iata_code, name, latitude_deg, longitude_deg, iso_country)
+VALUES 
+    ('BRU', 'Brussels Airport', 50.9014, 4.4844, 'BE'),
+    ('CDG', 'Charles de Gaulle', 49.0097, 2.5479, 'FR');
+
 COMMIT;
