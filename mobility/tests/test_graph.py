@@ -30,8 +30,8 @@ class AeroportBelInfoTestCase(unittest.TestCase):
         self.assertEqual(vol["aeroport_dep"], "Brussels-South Charleroi")
         self.assertEqual(vol["Aeroport_arr"], "Charles de Gaulle")
         self.assertEqual(vol["Type_app"], "Jet")
-        self.assertEqual(vol["lat_dep"], 60)
-        self.assertEqual(vol["lon_dep"], 70)
+        self.assertEqual(vol["lat_dep"], 50.4594)
+        self.assertEqual(vol["lon_dep"], 4.4539)
         self.assertEqual(vol["Lat_arr"], 49.0097)
         self.assertEqual(vol["Lon_arr"], 2.5479)
 
@@ -56,15 +56,19 @@ class FlightWorldInfoTestCase (unittest.TestCase):
 
 
     def test_vols_trouves(self):
+
+
         with self.app.app_context():
             resultats = flight_world_info("Brussels Airport", "2024-01-01", "2024-01-31")
             self.assertIsInstance(resultats, list)
             self.assertTrue(len(resultats) > 0)
             for vol in resultats:
-                self.assertIn("dep_airport_name", vol)
-                self.assertIn("arr_airport_name", vol)
-                self.assertIn("flight_date", vol)
-                self.assertIn("type_app", vol)
+                
+                vol_dict = dict(vol)
+                self.assertIn("dep_airport_name", vol_dict)
+                self.assertIn("arr_airport_name", vol_dict)
+                self.assertIn("date", vol_dict)
+                self.assertIn("type_app", vol_dict)
 
     def test_aucun_vol(self):
         with self.app.app_context():
